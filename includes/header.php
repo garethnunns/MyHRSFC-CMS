@@ -35,7 +35,7 @@
 			</li>
 			
 			<li>
-				<a href="javascript:void(0)">Committees</a>
+				<a href="/committees.html">Committees</a>
 				<ul>
 					<li><a href="/charities.html">Charities</a></li>
 					<li><a href="/finance.html">Finance</a></li>
@@ -122,7 +122,7 @@
 				</li>
 
 				<li>
-					<a href="javascript:void(0)">committees<span class="subheader">get involved</span></a>
+					<a href="/committees.html">committees<span class="subheader">get involved</span></a>
 					<ul>
 						<li><a href="/charities.html">Charities</a></li>
 						<li><a href="/finance.html">Finance</a></li>

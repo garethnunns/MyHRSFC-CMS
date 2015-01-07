@@ -168,7 +168,9 @@ array (
 foreach($formReps as $tutor) {
 	echo '<h5>'.$tutor[0][3].'</h5>';
 	foreach ($tutor as $reps) {
-		echo "<p><i>" . $reps[2] . "</i> - " $reps[0] . ", " . $reps[1];
+		echo "<p><i>" . $reps[2] . "</i> &ndash; " . $reps[0];
+		if(!empty($reps[1])) echo " and " . $reps[1];
+		echo "</p>";
 	}
 }
 
@@ -181,11 +183,11 @@ foreach($formReps as $tutor) {
 			<!-- sidebar -->
 			<aside id="sidebar">
 				<div class="block">
-				  <a href="mailto:<?php echo getCouncillorEmail('treasurer'); ?>" class="who"><img src="<?php echo getCouncillorImagename('treasurer'); ?>" width="50" alt="" /></a>
-					<h3><?php echo getCouncillorName('treasurer'); ?></h3>
-			<h5 style="color:#777"><?php echo getRoleFromShorthand('treasurer'); ?></h5>
-			<h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('treasurer', true); ?> Biography</h6>
-			<p><?php echo getCouncillorBiography('treasurer'); ?></p>
+				  <a href="mailto:<?php echo getCouncillorEmail('secretary'); ?>" class="who"><img src="<?php echo getCouncillorImagename('secretary'); ?>" width="50" alt="" /></a>
+					<h3><?php echo getCouncillorName('secretary'); ?></h3>
+			<h5 style="color:#777"><?php echo getRoleFromShorthand('secretary'); ?></h5>
+			<h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('secretary', true); ?> Biography</h6>
+			<p><?php echo getCouncillorBiography('secretary'); ?></p>
 				</div>
 			</aside>
 			<div class="clearfix"></div>
