@@ -1,0 +1,171 @@
+nav { // nav container
+	float: right;
+	line-height: 1.8em;
+
+	a {
+		text-decoration: none;
+		color: #acacac;
+		text-shadow: none;
+	}
+
+	#nav {
+		margin-top: 40px;
+
+		.sf-sub-indicator { // ?
+			float: right;
+		}
+
+		li {
+			display: inline;
+			font-size: 16px;
+			float: left;
+
+			-ms-transition: all 0.7s ease-out;
+			-webkit-transition: all 0.7s ease-out;
+			-moz-transition: all 0.7s ease-out;
+			-o-transition: all 0.7s ease-out;
+			transition: all 0.7s ease-out;
+
+			&:first-child, &.special-menu-item { // not dropdowns
+				background-image: none !important;
+			}
+
+			&.current-s-menu-item>a { // if something in it's submenu is selected?
+				background:rgba(103,153,200,0.5);
+				border-bottom: solid rgba(255,255,255,1) 5px; // this doesn't work with the down arrow...
+			}
+
+			&.con a { // email someone
+				background: url("/img/social/email_32.png") no-repeat scroll 8px center / 16px 16px;
+				padding: 10px 5px 10px 30px !important;
+				&:hover {
+					padding: 10px 0px 10px 35px !important;
+					background-position: 10px center;
+				}
+			}
+
+			// assorted colours
+
+			&.g a, &.lg a, &.p a, &.y a {
+				padding: 10px 15px 10px 11px !important;
+				border-left: 4px solid;
+				&:hover {
+			  		padding: 10px 10px 10px 13px !important;
+					border-left-width: 7px;
+				}
+			}
+			&.g a { // dark green
+			  border-color: #373;
+			}
+			&.lg a { // neon green
+			  border-color: #2BED49;
+			}
+			&.p a { // purple
+			  border-color: #626;
+			}
+			&.y a { // vom yellow
+			  border-color: #F2C124;
+			}
+
+			&.ev a:hover { // not used I think
+				background-color: #1c1d1d !important;
+				color: #ccc !important;
+			}
+		}
+
+		& > li { // top of the tree styling
+			background: transparent url('/img/down.png') center 37px no-repeat;
+			height: 135px;
+
+			&:hover {
+				background-position: center 150px;
+
+				 & > a {
+					background-color: #222;
+					border-bottom: solid #1c1d1d 5px;
+				}
+			}
+
+			& > a {
+				display: block;
+				overflow: hidden;
+				padding: 5px 10px 0px 10px;
+				color: #f5f5f5;
+				
+				text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+				
+				-ms-transition: all 0.3s ease;
+				-webkit-transition: all 0.3s ease;
+				-moz-transition: all 0.3s ease;
+				-o-transition: all 0.3s ease;
+				transition: all 0.3s ease;
+
+				.subheader {
+					color: #DEDEDE;
+					display: block;
+					font-size: 11px;
+					margin-top: -8px;
+					font-weight: lighter;
+				}
+
+				&.sf-sub-indicator { //?
+					display: none;
+				}
+			}
+
+			&.current-menu-item > a, &.current_page_item > a {
+				color: #6799c8;
+			}
+
+			&.special-menu-item > a { // the special lower sixth at the end
+				background:rgba(103,153,200,0.3);
+				border-bottom: solid rgba(103,153,200,1) 5px;
+
+				#L6 {
+					color:#FFFFFF;
+					font-weight:bold;
+				}
+				&:hover #L6 {
+					color:#ddd;
+				}
+			}
+
+			// submenus
+			ul {
+				display: block;
+				margin-top: 4px;
+				background-color: #1c1d1d;
+				box-shadow: 2px 2px 8px #111;
+
+				li {
+					border-bottom: 1px solid #151515;
+
+					a{
+						display: block;
+						padding: 10px 15px;
+						display: block;
+						font-size: 13px;
+						color: #CCCCCC;
+						text-decoration: none;
+
+						-ms-transition: all 0.2s linear;
+						-webkit-transition: all 0.2s linear;
+						-moz-transition: all 0.2s linear;
+						-o-transition: all 0.2s linear;
+						transition: all 0.2s linear;
+
+						&:hover {
+							padding: 10px 10px 10px 20px;
+							background-color: #717171;
+							color: #111;
+						}
+
+						span{
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+}

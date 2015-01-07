@@ -1,0 +1,151 @@
+<?php
+
+
+#NAME, HEAD'S NAME, HEAD'S EMAIL, DESCRIPTION
+
+$theSocieties = 
+array( 
+	array('Vet','Faige Street','',''),
+	array('English','Cair Hogan','',''),
+	array('Badminton','Kitty Palmer','',''),
+	array('Hockey','Heidi Whitaker','',''),
+	array('History','Ellie Gilbert','',''),
+	array('Communist ','Theo Philip','',''),
+	array('Running ','Tim Savil','',''),
+	array('Ultimate Frisbee','Luca Love','',''),
+	array('Film Society','Jose Barret','',''),
+	array('Student Lecture ','Trotan Lacncaster','',''),
+	array('Biology, Chemistry, Medical, Chemistry','Hettie Stevens','',''),
+	array('Rowing','Maddie Koesteman','',''),
+	array('Dance','Melissa Griffiths','',''),
+	array('Engineering','Maddie Roche','',''),
+	array('Hills Road Political Union','Sebastian Sander Schollingand','',''),
+	array('Debating Society','Will Matlock &amp; Emma Ring','',''),
+	array('Economics, Bussiness, Accounting Society','Emma Ring','',''),
+	array('Berlesque &amp; Pole Dancing','Shannon Dawson','',''),
+	array('History of Art','Rosin Ellison Balaam','',''),
+	array('Maths (Mathsoc)','Anastasia Barnes','',''),
+	array('Philosophy','Sam Elliot','',''),
+	array('German Society','Fabian Ruthren','',''),
+	array('Classics','Adam Priestly','',''),
+	array('Christian Union','Hannah Seekings','',''),
+	array('Chess','Sam Juniper, Zoe Slattery and Callum Delhoy','',''),
+	array('Computer Science','Peter Noble / Matense Odial','',''),
+	array('Fandom Society','Sarah Masureik','',''),
+	array('French ','Lizzy Barr','',''),
+	array('Anime &amp; Manga','Edward Gibbens','',''),
+	array('Humanist ','Katlin Thorton','',''),
+	array('Writers Society','Becca Challis &amp; Molly Gilroy','',''),
+	array('Model UN','Emily Jerram','',''),
+	array('The Phoenix','Darren D\'Souza','',''),
+	array('Geography (Geogsoc)',' Jonah Balmford','',''),
+	array('Rocket Science & Cosmology','Divgansh Manocke','',''),
+	array('Physics','Gianamar Giovannetti-Shigh','',''),
+	array('Music For All','Tim Weaving','',''),
+	array('Robotics','Hope Shaw','hs119349',''),
+	array('Music Clubs','Kate Murdoch','',''),
+	array('Fashion','Phoebe Hyde','',''),
+	array('LGBT','Reed Goodbody & Madeleine Shannon','',''),
+	array('Amnesty','Flora Snelson','',''),
+	array('Tabletop Society','Thomas Windred','',''),
+	array('Hills Road Conservatives','George Collison','',''),
+	array('Hills Road Liberal Democrats','Callum Delhoy','',''),
+	array('Hills Road Labour Society','Jack Kerwin','','')
+);
+?><!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER --->
+	<head>
+
+		<title>Societies | Hills Road Student Council</title>
+
+<?php include '/home/a6325779/public_html/includes/head.php'; ?>
+	
+<meta name="description" content="A complete list of the student-run societies at Hills Road, managed by <?php echo getCouncillorName('societies'); ?>." />
+
+	</head>
+	
+	<body lang="en">
+
+<?php include '/home/a6325779/public_html/includes/header.php'; ?>
+
+		<!-- MAIN -->
+		<div id="main">
+				
+<?php include '/home/a6325779/public_html/includes/social.php'; ?>
+
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+			<div id="masthead">
+					<span class="head">Societies</span><span class="subhead">Be part of it all</span>
+	<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+	<li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+	<li typeof="v:Breadcrumb"><a href="societies.html" rel="v:url" property="v:title">societies</a></li>
+	</ul>
+				</div>
+			<!-- ENDS masthead -->
+			
+			
+			
+			<!-- page content -->
+			<div id="page-content">
+		
+		 <h3>Get the most out of Hills</h3>
+		 <br />
+		 <h5>Joining a society is by far the best way to get involved at Hills Road. <span style = "font-weight: normal;">Whether it's playing in Symphony Orchestra or taking part in the Duke of Edinburgh Award, it's an easy way to develop skills and qualities for your <abbr title = "Curriculum Vitae - good for jobs">CVs</abbr> and <abbr title = "Universities & Colleges Admissions Service - good for uni">UCAS</abbr> forms!</span></h5><br />
+
+		<p>Below is a list of the <?php echo count($theSocieties); ?> current societies. For other information regarding societies <a href="mailto:<?php echo getCouncillorEmail('societies'); ?>" target="_new" style = "font-weight: bold;">email the Societies Officer, <?php echo getCouncillorName('societies'); ?></a>, or <a href = "mailto:LHanfling@hillsroad.ac.uk" target = "_new" style = "font-weight: bold;">email the Head of Societies, Mrs Hanfling</a>.</p>
+
+			
+		<h4>The Societies</h4>
+<?php
+function echoSocietyNode($curSoc, $curNum) {
+	echo '<h5>'.$curSoc[0].'</h5>';
+	echo '<p><i>';
+	if (empty($curSoc[2])) echo $curSoc[1];
+	else echo '<a href="mailto:'.$curSoc[2].'@hillsroad.ac.uk">'.$curSoc[1].'</a>';
+	echo '</i></p>';
+	if (!empty($curSoc[2])) echo '<p>'.$curSoc[3].'</p>';
+}
+
+foreach($theSocieties as $curNum => $curSoc) {
+  echoSocietyNode($curSoc, $curNum+1);
+}
+
+?>
+
+		</div>
+		
+			<!-- ENDS page content -->
+			
+			<!-- sidebar -->
+			<aside id="sidebar">
+				<div class="block">
+				  <a href="mailto:<?php echo getCouncillorEmail('societies'); ?>" class="who"><img src="<?php echo getCouncillorImagename('societies'); ?>" width="50" alt="" /></a>
+					<h3><?php echo getCouncillorName('societies'); ?></h3>
+			<h5 style="color:#777"><?php echo getRoleFromShorthand('societies'); ?></h5>
+			<h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('societies', true); ?> Biography</h6>
+			<p><?php echo getCouncillorBiography('societies'); ?></p>
+				</div>
+			</aside>
+			<div class="clearfix"></div>
+				<!-- ENDS sidebar -->
+				
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+	
+<?php include '/home/a6325779/public_html/includes/footer.php'; ?>
+	</body>
+</html>

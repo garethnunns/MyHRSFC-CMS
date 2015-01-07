@@ -1,0 +1,222 @@
+<?php
+	if(!isset($common_included_flag)) { require_once '/home/a6325779/public_html/includes/common.php'; }
+	if(!$mysqlconnected) mysqlConnect();
+
+
+
+# Login details: myhrsfc // myhrsfc74
+
+
+# ACTIONS:
+
+#  - ADD OFFICER
+#  - MAKE ACTIVE
+#  - MAKE NO LONGER ACTIVE
+
+?>
+<!doctype html>
+<html>
+	<head>
+
+	<title>Officer Roster</title>
+
+	<style type = "text/css">
+
+	body {
+		font-family: sans-serif;
+		font-size: 12px;
+	}
+
+	h3 {
+		margin-left: 50px;
+	}
+
+	table {
+		border-collapse: collapse;
+
+	}
+	td, th {
+		border: 1px solid #eee;
+		padding: 5px 8px;
+	}
+	table img {
+		display: block;
+		margin-bottom: 3px;
+	}
+
+	input {
+		border: none;
+		border-bottom: 1px solid #aaa;
+		font-size: 12px;
+	}
+	input:focus {
+		outline: none;
+		border-bottom: 1px solid #000;
+	}
+
+	input[type="file"] {
+		width: 100px;
+		margin: 3px auto;
+	}
+
+	</style>
+
+
+	</head>
+	<body>
+		<p>Images have got to be a .jpg and work best as 100px square</p>
+
+		<table rules="all">
+			<tr><th colspan="7">This Year's Councillors</th></tr>
+			<tr><th>Photo</th><th>Name &amp; Role</th><th>Email</th><th>Tutor</th><th>Subjects</th><th>Biography</th><th>Active</th></tr>
+<?php
+
+	if(isset($_FILES['picture'])) {
+		move_uploaded_file($_FILES['picture']['tmp_name'], '/home/a6325779/public_html/img/profiles/thumbs/'.$_POST['in'].'.jpg');
+	}
+
+	if(isset($_POST['name'])) {
+		$imagename = mysql_real_escape_string($_POST['in']);
+		$name = mysql_real_escape_string($_POST['name']);
+		$friendlyname = mysql_real_escape_string($_POST['friendlyname']);
+		$role = mysql_real_escape_string($_POST['role']);
+		$email = mysql_real_escape_string($_POST['email']);
+		$tutor = mysql_real_escape_string($_POST['tutor']);
+		$subjects = mysql_real_escape_string($_POST['subjects']);
+		$biography = mysql_real_escape_string($_POST['biography']);
+
+		if(!mysql_query("INSERT INTO councillors (imagename,name,friendlyname,role,email,tutor,subjects,biography,active) VALUES ('$imagename','$name','$friendlyname','$role','$email','$tutor','$subjects','$biography',1)")) echo mysql_error();
+	}
+
+	$activeOfficerQuery = mysql_query("SELECT * FROM councillors WHERE active = true ORDER BY name");
+
+	while($curActiveOfficer = mysql_fetch_assoc($activeOfficerQuery)) {
+
+		$imageFound = file_exists('/home/a6325779/public_html/img/profiles/thumbs/'.$curActiveOfficer['imagename'].'.jpg');
+		echo '<tr><td><img src = "/img/profiles/thumbs/'.($imageFound?$curActiveOfficer['imagename']
+		.'.jpg':'noimg.png').'"/>'.($imageFound?'Update':'Add');
+		echo ' Photo<form method = "post" enctype = "multipart/form-data"><input type = "file" name = "picture" /><input type = "hidden" name = "in" value = "'.$curActiveOfficer['imagename'].'" /><br><input type = "submit" value = "Upload &#187;" /></form></td>';
+
+		echo '<td><p>Name: <input type="text" value="'.$curActiveOfficer['name'].'" placeholder="Full Name" onblur="update(\''.$curActiveOfficer['imagename']."','name',this.value)\"></p>";
+		echo '<p>Known as: <input type="text" value="'.$curActiveOfficer['friendlyname'].'" placeholder="Shortened name" onblur="update(\''.$curActiveOfficer['imagename']."','friendlyname',this.value)\"></p>";
+		echo '<p>Role:<br><select onchange="update(\''.$curActiveOfficer['imagename']."','role',this.value)\">";
+		foreach($councillorRoles as $short => $role) {
+			echo '<option value="'.$short.'" ';
+			if($short == $curActiveOfficer['role']) echo "selected";
+			echo '>'.$role.'</option>';
+		}
+		echo '</select></p></td>';
+
+		echo '<td><input type="email" value="'.$curActiveOfficer['email'].'" placeholder="Email Address" onblur="update(\''.$curActiveOfficer['imagename']."','email',this.value)\"></td>";
+
+		echo '<td><input type="text" value="'.$curActiveOfficer['tutor'].'" placeholder="Tutor\'s initials" onblur="update(\''.$curActiveOfficer['imagename']."','tutor',this.value)\"></td>";
+
+		echo '<td><input type="text" value="'.$curActiveOfficer['subjects'].'" placeholder="Subjects taken" onblur="update(\''.$curActiveOfficer['imagename']."','subjects',this.value)\"></td>";
+
+		echo '<td><textarea placeholder="Short biography.." rows="10" onblur="update(\''.$curActiveOfficer['imagename']."','biography',this.value)\">".$curActiveOfficer['biography']."</textarea></td>";
+
+		echo '<td><button onclick="update(\''.$curActiveOfficer['imagename']."','active','0')\">Deactivate</button></td></tr>";
+
+	}
+
+	?>
+			<tr><th colspan="7">Add another</th></tr>
+			<form method = "post" enctype = "multipart/form-data">
+				<tr>
+					<td>
+						<p>Name: <input type="text" name="in" placeholder="Unique name" /></p>
+						<p>Upload Photo<br><input type="file" name="picture" /></p></td>
+					<td>
+						<p>Name: <input type="text" name="name" placeholder="Full Name" /></p>
+						<p>Known as: <input type="text" name="friendlyname" placeholder="Shortened name" /></p>
+						<p>Role:<br><select name="role">
+<?php 			
+	foreach($councillorRoles as $short => $role) {
+		echo '<option value="'.$short.'">'.$role.'</option>';
+	}
+?>
+						</select><br><i>If role not listed, <a href="//garethnunns.com/contact" target="blank">ask Gareth</a> to add it</i></p>
+					</td>
+					<td><input type="email" name="email" placeholder="Email address" /></td>
+					<td><input type="text" name="tutor" placeholder="Tutor's initials" /></td>
+					<td><input type="text" name="subjects" placeholder="Subjects taken" /></td>
+					<td><textarea name="biography" placeholder="Short biography.."></textarea></td>
+					<td><input type="submit" value="Add" name="add" /></td>
+				</tr>
+			</form>
+			<tr><th colspan="7">Previous Councillors</th></tr>
+<?php
+
+	if(isset($_POST['in'])) {
+		move_uploaded_file($_FILES['picture']['tmp_name'], '/home/a6325779/public_html/img/profiles/thumbs/'.$_POST['in'].'.jpg');
+	}
+
+	$activeOfficerQuery = mysql_query("SELECT * FROM councillors WHERE active = false ORDER BY name");
+
+	while($curActiveOfficer = mysql_fetch_assoc($activeOfficerQuery)) {
+
+		$imageFound = file_exists('/home/a6325779/public_html/img/profiles/thumbs/'.$curActiveOfficer['imagename'].'.jpg');
+		echo '<tr><td><img src = "/img/profiles/thumbs/'.($imageFound?$curActiveOfficer['imagename']
+		.'.jpg':'noimg.png').'"/>'.($imageFound?'Update':'Add');
+		echo ' Photo<form method = "post" enctype = "multipart/form-data"><input type = "file" name = "picture" /><input type = "hidden" name = "in" value = "'.$curActiveOfficer['imagename'].'" /><br><input type = "submit" value = "Upload &#187;" /></form></td>';
+
+		echo '<td><p>Name: <input type="text" value="'.$curActiveOfficer['name'].'" placeholder="Full Name" onblur="update(\''.$curActiveOfficer['imagename']."','name',this.value)\"></p>";
+		echo '<p>Known as: <input type="text" value="'.$curActiveOfficer['friendlyname'].'" placeholder="Shortened name" onblur="update(\''.$curActiveOfficer['imagename']."','friendlyname',this.value)\"></p>";
+		echo '<p>Role:<br><select onchange="update(\''.$curActiveOfficer['imagename']."','role',this.value)\">";
+		foreach($councillorRoles as $short => $role) {
+			echo '<option value="'.$short.'" ';
+			if($short == $curActiveOfficer['role']) echo "selected";
+			echo '>'.$role.'</option>';
+		}
+		echo '</select></p></td>';
+
+		echo '<td><input type="email" value="'.$curActiveOfficer['email'].'" placeholder="Email Address" onblur="update(\''.$curActiveOfficer['imagename']."','email',this.value)\"></td>";
+
+		echo '<td><input type="text" value="'.$curActiveOfficer['tutor'].'" placeholder="Tutor\'s name" onblur="update(\''.$curActiveOfficer['imagename']."','tutor',this.value)\"></td>";
+
+		echo '<td><input type="text" value="'.$curActiveOfficer['subjects'].'" placeholder="Subjects taken" onblur="update(\''.$curActiveOfficer['imagename']."','subjects',this.value)\"></td>";
+
+		echo '<td><textarea placeholder="Short biography.."rows="10"  onblur="update(\''.$curActiveOfficer['imagename']."','biography',this.value)\">".$curActiveOfficer['biography']."</textarea></td>";
+
+		echo '<td><button onclick="update(\''.$curActiveOfficer['imagename']."','active','1')\">Activate</button></td></tr>";
+
+	}
+
+	?>
+		</table>
+
+		<script type="text/javascript">
+
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+				{// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp=new XMLHttpRequest();
+				}
+			else {// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				}
+			}
+
+			function update(imagename,col,data) {
+				imagename = encodeURIComponent(imagename);
+				col = encodeURIComponent(col);
+				data = encodeURIComponent(data);
+
+				if (col=="active") { // you need to wait for the script to execute then refresh the page to show it
+					xmlhttp.open("GET","edit.php?imagename="+imagename+"&col="+col+"&data="+data,false);
+					xmlhttp.send();
+					window.location.reload(true);
+				}
+				else {
+					xmlhttp.open("GET","edit.php?imagename="+imagename+"&col="+col+"&data="+data,true);
+					xmlhttp.send();
+				}
+			}
+		</script>
+		<!--<p><a href = "javascript:alert('This doesn\'t do anything')">add an officer &#187;</a> | <a href = "/manage/officerPictures.html">officer pictures &#187;</a></p>-->
+	</body>
+</html>

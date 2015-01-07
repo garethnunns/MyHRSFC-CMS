@@ -1,0 +1,14 @@
+Instructions by Gareth (garethnunns.com), 2014-2015:
+Since no instructions were left for me these are all the things I’ve done that you will probably want to do:
+- Updating the roles
+You need to login to the cPanel then go to phpMyAdmin and edit the councillors table
+Then add images to them here, with the same filename you inputted before: http://myhrsfc.co.uk/manage/officerPictures.html (using the username myhrsfc and the lowercase password)
+- Pages to update:
+	/Includes/
+		common.php - the getCouncillorRow will probably have a return false in it so loads of errors come up for all the roles
+		social.php - update the date along the side
+	index.html - add your own message, change the contact links at the bottom, 
+	who.html - it's pretty self-explanatory: just add the positions in the committee into $councillorRoles[]
+
+Current website design & original development by Andrew Watts (communications officer 2012-2013) and Luis Zuno (JS/jQuery)
+Thomas Frodsham was webmaster from April 2013 through March 2014 - thomasfrodsham@gmail.com

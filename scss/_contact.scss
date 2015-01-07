@@ -1,0 +1,28 @@
+#map{
+	display: block;
+	height: 300px;
+	width: 100%;
+	margin-bottom: 24px;	
+}
+
+.address-block li{
+	padding-left: 20px;
+}
+
+.address-block .address{ background: url(../img/icon-address.png) no-repeat top left  }
+
+.address-block .phone{ background: url(../img/icon-phone.png) no-repeat top left}
+
+.address-block .mobile{ background: url(../img/icon-mobile.png) no-repeat top left }
+
+.address-block .email{ background: url(../img/icon-email.png) no-repeat top left }
+
+.acform {
+	line-height: 0em;
+	-webkit-box-shadow: 0px 0px 7px rgba(0,0,0,.4); 
+	-moz-box-shadow: 0px 0px 7px rgba(0,0,0,.4); 
+	box-shadow: 0px 0px 7px rgba(0,0,0,.4); 
+	padding: 3px;
+	border: solid 25px rgba(0,0,0,0);
+	width:500px;
+}

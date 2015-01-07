@@ -1,0 +1,29 @@
+.text-posts { // used on the home page
+	overflow: hidden;
+	padding-bottom: 30px;
+
+	li {
+		display: block;
+		float: left;
+		margin-left: 24px;
+		margin-bottom: 21px;
+		width: 252px;
+
+		.heading{
+			display: block;
+			font-weight: bold;
+			font-size: 13px;
+			color: #444;
+			text-decoration: none;
+			
+			-webkit-transition: all 0.3s ease;
+			-moz-transition: all 0.3s ease;
+			-o-transition: all 0.3s ease;
+			transition: all 0.3s ease;
+
+			&:hover { // bit needless
+				color: #6799c8; 
+			}
+		}
+	}
+}

@@ -1,0 +1,41 @@
+/* adapted from a CSS file supplied with Superfish: the jQuery menu plugin by Joel Birch */
+
+.sf-menu, .sf-menu * {
+	margin:			0;
+	padding:		0;
+	list-style:		none;
+}
+.sf-menu ul {
+	position:		absolute;
+	top:			2.5em;
+	left:			0em;
+	width:			10em;
+	z-index:		10;
+	overflow:		hidden;
+        max-height:		0em;
+
+}
+.sf-menu ul li {
+	width:			10em;
+}
+.sf-menu li:hover {
+	visibility:		inherit; /* fixes IE7 'sticky bug' */
+}
+.sf-menu li {
+	float:			left;
+	position:		relative;
+}
+.sf-menu a {
+	display:		block;
+	position:		relative;
+}
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+        max-height:		20em;
+
+	-ms-transition:		height,max-height 0.3s ease-in 0.19s;
+	-moz-transition:	height,max-height 0.3s ease-in 0.19s;
+	-webkit-transition:	height,max-height 0.3s ease-in 0.19s;
+	-o-transition:		height,max-height 0.3s ease-in 0.19s;
+	transition:		height,max-height 0.3s ease-in 0.19s;
+}

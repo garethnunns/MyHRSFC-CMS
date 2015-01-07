@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER --->
+	<head>
+<?php include '/home/a6325779/public_html/includes/head.php'; ?>
+
+<meta name="description" content="See what our Environment Officer, <?php echo getCouncillorName('environment'); ?>, is up to." />
+
+		<title>Environment | Hills Road Student Council</title>
+
+        
+	</head>
+	
+	<body lang="en">
+
+<?php include '/home/a6325779/public_html/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+
+<?php include '/home/a6325779/public_html/includes/social.php'; ?>
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+		        <div id="masthead">
+					<span class="head">Environment</span><span class="subhead">Going green, making a difference</span>
+    <ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+    <li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+    <li typeof="v:Breadcrumb"><a href="environment.html" rel="v:url" property="v:title">environment</a></li>
+    </ul>
+				</div>
+	        	<!-- ENDS masthead -->
+	        	
+	        	
+	        	
+	        	<!-- page content -->
+	        	<div id="page-content">
+	        
+             <h4>Our Aims</h4>
+             <br>
+             <p style = "font-weight: bold;">The committee aims to improve and sustain the environment inside and outside of the college by focusing on some key issues.</p><br />
+<p>Our main priority at the moment is reducing paper usage in the college. The repro-graphics department alone is estimated to use 7 million pages a year. That's in excess of £20,000 worth of paper!</p><br />
+<p>Every classroom is meant to have a recycling bin, but in fact this is often not the case. By improving the college recycling scheme and allowing students to bring unwanted notes in to be recycled we can vastly reduce waste and cost.</p><br />
+
+<p>To this end there will be more recycling bins around college and the blue dumpsters at the front of the college can be used by students to recycle paper. We will also introduce can crushers and recycling bins for materials other than paper if this scheme is successful.</p><br />
+
+<p style = "font-weight: bold;"><a href = "mailto:<?php echo getCouncillorEmail('environment'); ?>">If you have any suggestions to help us improve our impact on the college or wider environment, click here to email the Environment Officer, <?php echo getCouncillorName('environment'); ?>.</a></p>
+             <br/>
+             <?php /*
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Turning off unnecessary lights</p>
+             
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Recycling bins</p>
+             
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Sustainability of Cafe Direct and Costa</p>
+             
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Sustainability of the use of ink cartridges and batteries</p>
+             
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Proposing more solar panels on the campus</p>
+             
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Adopting endangered animals</p>
+             
+             <img src="img/mono-icons/circleright32.png" width="15" height="15" class="alignleftintext"/>
+             <p>Increasing biodiversity by planting more plants and trees</p>
+            */ ?>
+             <br/>
+      <?php #       <h4>Current committee members</h4><br/>
+            # <a href="mailto:RE115807@hillsroad.ac.uk"><b>Rachael Ellis-Lipschitz (Head of Environment)</b></a><br>Emily Drew<br>Samantha Redfern<br>Emma Williamson-Paul</p>
+	?>       	</div>
+	        	<!-- ENDS page content -->
+	        	
+	        	<!-- sidebar -->
+	        	<aside id="sidebar">
+	        		<div class="block">
+	        		  <a href="mailto:<?php echo getCouncillorEmail('environment'); ?>" class="who"><img src="<?php echo getCouncillorImagename('environment'); ?>" width="50" alt="" /></a>
+					<h3><?php echo getCouncillorName('environment'); ?></h3>
+                    <h5 style="color:#777"><?php echo getRoleFromShorthand('environment'); ?></h5>
+                    <h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('environment', true); ?> Biography</h6>
+             		<p><?php echo getCouncillorBiography('environment'); ?></p>
+	        		</div>
+	        	</aside>
+	        	<div class="clearfix"></div>
+				<!-- ENDS sidebar -->
+				
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+	
+<?php include '/home/a6325779/public_html/includes/footer.php'; ?>
+	</body>
+</html>

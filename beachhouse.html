@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER --->
+	<head>
+<meta name="description" content="Check out what 2013's Summer Event is all about." />
+
+		<title>BEACH HOUSE - Summer Event 2013 | Hills Road Student Council</title>
+
+<?php include '/home/a6325779/public_html/includes/head.php'; ?>
+        
+
+    <!-- WHERE THE MAGIC HAPPENS-->	
+     
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/jquery.fbAlbum.js"></script>
+    <script src="js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+    <script src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    <script>
+    $(document).ready(function() {
+    $('#MY_DIV_ID').fbAlbum({
+    'albumID':506202092782380,
+    'callback': function(){ //code that loads after the album must go here
+    $(".album a").fancybox();
+    }
+    });
+    });
+    </script>
+     
+    <!-- END OF THE MAGIC-->
+    <style>
+    /* just a few simple styles on the album */
+     
+    .album{ list-style:none; margin-left: 30px; }
+    .album li{ float:left; height:150px; margin-bottom:10px; text-align:center;}
+    .album a{ display:block; width:150px; padding:5px; margin:5px; border:1px solid #CCC;
+    -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,.2);
+    -moz-box-shadow: 0px 0px 7px rgba(0,0,0,.2);
+    box-shadow: 0px 0px 7px rgba(0,0,0,.2);
+    padding: 3px;}
+    .album a:hover{ border:1px solid #333}
+    </style>
+    <!-- END OF GALLERY CONFIG BIT -->
+    
+       <!-- THE GALLERY CONFIG BIT -->
+
+
+	</head>
+	
+	<body lang="en">
+	
+<?php include '/home/a6325779/public_html/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+
+<?php include '/home/a6325779/public_html/includes/social.php'; ?>
+			
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+		        <div id="masthead">
+					<span class="head"><img src = "/img/beach-house.png" alt = "Beach House" style = "margin: 3px;" /></span>
+    <ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+    <li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+    <li typeof="v:Breadcrumb"><a href="events.html" rel="v:url" property="v:title">events</a> / </li>
+    <li typeof="v:Breadcrumb"><a href="beachhouse.html" rel="v:url" property="v:title">summer 2013</a></li>
+    </ul>
+
+				</div>
+	        	<!-- ENDS masthead -->
+	        	
+	        			
+<?php /*
+	        	<img src = "/img/beach-house.jpg" style = "width: 850px; border-style: solid; border-color: #111 #ccc; border-width: 1px 1px 0px;" />
+		
+			
+<iframe width="560" height="315" src="http://www.youtube-nocookie.com/embed/v91foZb0JFo?rel=0" frameborder="0" allowfullscreen style = "float: left;"></iframe>
+
+
+<div style = "float: right; width: 260px; height: 284px; padding: 15px; background: #ddd; border-style: solid; border-color: #999 #ccc #ccc #999; border-width: 1px 1px 0px; font-family: fantasy"><h4>Welcome to Beach House</h4><p></p></div>
+			<div class="clearfix"></div>
+<div style = "width: 822px; min-height: 120px; padding: 15px; background: #ddd; border-style: solid; border-color: #999 #ccc #ccc #999; border-width: 0px 1px 1px;"></div>
+*/ ?>
+
+<div style = "width: 852px; background: url('/img/beach-house-side-photos.jpg') repeat-y top right #ddd;">
+
+<?php /* <img src = "/img/beach-house2.jpg" style = "width: 595px;" /> */ ?>
+
+<?php /* <div style = "float: left; width: 350px; padding-left: 50px;"><iframe width="350" height="197" src="http://www.youtube-nocookie.com/embed/v91foZb0JFo?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div> */ ?>
+
+<div style = "width: 595px; min-height: 842px;">
+
+<p style = "padding: 40px 15px 30px; color: #242d66; font-size: 1.6em; text-align: center; line-height: 1.2em; font-family: Verdana,Arial,Helvetica,sans-serif">The Student Council hopes you enjoyed this year's Summer event!</p>
+<?php /* <p style = "margin: 10px 0px; padding: 15px; color: #A40000; font-size: 1.8em; text-align: center; line-height: 1.2em; font-family: Verdana,Arial,Helvetica,sans-serif">Photos will be put up here soon!</p> */ ?>
+
+<div id = "MY_DIV_ID"></div>
+
+<img src = "/img/beach-house-bot.png" style = "width: 300px; margin: 0px 145px 100px;" />
+
+</div>
+
+
+</div>
+
+
+
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+	
+<?php include '/home/a6325779/public_html/includes/footer.php'; ?>
+	</body>
+</html>

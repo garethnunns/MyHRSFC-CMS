@@ -1,0 +1,4 @@
+.sass-cache
+includes/secure.php
+**/.htaccess
+**/.htpasswd
