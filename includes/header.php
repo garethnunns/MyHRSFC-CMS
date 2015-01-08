@@ -44,7 +44,7 @@
 					<!-- <li><a href="/environment.html">Environment</a></li> not wanted -->
 				</ul>
 			</li>
-					
+			
 			<li>
 				<a href="/events.html">Events</a>
 				<ul>
@@ -106,8 +106,6 @@
 						<li><a href="/policies.html">Policy Tracker</a></li>
 						<li><a href="/acf.html">Submit Suggestion</a></li> 
 						<li><a href="/trains.html">Live Train Times</a></li> 
-<?php 	#	<li><a href="/docs/newsletter.pdf" target="_blank">Newsletter</a></li>
-		#	<li><a href="/docs/gm-minutes.doc" target="_blank">Latest General Meeting Minutes</a></li> ?>
 						<li class = "con"><a href="mailto:<?php echo getCouncillorEmail('secretary'); ?>" target="_blank">Email the secretary</a></li>
 					</ul>
 				</li>

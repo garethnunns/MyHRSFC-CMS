@@ -1,132 +1,14 @@
-<?php
-
-
-# Name 1, Name 2, Upper/Lower, Tutor
-
-$formReps = 
-array (
-	array (
-		array("Millie Clift","Gareth Nunns","Upper Sixth","IKL"),
-		array("Kirsty Jones","Chris Murphy","Upper Sixth","IKL"),
-		array("Pran Tadikonda","Beth Elwood","Upper Sixth","IKL"),
-		array("Pok Fong","Nathanael Clifton","Lower Sixth","IKL"),
-		array("Laura Block","Aleesha Viswambaran","Lower Sixth","IKL"),
-		array("Christian Pullen","Rebecca Strauss","Lower Sixth","IKL")
-	),
-	array (
-		array("Uvini Edirisinghe","Alice Stuart","Lower Sixth","ICP"),
-		array("Joshua Vaughan","Rachel Smit","Lower Sixth","ICP"),
-		array("Gemma Duma","Madalena Byrne Temudo De Castro (Maddie Castro)","Upper Sixth","ICP"),
-		array("Subha Kumar","Maddie Smith","Upper Sixth","ICP")
-	),
-	array (
-		array("Thomas Denney","Murray Lewis","Upper Sixth","KXT"),
-		array("Elliot Rose","Maddie Koesterman","Upper Sixth","KXT"),
-		array("Freddie Barnes","Tierre Pride","Lower Sixth","KXT"),
-		array("Ben Dzialdowski","Oliver Frestle","Upper Sixth","KXT"),
-		array("Sam Champion","Molly Magrath","Lower Sixth","KXT"),
-		array("Kenza Camara","Serena Kundu","Lower Sixth","KXT")
-	),
-	array (
-		array("Charlotte McGreavy","Lucy Baker","Upper Sixth","LKE"),
-		array("Luke Todd","Jonny Marriage","Lower Sixth","LKE"),
-		array("Catherine Watson","Lily Church","Lower Sixth","LKE"),
-		array("Ollie Hastings","Shannon Dawson","Upper Sixth","LKE"),
-		array("Edred Whittingham","Natasha Taylor","Upper Sixth","LKE"),
-		array("Lara Rudin","Philippa Witherspoon","TU-LKE14LEF3","LKE")
-	),
-	array (
-		array("Charlotte Tame","Daniel Boulton","Upper Sixth","GGT"),
-		array("Dan Boulton","","Lower Sixth","GGT")
-	),
-	array (
-		array("Soman Nadim Iqbal","Natasha Sice","Lower Sixth","ADC"),
-		array("Georgina Trow","","Lower Sixth","ADC"),
-		array("Jessica Barrett","Chloe Brown","Lower Sixth","ADC"),
-		array("Maddy Curry","","Upper Sixth","ADC"),
-		array("Emily Chadwick","","Upper Sixth","ADC"),
-		array("Madeleine Shannon","Lydia White","Upper Sixth","ADC")
-	),
-	array (
-		array("Charlie Bashford","Douglas Robinson","Upper Sixth","LJR"),
-		array("Eleanor Grace","Patrick Mchugh","Upper Sixth","LJR"),
-		array("Tori Gibbons","Torin Cooper-Bennun","Upper Sixth","LJR"),
-		array("Arabella Kirby","Tom Mayer","TU-LJR14LAF5","LJR")
-	),
-	array (
-		array("Felicity Miles","Anna Jose","Lower Sixth","IMD"),
-		array("Alex Foulds","Anna Mcnally","Lower Sixth","IMD"),
-		array("Grace Carter","Samuel Weinberger","Upper Sixth","IMD"),
-		array("Lewis Manning","Lauren McQuillan","Upper Sixth","IMD"),
-		array("Harry Griffin","Abi Rabbett","Lower Sixth","IMD"),
-		array("Yasmin Halliwell","Callum Bains","Lower Sixth","IMD")
-	),
-	array (
-		array("Jamie Doorbar","","Upper Sixth","VCH"),
-		array("Alex Deloukas","Matthew Eastgate ","Upper Sixth","VCH"),
-		array("Will Sampson ","Jake Leech","Upper Sixth","VCH"),
-		array("Sam Ross","Raveen Dosanjh","Lower Sixth","VCH"),
-		array("Chiedza Lunga","Bea Underwood","Lower Sixth","VCH"),
-		array("Adam Wright","Grace Sice","Lower Sixth","VCH")
-	),
-	array (
-		array("Chloe Reid","Kerry Martin","Upper Sixth","MAM"),
-		array("Sophia Brumann","Melissa Dicks","Upper Sixth","MAM"),
-		array("Olii Wilson","Darren DÕSouza","Upper Sixth","MAM"),
-		array("Romaisa ÊSebaihia","Frances Conboy.","Lower Sixth","MAM"),
-		array("Francesco Dernie","","Lower Sixth","MAM")
-	),
-	array (
-		array("Mateusz Ochal","Maail Afaal","Upper Sixth","PAI"),
-		array("Anne-lucie Bugain","","Upper Sixth","PAI"),
-		array("Henry MacDonald","Hannah Mitchell","Upper Sixth","PAI"),
-		array("Vineeth (Vinnie) Joseph","Emma Jackson","Lower Sixth","PAI"),
-		array("Charles Hull","Beth Bradley","Lower Sixth","PAI")
-	),
-	array (
-		array("James Nowshadi","Laura Burgazzi","Upper Sixth","HJH"),
-		array("William Schimrigk Biagini","Chloe Neal","Upper Sixth","HJH"),
-		array("Sophie Cheal","Leon Coals","Upper Sixth","HJH"),
-		array("Olivia Dakin Lunan","Hannah Foley","Lower Sixth","HJH"),
-		array("Matt Organ","Antonia Hamilton","Lower Sixth","HJH"),
-		array("Freya Lawrence","Lucy McCann","Lower Sixth","HJH")
-	),
-	array (
-		array("Rosanna Larter","Raj Khandaker","Lower Sixth","RZK"),
-		array("Hester Lee"," Ed Hodson","Lower Sixth","RZK"),
-		array("Lucy Hodge","Gemma Galletley","Lower Sixth","RZK"),
-		array("Octavia Hailes","","Upper Sixth","RZK")
-	),
-	array (
-		array("Sean Irving","Alex garland","Lower Sixth","DMA"),
-		array("Jacob Pake","Charlie Hilton","Upper Sixth","DMA"),
-		array("Jenny Heaton"," Avril Roberts","Upper  Sixth","DMA"),
-		array("Abi Richardson","Eliza Asari Parbi","Upper Sixth","DMA"),
-		array("James Blackshaw","Ellen Hinks","Lower Sixth","DMA"),
-		array("Sean Irving","Alex garland","TU-DMA14LET1","DMA")
-	),
-	array (
-		array("Jasmine Ceccarelli-Drewry","Alex McIntyre","Upper Sixth","BBW"),
-		array("Eleanor Gibbs","Ninah Nsubuga","Lower Sixth","BBW"),
-		array("Joshua  Gregory-Barnes","","Lower Sixth","BBW"),
-		array("Richard Geng","James Stacey","Lower Sixth","BBW"),
-		array("Chris Whitehead","Nathan Makelana","Lower Sixth","BBW"),
-		array("Isobel Fitzsimmons","Lily Matthews","Lower Sixth","BBW"),
-		array("Naomi Abayasekara","Sice Natasha","Lower Sixth","BBW"),
-		array("Eleanor Hunt","","Upper Sixth","BBW")
-	)
-);
-?><!doctype html>
+<!doctype html>
 <html lang="en-gb" class="no-js">
 
-<!-- HEADER --->
+<!-- HEADER -->
 	<head>
 
-		<title>Societies | Hills Road Student Council</title>
+		<title>Committees | Hills Road Student Council</title>
 
 <?php include '/home/a6325779/public_html/includes/head.php'; ?>
 	
-<meta name="description" content="A complete list of the student-run societies at Hills Road, managed by <?php echo getCouncillorName('societies'); ?>." />
+<meta name="description" content="A complete list of the form reps at Hills Road, managed by <?php echo getCouncillorName('secretary'); ?>." />
 
 	</head>
 	
@@ -144,10 +26,10 @@ array (
 			
 				<!-- masthead -->
 			<div id="masthead">
-					<span class="head">Commities</span><span class="subhead">The people who make it work</span>
+					<span class="head">Committees</span><span class="subhead">The people who make it work</span>
 	<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
 	<li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
-	<li typeof="v:Breadcrumb"><a href="committies.html" rel="v:url" property="v:title">committies</a></li>
+	<li typeof="v:Breadcrumb"><a href="committies.html" rel="v:url" property="v:title">committees</a></li>
 	</ul>
 				</div>
 			<!-- ENDS masthead -->
@@ -165,11 +47,145 @@ array (
 		<h4>The Form Reps</h4>
 <?php
 
+# Name 1, Name 2, Upper/Lower, Tutor
+
+$formReps = 
+array (
+	array (
+		"IKL",
+		array("Millie Clift",'<a href="//garethnunns.com">Gareth Nunns</a>',1),
+		array("Kirsty Jones","Chris Murphy",1),
+		array("Pran Tadikonda","Beth Elwood",1),
+		array("Pok Fong","Nathanael Clifton",0),
+		array("Laura Block","Aleesha Viswambaran",0),
+		array("Christian Pullen","Rebecca Strauss",0)
+	),
+	array (
+		"ICP",
+		array("Uvini Edirisinghe","Alice Stuart",0),
+		array("Joshua Vaughan","Rachel Smit",0),
+		array("Gemma Duma","Madalena Byrne Temudo De Castro (Maddie Castro)",1),
+		array("Subha Kumar","Maddie Smith",1)
+	),
+	array (
+		"KXT",
+		array("Thomas Denney","Murray Lewis",1),
+		array("Elliot Rose","Maddie Koesterman",1),
+		array("Freddie Barnes","Tierre Pride",0),
+		array("Ben Dzialdowski","Oliver Frestle",1),
+		array("Sam Champion","Molly Magrath",0),
+		array("Kenza Camara","Serena Kundu",0)
+	),
+	array (
+		"LKE",
+		array("Charlotte McGreavy","Lucy Baker",1),
+		array("Luke Todd","Jonny Marriage",0),
+		array("Catherine Watson","Lily Church",0),
+		array("Ollie Hastings","Shannon Dawson",1),
+		array("Edred Whittingham","Natasha Taylor",1),
+		array("Lara Rudin","Philippa Witherspoon",0)
+	),
+	array (
+		"GGT",
+		array("Charlotte Tame","Daniel Boulton",1),
+		array("Dan Boulton","",0)
+	),
+	array (
+		"ADC",
+		array("Soman Nadim Iqbal","Natasha Sice",0),
+		array("Georgina Trow","",0),
+		array("Jessica Barrett","Chloe Brown",0),
+		array("Maddy Curry","",1),
+		array("Emily Chadwick","",1),
+		array("Madeleine Shannon","Lydia White",1)
+	),
+	array (
+		"LJR",
+		array("Charlie Bashford","Douglas Robinson",1),
+		array("Eleanor Grace","Patrick Mchugh",1),
+		array("Tori Gibbons","Torin Cooper-Bennun",1),
+		array("Arabella Kirby","Tom Mayer",0)
+	),
+	array (
+		"IMD",
+		array("Felicity Miles","Anna Jose",0),
+		array("Alex Foulds","Anna Mcnally",0),
+		array("Grace Carter","Samuel Weinberger",1),
+		array("Lewis Manning","Lauren McQuillan",1),
+		array("Harry Griffin","Abi Rabbett",0),
+		array("Yasmin Halliwell","Callum Bains",0)
+	),
+	array (
+		"VCH",
+		array("Jamie Doorbar","",1),
+		array("Alex Deloukas","Matthew Eastgate ",1),
+		array("Will Sampson ","Jake Leech",1),
+		array("Sam Ross","Raveen Dosanjh",0),
+		array("Chiedza Lunga","Bea Underwood",0),
+		array("Adam Wright","Grace Sice",0)
+	),
+	array (
+		"MAM",
+		array("Chloe Reid","Kerry Martin",1),
+		array("Sophia Brumann","Melissa Dicks",1),
+		array("Olii Wilson","Darren DÕSouza",1),
+		array("Romaisa ÊSebaihia","Frances Conboy.",0),
+		array("Francesco Dernie","",0)
+	),
+	array (
+		"PAI",
+		array("Mateusz Ochal","Maail Afaal",1),
+		array("Anne-lucie Bugain","",1),
+		array("Henry MacDonald","Hannah Mitchell",1),
+		array("Vineeth (Vinnie) Joseph","Emma Jackson",0),
+		array("Charles Hull","Beth Bradley",0)
+	),
+	array (
+		"HJH",
+		array("James Nowshadi","Laura Burgazzi",1),
+		array("William Schimrigk Biagini","Chloe Neal",1),
+		array("Sophie Cheal","Leon Coals",1),
+		array("Olivia Dakin Lunan","Hannah Foley",0),
+		array("Matt Organ","Antonia Hamilton",0),
+		array("Freya Lawrence","Lucy McCann",0)
+	),
+	array (
+		"RZK",
+		array("Rosanna Larter","Raj Khandaker",0),
+		array("Hester Lee"," Ed Hodson",0),
+		array("Lucy Hodge","Gemma Galletley",0),
+		array("Octavia Hailes","",1)
+	),
+	array (
+		"DMA",
+		array("Sean Irving","Alex Garland",0),
+		array("Jacob Pake","Charlie Hilton",1),
+		array("Jenny Heaton"," Avril Roberts","Upper  Sixth"),
+		array("Abi Richardson","Eliza Asari Parbi",1),
+		array("James Blackshaw","Ellen Hinks",0)
+	),
+	array (
+		"BBW",
+		array("Jasmine Ceccarelli-Drewry","Alex McIntyre",1),
+		array("Eleanor Gibbs","Ninah Nsubuga",0),
+		array("Joshua  Gregory-Barnes","",0),
+		array("Richard Geng","James Stacey",0),
+		array("Chris Whitehead","Nathan Makelana",0),
+		array("Isobel Fitzsimmons","Lily Matthews",0),
+		array("Naomi Abayasekara","Sice Natasha",0),
+		array("Eleanor Hunt","",1)
+	)
+);
+
+// sort($formReps);
+
 foreach($formReps as $tutor) {
-	echo '<h5>'.$tutor[0][3].'</h5>';
-	foreach ($tutor as $reps) {
-		echo "<p><i>" . $reps[2] . "</i> &ndash; " . $reps[0];
-		if(!empty($reps[1])) echo " and " . $reps[1];
+	echo '<h5>'.$tutor[0].'</h5>';
+	$reps = array_slice($tutor,1);
+	sort($reps);
+	foreach ($reps as $rep) {
+		echo "<p><i>" . ($rep[2]?"Upper Sixth":"Lower Sixth") . "</i> &ndash; " . $rep[0];
+		if(!empty($rep[1])) echo " and " . $rep[1];
 		echo "</p>";
 	}
 }
