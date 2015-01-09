@@ -1,6 +1,6 @@
 .progress-bar {
 	height: 23px;
-	background: #993366 url(../img/progress/progress-bar.png) repeat-x;
+	background: #993366 url(../img/site/progress-bar.png) repeat-x;
 	position: absolute;
 	top:7px;
 	left: 0px;
@@ -19,7 +19,7 @@
 	height: 40px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	background: url(../img/progress/progress-container.png) no-repeat;
+	background: url(../img/site/progress-container.png) no-repeat;
 	position: relative;
 }
 		
@@ -29,7 +29,7 @@
 	opacity: 0.8;
 	filter: alpha(opacity=80);
 	background-repeat: no-repeat;
-	background-image: url(../img/progress/tipsy.png);
+	background-image: url(../img/site/tipsy.png);
 	font-family: helvetica, Arial;
 	text-transform: uppercase;
 }

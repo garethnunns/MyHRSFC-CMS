@@ -38,6 +38,23 @@
 		<script src="/js/hoverIntent.js" type="text/javascript"></script>
 		<script src="/js/supersubs.js" type="text/javascript"></script>
 		<!-- ENDS superfish -->
+
+		<!-- prettyPhoto -->
+		
+		<link rel="stylesheet" href="/css/prettyPhoto.css" type="text/css" media="screen"> 
+		<script src="/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+		<!-- ENDS prettyPhoto -->
+		
+		<!-- poshytip -->
+		<link rel="stylesheet" href="/css/tip-twitter.css" type="text/css">
+		<link rel="stylesheet" href="css/tip-yellowsimple.css" type="text/css">
+		<script src="/js/jquery.poshytip.min.js" type="text/javascript"></script>
+		<!-- ENDS poshytip -->
+		
+		<!-- Flex Slider -->
+		<link rel="stylesheet" href="/css/flexslider.css" type="text/css">
+		<script src="/js/jquery.flexslider-min.js" type="text/javascript"></script>
+		<!-- ENDS Flex Slider -->
 		
 		<!--[if IE 6]>
 		<link rel="stylesheet" href="css/ie6-hacks.css" type="text/css" media="screen" />

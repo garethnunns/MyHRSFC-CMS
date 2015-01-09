@@ -5,7 +5,7 @@
 @import url('elements.css');
 
 body {
-	background: #ececec url('/img/main-pattern.png');
+	background: #ececec url('/img/site/main-pattern.png');
 	color: #555;
 
 	.wrapper, #main {
@@ -35,7 +35,7 @@ body {
 		width: 852px;
 		height: 11px;
 		margin-left: 68px;
-		background: url(../img/shadow-main.png) no-repeat top center;
+		background: url(../img/site/shadow-main.png) no-repeat top center;
 	}
 
 	// page content

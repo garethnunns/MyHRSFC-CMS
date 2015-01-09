@@ -80,7 +80,7 @@
 <header>
 	<div class="wrapper">
 			
-		<a href="/" id="logo"><img  src="/img/logo.png" alt="Student Council" width="123" height="61"></a> 
+		<a href="/" id="logo"><img  src="/img/site/logo.png" alt="Student Council Logo" height="61"></a> 
 
 		<!-- NAV MENU -->
 		<nav>

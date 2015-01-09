@@ -36,7 +36,7 @@ nav { // nav container
 			}
 
 			&.con a { // email someone
-				background: url("/img/social/email_32.png") no-repeat scroll 8px center / 16px 16px;
+				background: url("/img/icons/email.png") no-repeat scroll 8px center / 16px 16px;
 				padding: 10px 5px 10px 30px !important;
 				&:hover {
 					padding: 10px 0px 10px 35px !important;
@@ -74,7 +74,7 @@ nav { // nav container
 		}
 
 		& > li { // top of the tree styling
-			background: transparent url('/img/down.png') center 37px no-repeat;
+			background: transparent url('/img/site/nav-down.png') center 37px no-repeat;
 			height: 135px;
 
 			&:hover {
