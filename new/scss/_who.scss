@@ -1,0 +1,51 @@
+.officerProfileL, .officerProfileR {
+	float: left; 
+	box-shadow: 0 0 8px #aaa; 
+	background: #eee; 
+	max-width: 400px;
+
+	.officerTitle {
+		background: #404040;
+		width: 92%;
+		box-shadow: 0 0 4px #888;
+		border-bottom: 1px solid #171717;
+		color: #f5f5f5; font-size: 19px;
+		line-height: 28px;
+		padding: 7px 4%;
+		text-shadow: 0 -1px 0px #000000;
+
+		h5 {
+			float: right;
+			color: #ccc;
+			margin-top: 2px;
+		}
+	}
+	
+	.officerDetails {
+		padding: 15px;
+		position: relative;
+
+		div {
+			float: right;
+			top: 0px;
+			right: 0px;
+			padding: 5px;
+			font-style: italic;
+			font-weight: bold;
+
+			a img {
+				width: 24px; height: 24px;
+			}
+		}
+	}
+}
+
+.officerProfileL {
+	clear: left;
+	margin: 20px 10px 20px 15px;
+}
+
+.officerProfileR {
+	clear: right;
+	margin: 20px 15px 20px 10px;
+}

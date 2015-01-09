@@ -1,0 +1,24 @@
+#hrscside {
+	font-weight: bold;
+	font-size: 40px;
+	width: 800px;
+	overflow: hidden;
+	line-height: 30px;
+	position: absolute;
+	left: 920px;
+	top: 0px;
+	color: #d9d9d9;
+	text-shadow: -1px 0px 0px #fff;
+
+	-ms-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+
+	-ms-transform-origin: left bottom;
+	-webkit-transform-origin: left bottom;
+	-moz-transform-origin: left bottom;
+	-o-transform-origin: left bottom;
+ 	transform-origin: left bottom;
+}
