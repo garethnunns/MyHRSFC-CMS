@@ -8,22 +8,21 @@
 			$password = $_POST['password'];
 
 			try {
-				$sth = $dbh->prepare('SELECT idcouncillors, sudo
+				$sth = $dbh->prepare('SELECT idcouncillors, sudo, password
 					FROM councillors
-					WHERE email = ? AND password = ?');
-				$sth->bindValue(1, $email, PDO::PARAM_STR); 
-				$sth->bindValue(2, $password, PDO::PARAM_STR);
+					WHERE email = ?');
+				$sth->bindValue(1, $email, PDO::PARAM_STR);
 				$sth->execute();
 
 				$count = $sth->rowCount();
 				
 				if ($count==1) {
 
-					$result = $sth->fetchAll();
+					$result = $sth->fetch(PDO::FETCH_OBJ);
 
-					foreach($result as $row) {
-						$_SESSION['user'] =  $row['idcouncillors'];
-						if($row['sudo']) $_SESSION['sudo'] = true;
+					if ($result->password == crypt($password, $result->password) ) {
+						$_SESSION['user'] = $result->idcouncillors;
+						if($result->sudo) $_SESSION['sudo'] = true;
 					}
 
 					header('Location: ' . urldecode($_GET['goto']));

@@ -29,9 +29,8 @@
 				<!-- masthead -->
 				<div id="masthead">
 					<span class="head">Welcome</span><span class="subhead">New site</span>
-					<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
-						<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a> / </li>
-						<li typeof="v:Breadcrumb"><a href="/admin" rel="v:url" property="v:title">Admin</a> / </li>
+					<ul class="breadcrumbs">
+						<li><a href="/admin/logout.php">logout</a></li>
 					</ul>
 				</div>
 				<!-- ENDS masthead -->
@@ -42,6 +41,8 @@
 				<div id="page-content-full">	        	
 					
 					<h1>Logged in</h1>
+
+					<h2>User ID: <?php echo $_SESSION['user']; ?></h2>
 				
 				</div>
 				<!-- ENDS page content -->
