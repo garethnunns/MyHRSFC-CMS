@@ -28,8 +28,7 @@
 				<div id="masthead">
 					<span class="head">Welcome</span><span class="subhead">New site</span>
 					<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
-						<li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
-						<!--<li typeof="v:Breadcrumb"><a href="bla" rel="v:url" property="v:title">bla</a> / </li>-->
+						<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a></li>
 					</ul>
 				</div>
 				<!-- ENDS masthead -->

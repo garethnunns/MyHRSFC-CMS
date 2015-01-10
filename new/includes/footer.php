@@ -40,10 +40,9 @@
 						<div class="widget-block">
 							<h4>Copyright</h4>
 							<p>Copyright &#169; <?php echo Date('Y'); ?> Hills Road Sixth Form College Student Council</p>
-                            This site, its content and its designs are permitted for use only by the Hills Road Sixth Form College Student Council for 2014-2015.</p><!--You should probably ask AW if you want to use them-->
+							<p>This site, its content and its designs are permitted for use only by the Hills Road Sixth Form College Student Council for 2014-2015.</p><!--You should probably ask AW if you want to use them-->
 							<p>Originally designed by <a href="http://www.andrew-watts.co.uk" target="_blank">Andrew Watts</a>.<br>Modified by <a href="http://www.ely-web-design.co.uk/" target="_blank">Thomas Frodsham</a>, then by <a href="//garethnunns.com">Gareth Nunns</a></p>
-                            <p>Special thanks to a programming genius - Luis Zuno ("Ansimuz") - who did some of the nasty javascript coding!</p>
-							
+							<p>Special thanks to a programming genius - Luis Zuno ("Ansimuz") - who did some of the nasty javascript coding!</p>
 						</div>
 						
 					</li>
@@ -63,4 +62,5 @@
 			
 			<div id="to-top"></div>
 		</footer>
+		<?php $dbh = null; ?>
 		

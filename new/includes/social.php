@@ -2,8 +2,8 @@
 <div id="social-cont">
 			<div id="social-bar">
 				<ul>
-					<li><a href="http://www.facebook.com/myhrsfc" target="_blank" title="Facebook"><img src="img/icons/facebook.png"  alt="Facebook" /></a></li>
-					<li><a href="mailto:studentcouncil13@hillsroad.ac.uk"  title="Email"><img src="img/icons/email.png"  alt="Email" /></a></li>
+					<li><a href="http://www.facebook.com/myhrsfc" target="_blank" title="Facebook"><img src="/img/icons/facebook.png"  alt="Facebook" /></a></li>
+					<li><a href="mailto:studentcouncil13@hillsroad.ac.uk"  title="Email"><img src="/img/icons/email.png"  alt="Email" /></a></li>
 				</ul>
 			</div>
 </div>

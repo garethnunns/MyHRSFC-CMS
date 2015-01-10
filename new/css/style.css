@@ -2,57 +2,112 @@
 @import url("social-icons.css");
 @import url("comments.css");
 @import url("elements.css");
-/* line 7, ../scss/style.scss */
 body {
-  background: #ececec url("/img/site/main-pattern.png");
+  background: #ececec url("/img/site/body-pattern.png");
   color: #555;
 }
-/* line 11, ../scss/style.scss */
 body .wrapper, body #main {
   margin: 0 auto;
   position: relative;
   font-family: helvetica, arial, sans-serif;
 }
-/* line 19, ../scss/style.scss */
 body #main #content {
   position: relative;
   display: block;
   width: 852px;
   float: left;
-  min-height: 850px;
+  min-height: 825px;
   background: #f5f5f5;
   -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 }
-/* line 34, ../scss/style.scss */
-body .shadow-main {
+body #main #content #masthead {
+  position: relative;
+  margin-top: -38px;
+  background: #1c1d1d;
+  padding-left: 24px;
+  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 -1px 1px black;
+}
+body #main #content #masthead span {
+  line-height: 69px;
+}
+body #main #content #masthead .head {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 21px;
+  color: #ddd;
+}
+body #main #content #masthead .subhead {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 13px;
+  color: #888;
+  margin-left: 21px;
+}
+body #main #content #masthead .breadcrumbs {
+  position: absolute;
+  overflow: hidden;
+  top: 24px;
+  right: 24px;
+  height: auto;
+  font-size: 11px;
+  color: #444;
+}
+body #main #content #masthead .breadcrumbs a {
+  text-decoration: none;
+  color: #888;
+  text-shadow: none;
+  -ms-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+body #main #content #masthead .breadcrumbs a:hover {
+  color: #6799c8;
+}
+body #main #content #masthead .breadcrumbs li {
+  display: inline;
+}
+body #main #content #masthead .breadcrumbs li:last-child a {
+  color: #555 !important;
+}
+body #main #content .headline {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.5em;
+  text-align: center;
+  padding: 20px 0px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid white;
+  margin-bottom: 50px;
+  background: #eaeaea;
+  color: #444;
+}
+body #main #page-content {
+  float: left;
+  width: 528px;
+}
+body #main #page-content, body #main #page-content-full, body #main #page-content-gall {
+  margin-left: 24px;
+  margin-top: 12px;
+  padding-bottom: 60px;
+}
+body #main #page-content-full {
+  margin-right: 24px;
+}
+body #main #page-content-gall {
+  margin-right: 24px;
+  padding-bottom: 0px;
+}
+body #main .shadow-main {
   width: 852px;
   height: 11px;
   margin-left: 68px;
   background: url(../img/site/shadow-main.png) no-repeat top center;
 }
-/* line 43, ../scss/style.scss */
-body #page-content, body #page-content-full, body #page-content-gall {
-  margin-left: 24px;
-  margin-top: 24px;
-  padding-bottom: 60px;
-}
-/* line 49, ../scss/style.scss */
-body #page-content {
-  float: left;
-  width: 528px;
-}
-/* line 54, ../scss/style.scss */
-body #page-content-full {
-  margin-right: 24px;
-}
-/* line 58, ../scss/style.scss */
-body #page-content-gall {
-  margin-right: 24px;
-  padding-bottom: 0px;
-}
-/* line 65, ../scss/style.scss */
 body .home-block-heading, body .block-heading {
   border-bottom: 1px solid #ccc;
   color: #444;
@@ -60,66 +115,65 @@ body .home-block-heading, body .block-heading {
   margin-bottom: 32px;
   margin-right: 24px;
 }
-/* line 73, ../scss/style.scss */
 body .home-block-heading {
   margin-left: 24px;
   margin-bottom: 12px;
   font-size: 36px;
 }
-/* line 79, ../scss/style.scss */
 body .block-heading {
   margin-left: 0;
 }
-/* line 83, ../scss/style.scss */
 body h1, body h2, body h3, body h4, body h5, body h6 {
   font-family: Ubuntu, helvetica, arial, sans-serif;
   color: #444;
 }
-/* line 88, ../scss/style.scss */
 body h1 {
   font-size: 36px;
+  line-height: 36px;
+  padding: 8px 0;
 }
-/* line 90, ../scss/style.scss */
 body h2 {
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 28px;
+  line-height: 28px;
+  padding: 7px 0;
 }
-/* line 92, ../scss/style.scss */
 body h3 {
-  font-size: 21px;
+  font-size: 22px;
+  line-height: 22px;
+  padding: 6px 0;
 }
-/* line 94, ../scss/style.scss */
 body h4 {
   font-size: 18px;
+  line-height: 18px;
+  padding: 5px 0;
 }
-/* line 96, ../scss/style.scss */
 body h5 {
-  font-size: 14px;
+  font-size: 17px;
+  line-height: 17px;
+  padding: 5px 0;
 }
-/* line 98, ../scss/style.scss */
 body h6 {
-  font-size: 12px;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 5px 0;
 }
-/* line 101, ../scss/style.scss */
+body p {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 4px 0;
+}
 body h1.heading, body h2.heading, body h3.heading, body h4.heading, body h5.heading, body h6.heading {
   margin-bottom: 21px;
 }
-/* line 107, ../scss/style.scss */
-body p {
-  margin-bottom: 8px;
-}
-/* line 111, ../scss/style.scss */
 body #bigp {
   font-size: 18px;
   font-weight: 300;
   line-height: 130%;
 }
-/* line 117, ../scss/style.scss */
 body .alignleftintext {
   float: left;
   margin: 3px 6px 0px 0px;
 }
-/* line 122, ../scss/style.scss */
 body a {
   text-decoration: none;
   color: #333;
@@ -130,11 +184,9 @@ body a {
   -o-transition: color 0.3s ease-out;
   transition: color 0.3s ease-out;
 }
-/* line 133, ../scss/style.scss */
 body a:hover {
   color: #6799c8;
 }
-/* line 138, ../scss/style.scss */
 body .imgleft .thumb {
   display: block;
   float: left;
@@ -147,7 +199,6 @@ body .imgleft .thumb {
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
-/* line 154, ../scss/style.scss */
 body .who {
   display: block;
   float: left;
@@ -160,7 +211,6 @@ body .who {
   -moz-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
 }
-/* line 169, ../scss/style.scss */
 body .centre {
   display: block;
   /*images must be set to block in order use auto margins*/
@@ -174,44 +224,36 @@ body .centre {
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
   padding: 3px;
 }
-/* line 183, ../scss/style.scss */
 body .clearfix {
   clear: both;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder {
   z-index: 1000;
   background: #191a1a;
   text-shadow: 0 -1px rgba(0, 0, 0, 0.9);
 }
-/* line 6, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #nav-open {
   background: #191a1a;
   position: absolute;
   right: 0px;
   z-index: 2000;
 }
-/* line 12, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #nav-open a {
   display: block;
   padding: 7px 14px;
 }
-/* line 16, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #nav-open a:hover, #mobile-nav-holder #nav-open a:focus {
   background: #191a1a;
 }
-/* line 19, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #nav-open a:hover {
   color: #cccccc;
 }
-/* line 25, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav {
   display: none;
   padding-top: 20px;
   padding-bottom: 30px;
 }
-/* line 29, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav a {
   display: block;
   padding: 7px 14px;
@@ -225,33 +267,26 @@ body .clearfix {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 43, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav a:hover, #mobile-nav-holder #mobile-nav a:focus {
   background: #0d0d0d;
 }
-/* line 46, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav a:hover {
   padding-left: 20px;
 }
-/* line 52, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav li a {
   border-bottom: 1px solid #222;
 }
-/* line 56, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav li > ul a {
   color: #888888;
   margin-left: 30px;
 }
-/* line 61, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder #mobile-nav li:last-child a, #mobile-nav-holder #mobile-nav li > ul a {
   border: none;
 }
-/* line 67, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_mobilenav.scss */
 #mobile-nav-holder > .current-menu-item > a, #mobile-nav-holder > .current-page-item > a {
   color: #6799c8;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_header.scss */
 header {
   position: relative;
   height: 175px;
@@ -264,37 +299,30 @@ header {
   box-shadow: 0 30px 100px 40px rgba(30, 30, 30, 0.4) inset;
   border-bottom: 4px solid #1c1d1d !important;
 }
-/* line 15, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_header.scss */
 header #logo {
   display: block;
   padding-top: 40px;
   float: left;
 }
-/* line 20, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_header.scss */
 header #logo:hover {
   opacity: 0.8;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav {
   float: right;
   line-height: 1.8em;
 }
-/* line 5, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav a {
   text-decoration: none;
   color: #acacac;
   text-shadow: none;
 }
-/* line 11, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav {
   margin-top: 40px;
 }
-/* line 14, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav .sf-sub-indicator {
   float: right;
 }
-/* line 18, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li {
   display: inline;
   font-size: 16px;
@@ -305,71 +333,56 @@ nav #nav li {
   -o-transition: all 0.7s ease-out;
   transition: all 0.7s ease-out;
 }
-/* line 29, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li:first-child, nav #nav li.special-menu-item {
   background-image: none !important;
 }
-/* line 33, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.current-s-menu-item > a {
   background: rgba(103, 153, 200, 0.5);
   border-bottom: solid white 5px;
 }
-/* line 38, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.con a {
   background: url("/img/icons/email.png") no-repeat scroll 8px center/16px 16px;
   padding: 10px 5px 10px 30px !important;
 }
-/* line 41, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.con a:hover {
   padding: 10px 0px 10px 35px !important;
   background-position: 10px center;
 }
-/* line 49, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.g a, nav #nav li.lg a, nav #nav li.p a, nav #nav li.y a {
   padding: 10px 15px 10px 11px !important;
   border-left: 4px solid;
 }
-/* line 52, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.g a:hover, nav #nav li.lg a:hover, nav #nav li.p a:hover, nav #nav li.y a:hover {
   padding: 10px 10px 10px 13px !important;
   border-left-width: 7px;
 }
-/* line 57, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.g a {
   border-color: #373;
 }
-/* line 60, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.lg a {
   border-color: #2BED49;
 }
-/* line 63, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.p a {
   border-color: #626;
 }
-/* line 66, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.y a {
   border-color: #F2C124;
 }
-/* line 70, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav li.ev a:hover {
   background-color: #1c1d1d !important;
   color: #ccc !important;
 }
-/* line 76, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li {
   background: transparent url("/img/site/nav-down.png") center 37px no-repeat;
   height: 135px;
 }
-/* line 80, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li:hover {
   background-position: center 150px;
 }
-/* line 83, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li:hover > a {
   background-color: #222;
   border-bottom: solid #1c1d1d 5px;
 }
-/* line 89, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li > a {
   display: block;
   overflow: hidden;
@@ -382,7 +395,6 @@ nav #nav > li > a {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 103, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li > a .subheader {
   color: #DEDEDE;
   display: block;
@@ -390,40 +402,32 @@ nav #nav > li > a .subheader {
   margin-top: -8px;
   font-weight: lighter;
 }
-/* line 111, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li > a.sf-sub-indicator {
   display: none;
 }
-/* line 116, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li.current-menu-item > a, nav #nav > li.current_page_item > a {
   color: #6799c8;
 }
-/* line 120, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li.special-menu-item > a {
   background: rgba(103, 153, 200, 0.3);
   border-bottom: solid #6799c8 5px;
 }
-/* line 124, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li.special-menu-item > a #L6 {
   color: #FFFFFF;
   font-weight: bold;
 }
-/* line 128, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li.special-menu-item > a:hover #L6 {
   color: #ddd;
 }
-/* line 134, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li ul {
   display: block;
   margin-top: 4px;
   background-color: #1c1d1d;
   box-shadow: 2px 2px 8px #111;
 }
-/* line 140, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li ul li {
   border-bottom: 1px solid #151515;
 }
-/* line 143, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li ul li a {
   display: block;
   padding: 10px 15px;
@@ -437,135 +441,51 @@ nav #nav > li ul li a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 157, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li ul li a:hover {
   padding: 10px 10px 10px 20px;
   background-color: #717171;
   color: #111;
 }
-/* line 163, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_nav.scss */
 nav #nav > li ul li a span {
   display: block;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead {
-  position: relative;
-  margin-top: -38px;
-  background: #1c1d1d;
-  padding-left: 24px;
-  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
-  text-shadow: 0 -1px 1px black;
-}
-/* line 14, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead span {
-  line-height: 69px;
-}
-/* line 18, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .head {
-  font-family: helvetica, arial, sans-serif;
-  font-size: 21px;
-  color: #ddd;
-}
-/* line 24, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .subhead {
-  font-family: helvetica, arial, sans-serif;
-  font-size: 13px;
-  color: #888;
-  margin-left: 21px;
-}
-/* line 31, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .breadcrumbs {
-  position: absolute;
-  overflow: hidden;
-  top: 24px;
-  right: 24px;
-  height: auto;
-  font-size: 11px;
-  color: #444;
-}
-/* line 40, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .breadcrumbs a {
-  text-decoration: none;
-  color: #888;
-  text-shadow: none;
-  -ms-transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-/* line 51, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .breadcrumbs a:hover {
-  color: #6799c8;
-}
-/* line 56, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .breadcrumbs li {
-  display: inline;
-}
-/* line 58, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-#masthead .breadcrumbs li:last-child a {
-  color: #555 !important;
-}
-
-/* line 65, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_masthead.scss */
-.headline {
-  font-family: helvetica, arial, sans-serif;
-  font-size: 26px;
-  line-height: 1.5em;
-  text-align: center;
-  padding: 20px 0px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid white;
-  margin-bottom: 50px;
-  background: #eaeaea;
-  color: #444;
-}
-
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_socialbar.scss */
 #social-cont {
   display: block;
   float: left;
   width: 68px;
   min-height: 1px;
 }
-/* line 7, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_socialbar.scss */
 #social-cont #social-bar {
   display: block;
   width: 68px;
   background: url(../img/site/social-desktop.png) no-repeat bottom center;
   padding: 10px 0px 20px 0px;
 }
-/* line 13, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_socialbar.scss */
 #social-cont #social-bar ul {
   display: block;
   margin: 0 auto;
   width: 32px;
 }
-/* line 18, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_socialbar.scss */
 #social-cont #social-bar ul li {
   display: block;
   padding: 0px;
   margin: 3px 0px;
 }
-/* line 23, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_socialbar.scss */
 #social-cont #social-bar ul li a {
   display: block;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_sidewriting.scss */
 #hrscside {
   font-weight: bold;
   font-size: 40px;
   width: 800px;
   overflow: hidden;
-  line-height: 30px;
+  line-height: 40px;
   position: absolute;
   left: 920px;
   top: 0px;
-  color: #d9d9d9;
+  color: #C5C5C5;
   text-shadow: -1px 0px 0px white;
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
@@ -579,7 +499,6 @@ nav #nav > li ul li a span {
   transform-origin: left bottom;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_sidebar.scss */
 #sidebar {
   width: 252px;
   float: left;
@@ -587,7 +506,6 @@ nav #nav > li ul li a span {
   margin-bottom: 24px;
   margin-left: 24px;
 }
-/* line 8, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_sidebar.scss */
 #sidebar .block {
   padding: 16px;
   background: #eaeaea;
@@ -596,7 +514,6 @@ nav #nav > li ul li a span {
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 24px;
 }
-/* line 16, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_sidebar.scss */
 #sidebar .block a {
   color: #444;
   text-decoration: none;
@@ -605,20 +522,16 @@ nav #nav > li ul li a span {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 25, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_sidebar.scss */
 #sidebar .block a:hover {
   color: #6799c8;
 }
-/* line 30, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_sidebar.scss */
 #sidebar .block h4 {
   margin-bottom: 10px;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured {
   padding-bottom: 10px;
 }
-/* line 4, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured figure {
   position: relative;
   float: left;
@@ -650,7 +563,6 @@ nav #nav > li ul li a span {
   		}
   		*/
 }
-/* line 11, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured figure .thumb {
   display: block;
   background: url(../img/site/go.png) no-repeat center center;
@@ -659,7 +571,6 @@ nav #nav > li ul li a span {
   -moz-box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
-/* line 20, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured figure .thumb img {
   max-width: 100%;
   -webkit-transition: all 0.3s ease;
@@ -667,11 +578,9 @@ nav #nav > li ul li a span {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 30, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured figure a.thumb:hover img {
   opacity: 0.15;
 }
-/* line 34, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured figure .heading {
   text-decoration: none;
   font-style: normal;
@@ -685,17 +594,14 @@ nav #nav > li ul li a span {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 49, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_featured.scss */
 .featured figure a.heading:hover {
   color: #6799c8 !important;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_textposts.scss */
 .text-posts {
   overflow: hidden;
   padding-bottom: 30px;
 }
-/* line 5, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_textposts.scss */
 .text-posts li {
   display: block;
   float: left;
@@ -703,7 +609,6 @@ nav #nav > li ul li a span {
   margin-bottom: 21px;
   width: 252px;
 }
-/* line 12, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_textposts.scss */
 .text-posts li .heading {
   display: block;
   font-weight: bold;
@@ -715,36 +620,30 @@ nav #nav > li ul li a span {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 24, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_textposts.scss */
 .text-posts li .heading:hover {
   color: #6799c8;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects {
   display: block;
   background: #eaeaea;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 24px 0px 50px 0px;
 }
-/* line 7, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-heading {
   font-weight: bold;
   color: #444;
   margin: 0px 0px 24px 24px;
 }
-/* line 13, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list {
   display: block;
 }
-/* line 16, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list figure {
   display: block;
   float: left;
   margin-left: 24px;
   width: 252px;
 }
-/* line 22, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list figure .thumb {
   display: block;
   background: url(../img/site/go.png) no-repeat center center;
@@ -753,7 +652,6 @@ nav #nav > li ul li a span {
   -moz-box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
-/* line 31, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list figure .thumb img {
   max-width: 100%;
   -webkit-transition: all 0.3s ease;
@@ -761,11 +659,9 @@ nav #nav > li ul li a span {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 40, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list figure .thumb:hover img {
   opacity: 0.15;
 }
-/* line 45, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list figure .heading {
   text-decoration: none;
   font-style: normal;
@@ -778,28 +674,23 @@ nav #nav > li ul li a span {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 58, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_related.scss */
 .related-projects .related-list figure .heading:hover, .related-projects .related-list figure .heading:hover * {
   color: #6799c8 !important;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer {
   background: url(../img/site/footer-line.png) repeat-x top left, url(../img/site/footer-noise.png);
   background-color: #e6e5e1;
   min-height: 100px;
   text-shadow: 0 1px rgba(255, 255, 255, 0.9);
 }
-/* line 9, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper {
   margin-top: -60px;
   padding-bottom: 20px;
 }
-/* line 13, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper #footer-cols {
   padding-top: 100px;
 }
-/* line 16, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper #footer-cols > li {
   display: block;
   float: left;
@@ -807,12 +698,10 @@ footer .wrapper #footer-cols > li {
   width: 252px;
   margin-left: 24px;
 }
-/* line 23, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper #footer-cols > li.third-col {
   margin-right: 0px;
   width: 274px;
 }
-/* line 28, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper #footer-cols > li a {
   color: #444;
   text-decoration: none;
@@ -821,29 +710,24 @@ footer .wrapper #footer-cols > li a {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 37, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper #footer-cols > li a:hover {
   color: #6799c8;
 }
-/* line 41, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer .wrapper #footer-cols > li h4 {
   margin-bottom: 21px;
 }
-/* line 49, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer #to-top {
   display: block;
   width: 68px;
   height: 68px;
   margin: 0 auto;
-  background: url(../img/to-top.png) no-repeat;
+  background: url(../img/site/footer-to-top.png) no-repeat;
   cursor: pointer;
 }
-/* line 57, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_footer.scss */
 footer #to-top:hover {
   opacity: 0.7;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_widgets.scss */
 .recent-post {
   overflow: hidden;
   padding: 10px 0px;
@@ -855,11 +739,9 @@ footer #to-top:hover {
   -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
 }
-/* line 13, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_widgets.scss */
 .recent-post:hover {
   background: #eee;
 }
-/* line 17, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_widgets.scss */
 .recent-post .thumb {
   display: block;
   float: left;
@@ -870,7 +752,6 @@ footer #to-top:hover {
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
-/* line 29, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_widgets.scss */
 .recent-post .post-head {
   float: left;
   width: 184px;
@@ -878,14 +759,12 @@ footer #to-top:hover {
   font-size: 13px;
   line-height: 1.5em;
 }
-/* line 36, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_widgets.scss */
 .recent-post .post-head span {
   display: block;
   font-size: 11px;
   color: #888888;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 #map {
   display: block;
   height: 300px;
@@ -893,32 +772,26 @@ footer #to-top:hover {
   margin-bottom: 24px;
 }
 
-/* line 8, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 .address-block li {
   padding-left: 20px;
 }
 
-/* line 12, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 .address-block .address {
   background: url(../img/icons/icon-address.png) no-repeat top left;
 }
 
-/* line 14, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 .address-block .phone {
   background: url(../img/icons/icon-phone.png) no-repeat top left;
 }
 
-/* line 16, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 .address-block .mobile {
   background: url(../img/icons/icon-mobile.png) no-repeat top left;
 }
 
-/* line 18, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 .address-block .email {
   background: url(../img/icons/icon-email.png) no-repeat top left;
 }
 
-/* line 20, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_contact.scss */
 .acform {
   line-height: 0em;
   -webkit-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
@@ -929,7 +802,6 @@ footer #to-top:hover {
   width: 500px;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .progress-bar {
   height: 23px;
   background: #993366 url(../img/site/progress-bar.png) repeat-x;
@@ -940,7 +812,6 @@ footer #to-top:hover {
   -moz-border-radius: 4px;
 }
 
-/* line 11, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .progress-bar-container {
   width: 488px;
   height: 23px;
@@ -948,7 +819,6 @@ footer #to-top:hover {
   position: relative;
 }
 
-/* line 18, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .progress {
   height: 40px;
   margin-top: 10px;
@@ -957,7 +827,6 @@ footer #to-top:hover {
   position: relative;
 }
 
-/* line 26, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy {
   margin-bottom: 25px;
   font-size: 18px;
@@ -969,7 +838,6 @@ footer #to-top:hover {
   text-transform: uppercase;
 }
 
-/* line 37, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-inner {
   padding: 10px 20px;
   background-color: black;
@@ -980,45 +848,37 @@ footer #to-top:hover {
   -moz-box-shadow: 0 20px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* line 48, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-inner {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
 }
 
-/* line 53, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-north {
   background-position: top center;
 }
 
-/* line 58, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-south {
   background-position: bottom center;
 }
 
-/* line 62, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-east {
   background-position: right center;
 }
 
-/* line 66, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-west {
   background-position: left center;
 }
 
-/* line 70, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_progress.scss */
 .tipsy-container {
   border: 1px solid green;
 }
 
-/* line 1, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL, .officerProfileR {
   float: left;
   box-shadow: 0 0 8px #aaa;
   background: #eee;
   max-width: 400px;
 }
-/* line 7, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL .officerTitle, .officerProfileR .officerTitle {
   background: #404040;
   width: 92%;
@@ -1030,18 +890,15 @@ footer #to-top:hover {
   padding: 7px 4%;
   text-shadow: 0 -1px 0px black;
 }
-/* line 17, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL .officerTitle h5, .officerProfileR .officerTitle h5 {
   float: right;
   color: #ccc;
   margin-top: 2px;
 }
-/* line 24, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL .officerDetails, .officerProfileR .officerDetails {
   padding: 15px;
   position: relative;
 }
-/* line 28, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL .officerDetails div, .officerProfileR .officerDetails div {
   float: right;
   top: 0px;
@@ -1050,19 +907,16 @@ footer #to-top:hover {
   font-style: italic;
   font-weight: bold;
 }
-/* line 36, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL .officerDetails div a img, .officerProfileR .officerDetails div a img {
   width: 24px;
   height: 24px;
 }
 
-/* line 43, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileL {
   clear: left;
   margin: 20px 10px 20px 15px;
 }
 
-/* line 48, /Users/garethnunns/Documents/Web Dev/MyHRSFC-CMS/new/scss/_who.scss */
 .officerProfileR {
   clear: right;
   margin: 20px 15px 20px 10px;
