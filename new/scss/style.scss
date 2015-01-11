@@ -76,6 +76,7 @@ body {
 
 			@include breakpoint(papa-bear) {
 				width: 100%;
+				min-height: 0;
 			}
 			
 			@import '_masthead.scss';

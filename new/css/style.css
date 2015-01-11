@@ -43,6 +43,7 @@ body #main #content {
 @media only screen and (max-width: 960px) {
   body #main #content {
     width: 100%;
+    min-height: 0;
   }
 }
 body #main #content #masthead {

@@ -24,6 +24,9 @@
 						$_SESSION['user'] = $result->idcouncillors;
 						if($result->sudo) $_SESSION['sudo'] = true;
 					}
+					else{
+						$error=true;
+					}
 
 					header('Location: ' . urldecode($_GET['goto']));
 				}
@@ -38,7 +41,7 @@
 	}
 
 ?><!doctype html>
-<html lang="en-gb" class="no-js">
+<html lang="en-gb">
 
 	<!-- HEADER -->
 	<head>
@@ -51,7 +54,7 @@
 		
 	</head>
 	
-	<body lang="en">
+	<body lang="en" ontouchstart="">
 
 		<?php include '../includes/header.php'; ?>
 

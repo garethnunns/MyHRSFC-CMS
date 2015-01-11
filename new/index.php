@@ -1,5 +1,8 @@
-<!doctype html>
-<html lang="en-gb" class="no-js">
+<?php
+	include 'includes/parsedown.php';
+	include 'includes/secure.php';
+?><!doctype html>
+<html lang="en-gb">
 
 	<!-- HEADER -->
 	<head>
@@ -39,6 +42,21 @@
 				<div id="page-content-full">	        	
 					
 					<h1>Hello World</h1>
+
+					<?php
+						$parsedown = new Parsedown();
+						try {
+							$sql = "SELECT `name`,`desc` FROM AtoZ ORDER BY name";
+							
+							foreach ($dbh->query($sql) as $row) {
+								echo '<h3>'.$row['name'].'</h3>';
+								echo $parsedown->text($row['desc']);
+							}
+						}
+						catch (PDOException $e) {
+							echo $e->getMessage();
+						}
+					?>
 				
 				</div>
 				<!-- ENDS page content -->

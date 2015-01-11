@@ -1,7 +1,7 @@
 <?php
 	include '/home/a6325779/public_html/new/admin/checklogin.php';
 ?><!doctype html>
-<html lang="en-gb" class="no-js">
+<html lang="en-gb">
 
 	<!-- HEADER -->
 	<head>
@@ -14,7 +14,7 @@
 		
 	</head>
 	
-	<body lang="en">
+	<body lang="en" ontouchstart="">
 
 		<?php include '../includes/header.php'; ?>
 
