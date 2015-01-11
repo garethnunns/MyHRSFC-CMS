@@ -11,6 +11,11 @@
 	
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 1); 
 
+	@include breakpoint(papa-bear) { // mobile
+		position: static;
+		margin-top: 0;
+	}
+
 	span {
 		line-height: 69px;
 	}

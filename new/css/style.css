@@ -2,8 +2,26 @@
 @import url("social-icons.css");
 @import url("comments.css");
 @import url("elements.css");
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em,
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, hr,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup,
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+article, aside, canvas, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, audio, video {
+  display: block;
+}
+
 body {
   background: #ececec url("/img/site/body-pattern.png");
+  font: 13px/1.5em Helvetica, Arial, sans-serif;
   color: #555;
 }
 body .wrapper, body #main {
@@ -22,6 +40,11 @@ body #main #content {
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 }
+@media only screen and (max-width: 960px) {
+  body #main #content {
+    width: 100%;
+  }
+}
 body #main #content #masthead {
   position: relative;
   margin-top: -38px;
@@ -31,6 +54,12 @@ body #main #content #masthead {
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
   text-shadow: 0 -1px 1px black;
+}
+@media only screen and (max-width: 960px) {
+  body #main #content #masthead {
+    position: static;
+    margin-top: 0;
+  }
 }
 body #main #content #masthead span {
   line-height: 69px;
@@ -107,6 +136,11 @@ body #main .shadow-main {
   height: 11px;
   margin-left: 68px;
   background: url(../img/site/shadow-main.png) no-repeat top center;
+}
+@media only screen and (max-width: 960px) {
+  body #main .shadow-main {
+    display: none;
+  }
 }
 body .home-block-heading, body .block-heading {
   border-bottom: 1px solid #ccc;
@@ -187,6 +221,9 @@ body a {
 body a:hover {
   color: #6799c8;
 }
+body a img {
+  border: none;
+}
 body .imgleft .thumb {
   display: block;
   float: left;
@@ -226,6 +263,26 @@ body .centre {
 }
 body .clearfix {
   clear: both;
+}
+
+::selection {
+  background: #ffff9e;
+}
+
+::-moz-selection {
+  background: #ffff9e;
+}
+
+img::selection {
+  background: transparent;
+}
+
+img::-moz-selection {
+  background: transparent;
+}
+
+body {
+  -webkit-tap-highlight-color: #ffff9e;
 }
 
 #mobile-nav-holder {
@@ -299,13 +356,26 @@ header {
   box-shadow: 0 30px 100px 40px rgba(30, 30, 30, 0.4) inset;
   border-bottom: 4px solid #1c1d1d !important;
 }
+@media only screen and (max-width: 960px) {
+  header {
+    height: auto;
+  }
+}
 header #logo {
   display: block;
   padding-top: 40px;
   float: left;
 }
+@media only screen and (max-width: 960px) {
+  header #logo {
+    padding: 20px 10px;
+  }
+}
 header #logo:hover {
   opacity: 0.8;
+}
+header #logo img {
+  height: 60px;
 }
 
 nav {
@@ -316,6 +386,9 @@ nav a {
   text-decoration: none;
   color: #acacac;
   text-shadow: none;
+}
+nav h2 {
+  display: none;
 }
 nav #nav {
   margin-top: 40px;
@@ -449,12 +522,54 @@ nav #nav > li ul li a:hover {
 nav #nav > li ul li a span {
   display: block;
 }
+@media only screen and (max-width: 960px) {
+  nav {
+    display: block;
+    background: black url("../img/icons/menu.png") no-repeat right top;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    width: 50px;
+    height: 50px;
+    z-index: 20;
+  }
+  nav ul, nav li, nav h2 {
+    display: none;
+  }
+  nav:hover {
+    width: 100%;
+    height: auto;
+  }
+  nav:hover h2 {
+    display: block;
+  }
+  nav:hover #nav {
+    display: block;
+  }
+  nav:hover #nav li {
+    display: block;
+    height: auto;
+    width: 100%;
+    background-image: none;
+  }
+  nav:hover #nav li ul, nav:hover #nav li li {
+    display: block !important;
+    visibility: visible !important;
+    position: static !important;
+    width: 100% !important;
+  }
+}
 
 #social-cont {
   display: block;
   float: left;
   width: 68px;
   min-height: 1px;
+}
+@media only screen and (max-width: 960px) {
+  #social-cont {
+    display: none;
+  }
 }
 #social-cont #social-bar {
   display: block;
@@ -497,6 +612,11 @@ nav #nav > li ul li a span {
   -moz-transform-origin: left bottom;
   -o-transform-origin: left bottom;
   transform-origin: left bottom;
+}
+@media only screen and (max-width: 960px) {
+  #hrscside {
+    display: none;
+  }
 }
 
 #sidebar {

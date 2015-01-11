@@ -12,7 +12,7 @@
 		
 	</head>
 	
-	<body lang="en">
+	<body lang="en" ontouchstart="">
 
 		<?php include 'includes/header.php'; ?>
 

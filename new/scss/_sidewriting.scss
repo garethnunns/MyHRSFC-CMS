@@ -21,4 +21,8 @@
 	-moz-transform-origin: left bottom;
 	-o-transform-origin: left bottom;
  	transform-origin: left bottom;
+
+ 	@include breakpoint(papa-bear) {
+ 		display: none;
+ 	}
 }
