@@ -28,7 +28,6 @@
 
 		<script src="/js/jquery-1.6.4.min.js" type="text/javascript"></script>
 		<script src="/js/css3-mediaqueries.js" type="text/javascript"></script>
-		<!--  <script src="js/less-grid-4.js" type="text/javascript"></script> -->
 		<script src="/site/custom.js" type="text/javascript"></script>
 		<!-- not used? <script src="/js/tabs.js" type="text/javascript"></script> -->
 
@@ -66,10 +65,7 @@
 		<![endif]-->
 		
 		<!-- Lessgrid -->
-		<link rel="stylesheet" type="text/css" media="all" href="/css/lessgrid.css"/>
-		
-		<!-- modernizr -->
-		<!-- not used? <script src="/js/modernizr.js" type="text/javascript"></script> -->
+		<link rel="stylesheet" type="text/css" href="/css/lessgrid.css"/>
 
 		<!-- Google Analytic -->
     	<script>

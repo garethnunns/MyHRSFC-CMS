@@ -1,28 +1,22 @@
 #hrscside {
-	font-weight: bold;
-	font-size: 40px;
+	position: absolute;
+	left: 960px;
+	top: 0px;
+	display: block;
 	width: 800px;
 	overflow: hidden;
+
+	font-weight: bold;
+	font-size: 40px;
 	line-height: 40px;
-	position: absolute;
-	left: 920px;
-	top: 0px;
 	color: #C5C5C5;
 	text-shadow: -1px 0px 0px #fff;
 
-	-ms-transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	-o-transform: rotate(90deg);
-	transform: rotate(90deg);
+	// rotate with full support for all broswers
+	@include transform(rotate(90deg));
+ 	@include transform-origin(left,bottom);
 
-	-ms-transform-origin: left bottom;
-	-webkit-transform-origin: left bottom;
-	-moz-transform-origin: left bottom;
-	-o-transform-origin: left bottom;
- 	transform-origin: left bottom;
-
- 	@include breakpoint(papa-bear) {
+ 	@include breakpoint(papa-bear) { // hide on mobiles
  		display: none;
  	}
 }

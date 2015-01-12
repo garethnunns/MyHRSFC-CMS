@@ -1,11 +1,11 @@
 #social-cont { // the container that sticks
 	display: block;
 	float: left;
-	width: 68px;
+	width: 60px;
 	min-height: 1px;
 
 	@include breakpoint(papa-bear) {
-		display: none;
+		display: none !important;
 	}
 
 	#social-bar { // the container
@@ -16,7 +16,7 @@
 
 		ul {
 			display: block;
-			margin: 0 auto ;
+			margin: 0 auto;
 			width: 32px;
 
 			li{
