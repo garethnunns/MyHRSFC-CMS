@@ -39,18 +39,24 @@
 				
 				
 				<!-- page content -->
-				<div id="page-content-full">	        	
-					
-					<h1>Hello World</h1>
+				<div id="page-content-full">
 
 					<?php
 						$parsedown = new Parsedown();
+
 						try {
-							$sql = "SELECT `name`,`desc` FROM AtoZ ORDER BY name";
+							$sql = "SELECT * FROM pages WHERE `alias` = 'atoz'";
 							
 							foreach ($dbh->query($sql) as $row) {
-								echo '<h3>'.$row['name'].'</h3>';
-								echo $parsedown->text($row['desc']);
+								echo '<h2>'.htmlentities($row['title']).'</h2>';
+								echo $parsedown->text($row['body']);
+							}
+
+
+							$sql = "SELECT `content` FROM functions WHERE `name` LIKE 'AtoZ%'";
+							
+							foreach ($dbh->query($sql) as $row) {
+								eval($row['content']);
 							}
 						}
 						catch (PDOException $e) {
