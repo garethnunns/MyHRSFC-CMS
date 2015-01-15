@@ -100,24 +100,21 @@ body {
 
 		}
 
-		#page-content {
-			float: left;
-			width: 528px;
+		.page-content {
+			margin: 12px 24px 40px 24px;
+			position: relative;
+
+			@include breakpoint(papa-bear) {
+				margin-top: 6px;
+			}
 		}
 
-		#page-content, #page-content-full, #page-content-gall {
-			margin-left: 24px;
-			margin-top: 12px;
-			padding-bottom: 60px;
-		}
+		.hasaside {
+			padding-right: 250px;
 
-		#page-content-full {
-			margin-right: 24px;
-		}
-
-		#page-content-gall {
-			margin-right: 24px;
-			padding-bottom: 0px;
+			@include breakpoint(papa-bear) {
+				padding-right: 0;
+			}
 		}
 
 		.shadow-main{
@@ -170,18 +167,18 @@ body {
 		padding: 7px 0;
 	}
 	h3 {
-		font-size: 22px;
-		line-height: 22px;
+		font-size: 23px;
+		line-height: 23px;
 		padding: 6px 0;
 	}
 	h4 {
-		font-size: 18px;
-		line-height: 18px;
+		font-size: 20px;
+		line-height: 20px;
 		padding: 5px 0;
 	}
 	h5 {
-		font-size: 17px;
-		line-height: 17px;
+		font-size: 18px;
+		line-height: 18px;
 		padding: 5px 0;
 	}
 	h6 {
@@ -191,7 +188,7 @@ body {
 	}
 	p {
 		font-size: 14px;
-		line-height: 20px;
+		line-height: 18px;
 		padding: 4px 0;
 	}
 

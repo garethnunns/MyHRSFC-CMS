@@ -76,11 +76,26 @@ body #main #content #masthead {
 @media only screen and (max-width: 1000px) {
   body #main #content #masthead {
     position: static;
-    margin-top: 0;
+    margin-top: -30px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body #main #content #masthead {
+    margin-top: -25px;
   }
 }
 body #main #content #masthead span {
   line-height: 69px;
+}
+@media only screen and (max-width: 1000px) {
+  body #main #content #masthead span {
+    line-height: 55px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body #main #content #masthead span {
+    line-height: 40px;
+  }
 }
 body #main #content #masthead .head {
   font-family: helvetica, arial, sans-serif;
@@ -143,21 +158,22 @@ body #main #content .headline {
   background: #eaeaea;
   color: #444;
 }
-body #main #page-content {
-  float: left;
-  width: 528px;
+body #main .page-content {
+  margin: 12px 24px 40px 24px;
+  position: relative;
 }
-body #main #page-content, body #main #page-content-full, body #main #page-content-gall {
-  margin-left: 24px;
-  margin-top: 12px;
-  padding-bottom: 60px;
+@media only screen and (max-width: 1000px) {
+  body #main .page-content {
+    margin-top: 6px;
+  }
 }
-body #main #page-content-full {
-  margin-right: 24px;
+body #main .hasaside {
+  padding-right: 250px;
 }
-body #main #page-content-gall {
-  margin-right: 24px;
-  padding-bottom: 0px;
+@media only screen and (max-width: 1000px) {
+  body #main .hasaside {
+    padding-right: 0;
+  }
 }
 body #main .shadow-main {
   width: 100%;
@@ -202,18 +218,18 @@ body h2 {
   padding: 7px 0;
 }
 body h3 {
-  font-size: 22px;
-  line-height: 22px;
+  font-size: 23px;
+  line-height: 23px;
   padding: 6px 0;
 }
 body h4 {
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 20px;
+  line-height: 20px;
   padding: 5px 0;
 }
 body h5 {
-  font-size: 17px;
-  line-height: 17px;
+  font-size: 18px;
+  line-height: 18px;
   padding: 5px 0;
 }
 body h6 {
@@ -223,7 +239,7 @@ body h6 {
 }
 body p {
   font-size: 14px;
-  line-height: 20px;
+  line-height: 18px;
   padding: 4px 0;
 }
 body h1.heading, body h2.heading, body h3.heading, body h4.heading, body h5.heading, body h6.heading {
@@ -330,6 +346,12 @@ header {
 @media only screen and (max-width: 1000px) {
   header {
     height: auto;
+    padding-bottom: 25px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  header {
+    padding-bottom: 15px;
   }
 }
 header #logo {
@@ -371,11 +393,11 @@ nav #nav li {
   display: inline;
   font-size: 16px;
   float: left;
-  -ms-transition: all 0.7s ease-out;
   -webkit-transition: all 0.7s ease-out;
-  -moz-transition: all 0.7s ease-out;
-  -o-transition: all 0.7s ease-out;
-  transition: all 0.7s ease-out;
+  -webkit-transition-delay: 0s;
+  -moz-transition: all 0.7s ease-out 0s;
+  -o-transition: all 0.7s ease-out 0s;
+  transition: all 0.7s ease-out 0s;
 }
 nav #nav li:first-child, nav #nav li.special-menu-item {
   background-image: none !important;
@@ -433,17 +455,17 @@ nav #nav > li > a {
   padding: 5px 10px 0px 10px;
   color: #f5f5f5;
   text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
-  -ms-transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  -webkit-transition-delay: 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 nav #nav > li > a .subheader {
   color: #DEDEDE;
   display: block;
   font-size: 11px;
-  margin-top: -8px;
+  margin-top: -10px;
   font-weight: lighter;
 }
 nav #nav > li > a.sf-sub-indicator {
@@ -479,11 +501,11 @@ nav #nav > li ul li a {
   font-size: 13px;
   color: #CCCCCC;
   text-decoration: none;
-  -ms-transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
+  -webkit-transition-delay: 0s;
+  -moz-transition: all 0.2s linear 0s;
+  -o-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
 }
 nav #nav > li ul li a:hover {
   padding: 10px 10px 10px 20px;
@@ -591,34 +613,28 @@ nav #nav > li ul li a span {
   }
 }
 
-#sidebar {
-  width: 252px;
-  float: left;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  margin-left: 24px;
-}
-#sidebar .block {
-  padding: 16px;
+.sidebar {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 230px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 5px 15px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
   background: #eaeaea;
-  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 24px;
 }
-#sidebar .block a {
-  color: #444;
-  text-decoration: none;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-#sidebar .block a:hover {
-  color: #6799c8;
-}
-#sidebar .block h4 {
-  margin-bottom: 10px;
+@media only screen and (max-width: 1000px) {
+  .sidebar {
+    position: static;
+    width: 96%;
+    max-width: 600px;
+    padding: 5px 1%;
+    margin: 15px auto 0;
+  }
 }
 
 .featured {
@@ -791,7 +807,7 @@ footer .wrapper #footer-cols > li {
   margin-left: 30px;
 }
 footer .wrapper #footer-cols > li.third-col {
-  width: 274px;
+  text-align: center;
 }
 footer .wrapper #footer-cols > li.third-col img {
   display: block;
@@ -804,8 +820,8 @@ footer .wrapper #footer-cols > li.third-col img {
     margin-left: 4%;
   }
   footer .wrapper #footer-cols > li.third-col {
+    padding-top: 10px;
     width: 92%;
-    text-align: center;
   }
   footer .wrapper #footer-cols > li.third-col img {
     width: auto;

@@ -24,11 +24,7 @@ nav { // nav container
 			font-size: 16px;
 			float: left;
 
-			-ms-transition: all 0.7s ease-out;
-			-webkit-transition: all 0.7s ease-out;
-			-moz-transition: all 0.7s ease-out;
-			-o-transition: all 0.7s ease-out;
-			transition: all 0.7s ease-out;
+			@include single-transition(all, 0.7s, ease-out, 0s);
 
 			&:first-child, &.special-menu-item { // not dropdowns
 				background-image: none !important;
@@ -98,17 +94,13 @@ nav { // nav container
 				
 				text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
 				
-				-ms-transition: all 0.3s ease;
-				-webkit-transition: all 0.3s ease;
-				-moz-transition: all 0.3s ease;
-				-o-transition: all 0.3s ease;
-				transition: all 0.3s ease;
+				@include single-transition(all, 0.3s, ease, 0s);
 
 				.subheader {
 					color: #DEDEDE;
 					display: block;
 					font-size: 11px;
-					margin-top: -8px;
+					margin-top: -10px;
 					font-weight: lighter;
 				}
 
@@ -144,7 +136,7 @@ nav { // nav container
 				li {
 					border-bottom: 1px solid #151515;
 
-					a{
+					a {
 						display: block;
 						padding: 10px 15px;
 						display: block;
@@ -152,11 +144,7 @@ nav { // nav container
 						color: #CCCCCC;
 						text-decoration: none;
 
-						-ms-transition: all 0.2s linear;
-						-webkit-transition: all 0.2s linear;
-						-moz-transition: all 0.2s linear;
-						-o-transition: all 0.2s linear;
-						transition: all 0.2s linear;
+						@include single-transition(all, 0.2s, linear, 0s);
 
 						&:hover {
 							padding: 10px 10px 10px 20px;

@@ -4,20 +4,28 @@
 	background: #1c1d1d;
 	
 	padding-left: 24px;
-	
-	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,.5); 
-	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,.5); 
-	box-shadow: 0px 0px 4px rgba(0,0,0,.5);
+
+	@include box-shadow(0px 0px 4px rgba(0,0,0,.5));
 	
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 1); 
 
 	@include breakpoint(papa-bear) {
 		position: static;
-		margin-top: 0;
+		margin-top: -30px;
+	}
+	@include breakpoint(mid-bear) {
+		margin-top: -25px;
 	}
 
 	span {
 		line-height: 69px;
+
+		@include breakpoint(papa-bear) {
+			line-height: 55px;
+		}
+		@include breakpoint(mid-bear) {
+			line-height: 40px;
+		}
 	}
 
 	.head {
