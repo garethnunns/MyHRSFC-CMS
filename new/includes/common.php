@@ -4,16 +4,23 @@
 
 	$parsedown = new Parsedown();
 
+	function write($content) { // outputting markdown, allowing HTML tags but encoding special characters, like £, etc.
+		global $parsedown;
+
+		echo htmlspecialchars_decode(htmlentities($parsedown->text($content)));
+		//echo $parsedown->text($content);
+	}
+
 	function outputContent($body,$markdown = true) {
 	// output content that includes functions, with or with out markdown parsed
 
-		global $parsedown, $dbh;
+		global $dbh;
 
 		$body = explode("{",$body);
 
 		foreach ($body as $key => $content) { // to execute functions
 			if($key == 0) { // everything / before first function
-				if ($markdown) echo $parsedown->text($content);
+				if ($markdown) write($content);
 				else echo $content;
 			}
 			else {
@@ -60,7 +67,7 @@
 					echo "<p>There was an error parsing the functon: $function </p>";
 				}
 
-				if($markdown) echo $parsedown->text($text);
+				if($markdown) write($text);
 				else echo $text;
 			}
 		}

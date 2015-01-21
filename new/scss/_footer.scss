@@ -26,11 +26,12 @@ footer {
 					img {
 						display: block;
 						width: 200px;
-						margin: 10px;
+						margin: 10px auto;
 					}
 				}
 
 				@include breakpoint(papa-bear) {
+					// 2 above, one below:
 					// |    |    |
 					// -----------
 					// |         |

@@ -8,22 +8,19 @@
 						<div class="widget-block">
 							<h4>Quick Contact</h4>
 							<div class="recent-post">
-								<a href="#" target="_blank" class="thumb"><img src="//placehold.it/50" width="50" alt="Profile" /></a>
-								<div class="post-head">
-									<a href="#" target="_blank">Chair</a><span>Chair's name</span>
-								</div>
+								<img src="//placehold.it/100" alt="Profile" class="thumb small" />
+								<h6>Chair's name</h6>
+								<p><a href="#" target="_blank">Email the chair</a></p>
 							</div>
 							<div class="recent-post">
-								<a href="#" target="_blank" class="thumb"><img src="//placehold.it/50" width="50" alt="Profile" /></a>
-								<div class="post-head">
-									<a href="#" target="_blank">Vice Chair</a><span>Vice Chair's name</span>
-								</div>
+								<img src="//placehold.it/100" alt="Profile" class="thumb small" />
+								<h6>Vice chair's name</h6>
+								<p><a href="#" target="_blank">Email the vice chair</a></p>
 							</div>
 							<div class="recent-post">
-								<a href="#" target="_blank" class="thumb"><img src="//placehold.it/50" width="50" alt="Profile" /></a>
-								<div class="post-head">
-									<a href="#" target="_blank">Web Design / Webmaster</a><span>Webmaster's Name</span>
-								</div>
+								<img src="//placehold.it/100" alt="Profile" class="thumb small" />
+								<h6>Webmaster's name</h6>
+								<p><a href="#" target="_blank">Email the webmaster</a></p>
 							</div>
 						</div>
 
@@ -44,7 +41,7 @@
 					<li class="third-col">
 						
 						<img src = "/img/site/studentcouncil.png" alt = "Student Council, Hills Road Sixth Form College" />
-						<a href = "http://www.hrsfc.ac.uk/"><img src = "/img/site/hrsfc.png" alt = "Hills Road Sixth Form College, Cambridge" /></a><br />
+						<a href = "http://www.hrsfc.ac.uk/"><img src = "/img/site/hrsfc.png" alt = "Hills Road Sixth Form College, Cambridge" /></a>
 						<p style = "text-align: center; font-size: 11px; line-height: 16px">This website is run solely by the Hills Road Sixth Form College Student Council. It does not reflect the views or opinions of Hills Road Sixth Form College.</p>
 
 		         		

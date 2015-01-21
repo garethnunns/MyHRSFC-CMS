@@ -250,10 +250,6 @@ body #bigp {
   font-weight: 300;
   line-height: 130%;
 }
-body .alignleftintext {
-  float: left;
-  margin: 3px 6px 0px 0px;
-}
 body a {
   text-decoration: none;
   color: #333;
@@ -270,17 +266,41 @@ body a:hover {
 body a img {
   border: none;
 }
-body .imgleft .thumb {
-  display: block;
+body img {
+  width: 100%;
+}
+body .arrow {
   float: left;
-  line-height: 0em;
-  background: #fff;
+  width: 15px;
+  margin-right: 5px;
+}
+body .alignleftintext {
+  float: left;
+  margin: 3px 6px 0px 0px;
+}
+body .thumb {
+  float: left;
+  width: 100px;
+  margin: 7px 20px 10px 0;
   padding: 3px;
-  margin-bottom: 10px;
-  margin-right: 20px;
+  background-color: white;
   -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+}
+body .thumb.small {
+  width: 40px;
+  padding: 2px;
+  margin: 4px 10px 4px 4px;
+}
+body .imgleft {
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  -moz-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6);
 }
 body .who {
   display: block;
@@ -293,6 +313,11 @@ body .who {
   -webkit-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
+}
+@media only screen and (max-width: 768px) {
+  body .facebook {
+    display: none;
+  }
 }
 body .centre {
   display: block;
@@ -613,11 +638,11 @@ nav #nav > li ul li a span {
   }
 }
 
-.sidebar {
+aside {
   position: absolute;
   right: -10px;
   top: 0;
-  width: 230px;
+  width: 220px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   padding: 5px 15px;
   -webkit-border-radius: 3px;
@@ -628,7 +653,7 @@ nav #nav > li ul li a span {
   background: #eaeaea;
 }
 @media only screen and (max-width: 1000px) {
-  .sidebar {
+  aside {
     position: static;
     width: 96%;
     max-width: 600px;
@@ -812,7 +837,7 @@ footer .wrapper #footer-cols > li.third-col {
 footer .wrapper #footer-cols > li.third-col img {
   display: block;
   width: 200px;
-  margin: 10px;
+  margin: 10px auto;
 }
 @media only screen and (max-width: 1000px) {
   footer .wrapper #footer-cols > li {
@@ -868,19 +893,6 @@ footer #to-top:hover {
   -moz-transition: all 0.1s ease;
   -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
-}
-.recent-post:hover {
-  background: #eee;
-}
-.recent-post .thumb {
-  display: block;
-  float: left;
-  line-height: 0em;
-  background: #fff;
-  padding: 3px;
-  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 .recent-post .post-head {
   float: left;
@@ -1051,12 +1063,3 @@ footer #to-top:hover {
   clear: right;
   margin: 20px 15px 20px 10px;
 }
-
-/* ADDITONAL CRAP  ------------------------------------------------------------*/
-/*.imgleft{
-	overflow: hidden;
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
-	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6);
-} */

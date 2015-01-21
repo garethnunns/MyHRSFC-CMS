@@ -36,7 +36,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title><?php echo $page->meta_title; ?> | Hills Road Sixth Form College</title>
+		<title><?php echo $page->meta_title; ?> | MyHRSFC</title>
 
 		<!--<meta name="description" content="Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council" />-->
 
@@ -60,7 +60,12 @@
 			
 			<!-- Content -->
 			<div id="content">
-			
+
+<?php
+
+	if(($page->title != "") || ($page->sidebar != "")) {
+?>
+
 				<!-- masthead -->
 				<div id="masthead">
 					<span class="head"><?php echo $page->title; ?></span><span class="subhead"><?php echo $page->subtitle; ?></span>
@@ -73,11 +78,14 @@
 				<!-- page content -->
 				<div class="page-content <?php if(($page->assoc_councillor!="") || ($page->sidebar!="")) echo 'hasaside'; ?>">
 
-<?php 
-	outputContent($page->body); 
+<?php
+	}
+
+	if($page->editor) outputContent($page->body); 
+	else outputContent($page->body,false);
 
 	if(($page->assoc_councillor!="") || ($page->sidebar!="")) {
-		echo '<aside class="sidebar">';
+		echo '<aside>';
 
 		if ($page->assoc_councillor != "") {
 			try {
@@ -118,11 +126,14 @@
 		}
 		echo '</aside><div class="clearfix"></div>';
 	}
+
+	if(($page->title != "") || ($page->sidebar != "")) {
 ?>
-				
 				</div>
 				<!-- ENDS page content -->
-			
+<?php
+	}
+?>
 			</div>
 			<!-- ENDS content -->
 			

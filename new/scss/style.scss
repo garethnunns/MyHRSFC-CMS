@@ -203,11 +203,6 @@ body {
 		line-height:130%;
 	}
 
-	.alignleftintext { // aligns imgs left in text
-		float: left;
-		margin: 3px 6px 0px 0px;
-	}
-
 	a {
 		text-decoration: none;
 		color: #333;
@@ -227,20 +222,41 @@ body {
 		}
 	}
 
-	.imgleft .thumb {
-		display: block;
+	img {
+		width: 100%;
+	}
+
+	.arrow { // arrow icon
 		float: left;
-		line-height: 0em;
-		background: #fff;
+		width: 15px;
+		margin-right: 5px;
+	}
+
+	.alignleftintext { // aligns imgs left in text
+		float: left;
+		margin: 3px 6px 0px 0px;
+	}
+
+	.thumb {
+		float: left;
+		width: 100px;
+		margin: 7px 20px 10px 0;
 		padding: 3px;
-		
+		background-color: white;
+		@include box-shadow(0px 0px 4px rgba(0,0,0,.3));
+		&.small {
+			width: 40px;
+			padding: 2px;
+			margin: 4px 10px 4px 4px;
+		}
+	}
+
+	.imgleft {
+		overflow: hidden;
 		margin-bottom: 10px;
-		margin-right: 20px;
-		
-		-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,.3); 
-		-moz-box-shadow: 0px 0px 4px rgba(0,0,0,.3); 
-		box-shadow: 0px 0px 4px rgba(0,0,0,.3); 
-		
+		padding-bottom: 10px;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		@include box-shadow(0 1px 0 0 rgba(255, 255, 255, 0.6));
 	}
 
 	.who {
@@ -256,6 +272,12 @@ body {
 		-webkit-box-shadow: 0px 0px 7px rgba(0,0,0,.4); 
 		-moz-box-shadow: 0px 0px 7px rgba(0,0,0,.4); 
 		box-shadow: 0px 0px 7px rgba(0,0,0,.4); 
+	}
+
+	@include breakpoint(mama-bear) {
+		.facebook {
+			display: none;
+		}
 	}
 
 	.centre {
@@ -290,7 +312,7 @@ body {-webkit-tap-highlight-color: rgb(255,255,158);}
 
 @import '_socialbar.scss';
 @import '_sidewriting.scss';
-@import '_sidebar.scss';
+@import '_aside.scss';
 
 // bottom of home and other pages
 @import '_featured.scss';
@@ -697,13 +719,3 @@ aside.retractil #sidebar-content a:hover{
 	font-style:italic;
 }
 */
-
-/* ADDITONAL CRAP  ------------------------------------------------------------*/
-
-/*.imgleft{
-	overflow: hidden;
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
-	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6);
-} */
