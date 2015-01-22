@@ -222,14 +222,18 @@ body {
 		}
 	}
 
-	img {
-		width: 100%;
+	ul {
+		list-style: disc inside url("/img/icons/right-small.png");
 	}
 
 	.arrow { // arrow icon
 		float: left;
 		width: 15px;
 		margin-right: 5px;
+	}
+
+	img {
+		width: 100%;
 	}
 
 	.alignleftintext { // aligns imgs left in text

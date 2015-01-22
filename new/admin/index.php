@@ -38,11 +38,13 @@
 				
 				
 				<!-- page content -->
-				<div id="page-content-full">	        	
+				<div class="page-content">	        	
 					
-					<h1>Logged in</h1>
+					<h1>Welcome to the MyHRSFC CMS</h1>
 
-					<h2>User ID: <?php echo $_SESSION['user']; ?></h2>
+					<h2>Users</h2>
+
+					<p><a href="manage.php">Manage all users</a></p>
 				
 				</div>
 				<!-- ENDS page content -->

@@ -266,13 +266,16 @@ body a:hover {
 body a img {
   border: none;
 }
-body img {
-  width: 100%;
+body ul {
+  list-style: disc inside url("/img/icons/right-small.png");
 }
 body .arrow {
   float: left;
   width: 15px;
   margin-right: 5px;
+}
+body img {
+  width: 100%;
 }
 body .alignleftintext {
   float: left;
@@ -655,9 +658,9 @@ aside {
 @media only screen and (max-width: 1000px) {
   aside {
     position: static;
-    width: 96%;
+    width: 90%;
     max-width: 600px;
-    padding: 5px 1%;
+    padding: 5px 5%;
     margin: 15px auto 0;
   }
 }

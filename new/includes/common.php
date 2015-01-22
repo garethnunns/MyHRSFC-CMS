@@ -4,11 +4,11 @@
 
 	$parsedown = new Parsedown();
 
-	function write($content) { // outputting markdown, allowing HTML tags but encoding special characters, like £, etc.
+	function write($content) {
+	// outputting markdown, allowing HTML tags but encoding special characters, like £, etc.
 		global $parsedown;
 
 		echo htmlspecialchars_decode(htmlentities($parsedown->text($content)));
-		//echo $parsedown->text($content);
 	}
 
 	function outputContent($body,$markdown = true) {
@@ -71,6 +71,33 @@
 				else echo $text;
 			}
 		}
+	}
+
+	function navBar() {
+		include 'includes/header.php';
+	}
+
+	function globalContentBlock($name) {
+	// outputs the global content block with the name
+
+		global $dbh;
+
+		try {
+			$gcbsth = $dbh->prepare('SELECT `content`
+				FROM gcb
+				WHERE `name` = ? LIMIT 1');
+			$gcbsth->bindValue(1, $name, PDO::PARAM_STR);
+			$gcbsth->execute();
+
+			$gcb = $gcbsth->fetch(PDO::FETCH_OBJ);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+
+		$count = $gcbsth->rowCount();
+		if($count) echo $gcb->content;
+		else echo "Function '$name' not found";
 	}
 
 ?>

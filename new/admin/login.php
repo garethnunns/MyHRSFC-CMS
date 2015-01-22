@@ -79,7 +79,7 @@
 				
 				
 				<!-- page content -->
-				<div id="page-content-full">
+				<div class="page-content">
 					<form method="POST">
 						<h2>Please log in</h2>
 

@@ -7,7 +7,7 @@
 	try {
 		$sth = $dbh->prepare('SELECT *
 			FROM pages
-			WHERE alias = ? AND active');
+			WHERE alias = ? AND active LIMIT 1');
 		$sth->bindValue(1, $page, PDO::PARAM_STR);
 		$sth->execute();
 
@@ -19,7 +19,7 @@
 		else {
 			$sql = 'SELECT *
 				FROM pages
-				WHERE alias = "404"';
+				WHERE alias = "404" LIMIT 1';
 
 			$sth = $dbh->query($sql);
 
@@ -36,14 +36,17 @@
 	<!-- HEADER -->
 	<head>
 
-		<title><?php echo $page->meta_title; ?> | MyHRSFC</title>
+		<title><?php 
+			if(!empty($page->meta_title)) echo $page->meta_title;
+			else echo $page->title; 
+		?> | MyHRSFC</title>
 
 		<!--<meta name="description" content="Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council" />-->
 
 		<meta name="description" content="<?php outputContent($page->desc,false); ?>">
 
 <?php 
-	include 'includes/head.php';
+	globalContentBlock('head');
 	echo $page->special_head;
 ?>
 		
@@ -51,12 +54,12 @@
 	
 	<body lang="en" ontouchstart="">
 
-		<?php include 'includes/header.php'; ?>
+		<?php navbar(); ?>
 
 		<!-- MAIN -->
 		<div id="main">
 				
-			<?php include 'includes/social.php'; ?>
+			<?php globalContentBlock('social'); globalContentBlock('sidewriting'); ?>
 			
 			<!-- Content -->
 			<div id="content">
@@ -141,7 +144,7 @@
 			<div class="shadow-main"></div>
 		</div>
 	
-	<?php include 'includes/footer.php'; ?>
+	<?php globalContentBlock('footer'); $dbh = null; ?>
 
 	</body>
 </html>

@@ -10,9 +10,9 @@ aside {
 
 	@include breakpoint(papa-bear) {
 		position: static;
-		width: 96%;
+		width: 90%;
 		max-width: 600px;
-		padding: 5px 1%;
+		padding: 5px 5%;
 		margin: 15px auto 0;
 	}
 }
