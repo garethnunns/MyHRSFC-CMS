@@ -1,5 +1,5 @@
 <?php
-	include '/home/a6325779/public_html/new/admin/checklogin.php';
+	include 'checklogin.php';
 ?><!doctype html>
 <html lang="en-gb">
 
@@ -8,20 +8,18 @@
 
 		<title>Admin | Hills Road Sixth Form College</title>
 
-		<meta name="description" content="Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council" />
-
-		<?php include '../includes/head.php'; ?>
+		<?php globalContentBlock('head'); ?>
 		
 	</head>
 	
 	<body lang="en" ontouchstart="">
 
-		<?php include '../includes/header.php'; ?>
+		<?php navbar(); ?>
 
 		<!-- MAIN -->
 		<div id="main">
 				
-			<?php include '../includes/social.php'; ?>
+			<?php globalContentBlock('social'); globalContentBlock('sidewriting'); ?>
 			
 			<!-- Content -->
 			<div id="content">
@@ -56,7 +54,7 @@
 			<div class="shadow-main"></div>
 		</div>
 	
-	<?php include '../includes/footer.php'; ?>
+	<?php globalContentBlock('footer'); $dbh = null; ?>
 
 	</body>
 </html>

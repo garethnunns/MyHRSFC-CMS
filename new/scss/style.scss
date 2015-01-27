@@ -6,7 +6,7 @@
 
 @import "compass/css3";
 
-@mixin breakpoint($point) {
+@mixin breakpoint($point) { // ex: @include breakpoint(papa-bear) { content }
 	@if $point == tiny-bear {
 		@media only screen and (max-width: 320px)  { @content; }
 	}
@@ -27,7 +27,7 @@
 	}
 }
 
-// ex: @include breakpoint(papa-bear) { 
+$red: #DF3A5A;
 
 // resetting
 
@@ -190,6 +190,10 @@ body {
 		font-size: 14px;
 		line-height: 18px;
 		padding: 4px 0;
+
+		&.error {
+			color: $red;
+		}
 	}
 
 
@@ -234,6 +238,10 @@ body {
 
 	img {
 		width: 100%;
+	}
+
+	.councimg {
+		max-width: 100px;
 	}
 
 	.alignleftintext { // aligns imgs left in text
@@ -299,6 +307,40 @@ body {
 	}
 
 	.clearfix { clear:both; }
+
+	table {
+		border-collapse: collapse;
+
+		td,th {
+			border: 1px solid #dadada;
+			padding: 5px 8px;
+			padding: 5px;
+			vertical-align: middle;
+		}
+	}
+
+	input {
+		border: none;
+		border-bottom: 1px solid #aaa;
+		background: transparent;
+		font-size: 12px;
+		&:focus {
+			outline: none;
+			border-bottom: 1px solid #000;
+		}
+		&[type="file"] {
+			width: 100px;
+			margin: 3px auto;
+			border-bottom: none;
+		}
+		&[type="submit"] {
+			padding: 3px 10px;
+			font-size: 13px;
+			&:hover {
+				border-bottom: 1px solid #000;
+			}
+		}
+	}
 }
 
 // selection colours

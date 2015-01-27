@@ -1,5 +1,5 @@
 <?php
-	include '../includes/secure.php';
+	require_once '../includes/common.php';
 	session_start();
 	if(isset($_SESSION['user'])) header('Location: /admin/index.php');
 	else {
@@ -48,20 +48,20 @@
 
 		<title>Admin Login | Hills Road Sixth Form College</title>
 
-		<meta name="description" content="Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council" />
+		<meta name="description" content="Login to edit the pages of the website" />
 
-		<?php include '../includes/head.php'; ?>
+		<?php globalContentBlock('head'); ?>
 		
 	</head>
 	
 	<body lang="en" ontouchstart="">
 
-		<?php include '../includes/header.php'; ?>
+		<?php navbar(); ?>
 
 		<!-- MAIN -->
 		<div id="main">
 				
-			<?php include '../includes/social.php'; ?>
+			<?php globalContentBlock('social'); globalContentBlock('sidewriting'); ?>
 			
 			<!-- Content -->
 			<div id="content">
@@ -76,14 +76,12 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
 				<div class="page-content">
 					<form method="POST">
 						<h2>Please log in</h2>
 
-						<?php if($error) echo "<p>An error occured, please try again</p>"; ?>
+						<?php if($error) echo '<p class="error">An error occured, please try again</p>'; ?>
 
 						<p>Email: <input type="email" name="email" placeholder="email@address.com" <?php if(isset($email)) echo 'value="'.$email.'"'; ?> /></p>
 						<p>Password: <input type="password" name="password" placeholder="Password" /></p>
@@ -100,7 +98,7 @@
 			<div class="shadow-main"></div>
 		</div>
 	
-	<?php include '../includes/footer.php'; ?>
+	<?php globalContentBlock('footer'); $dbh = null; ?>
 
 	</body>
 </html>

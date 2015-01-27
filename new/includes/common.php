@@ -1,6 +1,7 @@
 <?php
-	include 'includes/parsedown.php';
-	include 'includes/secure.php';
+
+	require_once dirname(__FILE__).'/secure.php';
+	require_once dirname(__FILE__).'/parsedown.php';
 
 	$parsedown = new Parsedown();
 
@@ -74,7 +75,7 @@
 	}
 
 	function navBar() {
-		include 'includes/header.php';
+		require_once dirname(__FILE__).'/header.php';
 	}
 
 	function globalContentBlock($name) {

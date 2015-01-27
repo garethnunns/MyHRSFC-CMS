@@ -242,6 +242,9 @@ body p {
   line-height: 18px;
   padding: 4px 0;
 }
+body p.error {
+  color: #df3a5a;
+}
 body h1.heading, body h2.heading, body h3.heading, body h4.heading, body h5.heading, body h6.heading {
   margin-bottom: 21px;
 }
@@ -276,6 +279,9 @@ body .arrow {
 }
 body img {
   width: 100%;
+}
+body .councimg {
+  max-width: 100px;
 }
 body .alignleftintext {
   float: left;
@@ -337,6 +343,37 @@ body .centre {
 }
 body .clearfix {
   clear: both;
+}
+body table {
+  border-collapse: collapse;
+}
+body table td, body table th {
+  border: 1px solid #dadada;
+  padding: 5px 8px;
+  padding: 5px;
+  vertical-align: middle;
+}
+body input {
+  border: none;
+  border-bottom: 1px solid #aaa;
+  background: transparent;
+  font-size: 12px;
+}
+body input:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+body input[type="file"] {
+  width: 100px;
+  margin: 3px auto;
+  border-bottom: none;
+}
+body input[type="submit"] {
+  padding: 3px 10px;
+  font-size: 13px;
+}
+body input[type="submit"]:hover {
+  border-bottom: 1px solid #000;
 }
 
 ::selection {

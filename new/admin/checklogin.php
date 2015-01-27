@@ -1,5 +1,5 @@
 <?php
-	include '../includes/secure.php';
+	require_once dirname(__FILE__).'/../includes/common.php';
 
 
 	session_start();
