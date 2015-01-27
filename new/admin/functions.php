@@ -11,13 +11,13 @@
 		if(($sudo) || ($user == $id)) {
 
 			$toUpload = true;
-			$relFolder = '/img/profiles/';
-			$picturesFolder = '..'.$relFolder;
+			$absFolder = '/img/profiles/';
+			$relFolder = '..'.$absFolder;
 			$pictureExt = end((explode(".", $picture["name"])));
 
 
-			if(!file_exists($picturesFolder)) { // check to see if folder exists
-				if (!mkdir($picturesFolder, 0777, true)) { // tries to create folder
+			if(!file_exists($relFolder)) { // check to see if folder exists
+				if (!mkdir($relFolder, 0777, true)) { // tries to create folder
 					die('<p class="error">Failed to create the folder to store the photo in</p>');
 					$toUpload = false;
 				}
@@ -39,14 +39,20 @@
 			}
 
 			if($toUpload) {
-				$newName = 'councillors'.$id.'.'.$pictureExt;
-				if(move_uploaded_file($picture['tmp_name'], $picturesFolder.$newName)) {
-					echo $newName;
+				$newName = 'councillor'.$id.'.'.$pictureExt;
+				if(file_exists($relFolder.$newName)) unlink($relFolder.$newName);
+				if(move_uploaded_file($picture['tmp_name'], $relFolder.$newName)) {
+					include dirname(__FILE__).'/../includes/simpleimage.php';
+					$image = new SimpleImage();
+					$image->load($relFolder.$newName);
+					$image->resizeToWidth(100);
+					$image->save($relFolder.$newName);
+
 					try {
 						$picsth = $dbh->prepare("UPDATE councillors 
 							SET image = :imgpath
 							WHERE idcouncillors = :id");
-						$picsth->bindValue(':imgpath',$relFolder.$newName, PDO::PARAM_STR);
+						$picsth->bindValue(':imgpath',$absFolder.$newName, PDO::PARAM_STR);
 						$picsth->bindValue(':id',$id, PDO::PARAM_INT);
 						$picsth->execute();
 					}

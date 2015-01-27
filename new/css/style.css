@@ -19,6 +19,10 @@ footer, header, nav, section, audio, video {
   display: block;
 }
 
+table, tr, th, td, input, textarea {
+  box-sizing: border-box;
+}
+
 body {
   background: #ececec url("/img/site/body-pattern.png");
   font: 14px/1.5em Helvetica, Arial, sans-serif;
@@ -235,7 +239,7 @@ body h5 {
 body h6 {
   font-size: 16px;
   line-height: 16px;
-  padding: 5px 0;
+  padding: 4px 0;
 }
 body p {
   font-size: 14px;
@@ -343,51 +347,6 @@ body .centre {
 }
 body .clearfix {
   clear: both;
-}
-body table {
-  border-collapse: collapse;
-}
-body table td, body table th {
-  border: 1px solid #dadada;
-  padding: 5px 8px;
-  padding: 5px;
-  vertical-align: middle;
-}
-body input, body textarea {
-  font-size: 12px;
-  background: transparent;
-}
-body input {
-  border: none;
-  border-bottom: 1px solid #aaa;
-}
-body input:focus {
-  outline: none;
-  border-bottom: 1px solid #000;
-}
-body input.small {
-  max-width: 90px;
-}
-body input[type="file"] {
-  width: 100px;
-  margin: 3px auto;
-  border-bottom: none;
-}
-body input[type="submit"] {
-  padding: 3px 10px;
-  font-size: 13px;
-}
-body input[type="submit"]:hover {
-  border-bottom: 1px solid #000;
-}
-body select {
-  max-width: 125px;
-}
-body textarea {
-  width: 150px;
-  height: 300px;
-  border: 1px solid #aaa;
-  resize: vertical;
 }
 
 ::selection {
@@ -863,6 +822,137 @@ aside {
 }
 .related-projects .related-list figure .heading:hover, .related-projects .related-list figure .heading:hover * {
   color: #6799c8 !important;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table th {
+  font-family: Ubuntu, helvetica, arial, sans-serif;
+  color: #444;
+}
+table td, table th {
+  border: 1px solid #dadada;
+  padding: 5px 8px;
+  padding: 5px;
+  vertical-align: middle;
+}
+table td.image, table th.image {
+  width: 240px;
+}
+@media only screen and (max-width: 1000px) {
+  table td.image, table th.image {
+    width: auto;
+  }
+}
+table img.thumb {
+  margin-right: 10px;
+}
+@media only screen and (max-width: 768px) {
+  table.responsive tr:first-child {
+    display: none;
+  }
+  table.responsive td {
+    display: block;
+    border: none;
+    float: left;
+    width: 48%;
+  }
+  table.responsive td:nth-child(2n+1) {
+    clear: both;
+  }
+  table.responsive td:last-child {
+    width: 100%;
+  }
+  table.responsive td:nth-child(2n) {
+    width: 48%;
+  }
+  table.responsive tr {
+    padding-bottom: 10px;
+    border-bottom: 3px dotted #dadada;
+  }
+}
+@media only screen and (max-width: 600px) {
+  table.responsive td {
+    width: 100% !important;
+  }
+}
+
+input, textarea {
+  font-size: 12px;
+  background: transparent;
+}
+
+.success {
+  -webkit-animation: success 1s ease-out;
+  animation: success 1s ease-out;
+}
+
+@-webkit-keyframes success {
+  0% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: #3adf5b;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes success {
+  0% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: #3adf5b;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid #aaa;
+}
+input:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+input.small {
+  max-width: 90px;
+}
+input[type="file"] {
+  width: 100px;
+  margin: 3px auto;
+  border-bottom: none;
+}
+input[type="submit"] {
+  padding: 3px 10px;
+  font-size: 13px;
+}
+input[type="submit"]:hover {
+  border-bottom: 1px solid #000;
+}
+
+select {
+  max-width: 125px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #aaa;
+  resize: vertical;
+}
+textarea.small {
+  height: 50px;
 }
 
 footer {

@@ -43,6 +43,8 @@
 					<h2>Users</h2>
 
 					<p><a href="manage.php">Manage all users</a></p>
+
+					<p><a href="logout.php">Logout</a></p>
 				
 				</div>
 				<!-- ENDS page content -->

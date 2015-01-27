@@ -11,11 +11,4 @@
 		$user = $_SESSION['user'];
 		$sudo = $_SESSION['sudo'];
 	}
-
-	function sudoOnly($allowed) {
-		if(!$allowed) {
-			header('/admin');
-			exit();
-		}
-	}
 ?>

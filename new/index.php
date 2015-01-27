@@ -106,7 +106,7 @@
 
 					// display their photo and link it to their email if they have one
 					if(($councillor->email != "") && ($councillor->image != "")) echo '<a href="mailto:'. $councillor->email .'">';
-					if($councillor->image != "") echo '<img src="/img/profiles/'. $councillor->image .'" width="50" alt="" /></a>';
+					if($councillor->image != "") echo '<img src="'. $councillor->image .'" class="thumb small" alt="" /></a>';
 					if(($councillor->email != "") && ($councillor->image != "")) echo '</a>';
 
 					echo '<h3>';

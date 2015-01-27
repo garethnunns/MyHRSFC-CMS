@@ -27,6 +27,7 @@
 	}
 }
 
+$green: #3ADF5B;
 $red: #DF3A5A;
 
 // resetting
@@ -46,6 +47,10 @@ menu, footer, header, nav, section, summary, time, mark, audio, video {
 article, aside, canvas, figure, figure img, figcaption, hgroup,
 footer, header, nav, section, audio, video {
 	display: block;
+}
+
+table,tr,th,td,input,textarea {
+	box-sizing: border-box;
 }
 
 body {
@@ -184,7 +189,7 @@ body {
 	h6 {
 		font-size: 16px;
 		line-height: 16px;
-		padding: 5px 0;
+		padding: 4px 0;
 	}
 	p {
 		font-size: 14px;
@@ -307,57 +312,6 @@ body {
 	}
 
 	.clearfix { clear:both; }
-
-	table {
-		border-collapse: collapse;
-
-		td,th {
-			border: 1px solid #dadada;
-			padding: 5px 8px;
-			padding: 5px;
-			vertical-align: middle;
-		}
-	}
-
-	input, textarea {
-		font-size: 12px;
-		background: transparent;
-	}
-
-	input {
-		border: none;
-		border-bottom: 1px solid #aaa;
-		&:focus {
-			outline: none;
-			border-bottom: 1px solid #000;
-		}
-		&.small {
-			max-width: 90px;
-		}
-		&[type="file"] {
-			width: 100px;
-			margin: 3px auto;
-			border-bottom: none;
-		}
-		&[type="submit"] {
-			padding: 3px 10px;
-			font-size: 13px;
-			&:hover {
-				border-bottom: 1px solid #000;
-			}
-		}
-	}
-
-	select {
-		max-width: 125px;
-	}
-
-	textarea {
-		width: 150px;
-		height: 300px;
-		border: 1px solid #aaa;
-		resize: vertical;
-	}
 }
 
 // selection colours
@@ -381,6 +335,7 @@ body {-webkit-tap-highlight-color: rgb(255,255,158);}
 @import '_featured.scss';
 @import '_textposts.scss';
 @import '_related.scss';
+@import '_forms.scss';
 
 //footer stuff
 @import '_footer.scss';
