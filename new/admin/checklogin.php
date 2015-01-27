@@ -1,6 +1,6 @@
 <?php
 	require_once dirname(__FILE__).'/../includes/common.php';
-
+	require_once dirname(__FILE__).'/functions.php';
 
 	session_start();
 	if(!isset($_SESSION['user'])) {

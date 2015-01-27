@@ -353,15 +353,20 @@ body table td, body table th {
   padding: 5px;
   vertical-align: middle;
 }
+body input, body textarea {
+  font-size: 12px;
+  background: transparent;
+}
 body input {
   border: none;
   border-bottom: 1px solid #aaa;
-  background: transparent;
-  font-size: 12px;
 }
 body input:focus {
   outline: none;
   border-bottom: 1px solid #000;
+}
+body input.small {
+  max-width: 90px;
 }
 body input[type="file"] {
   width: 100px;
@@ -374,6 +379,15 @@ body input[type="submit"] {
 }
 body input[type="submit"]:hover {
   border-bottom: 1px solid #000;
+}
+body select {
+  max-width: 125px;
+}
+body textarea {
+  width: 150px;
+  height: 300px;
+  border: 1px solid #aaa;
+  resize: vertical;
 }
 
 ::selection {
