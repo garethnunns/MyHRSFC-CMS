@@ -26,7 +26,7 @@
 			
 				<!-- masthead -->
 				<div id="masthead">
-					<span class="head">Welcome</span><span class="subhead">New site</span>
+					<span class="head">MyHRSFC Admin</span><span class="subhead">Edit the site</span>
 					<ul class="breadcrumbs">
 						<li><a href="/admin/logout.php">logout</a></li>
 					</ul>
@@ -38,11 +38,13 @@
 				<!-- page content -->
 				<div class="page-content">	        	
 					
-					<h1>Welcome to the MyHRSFC CMS</h1>
+					<h1>Welcome to the MyHRSFC Admin</h1>
 
-					<h2>Users</h2>
+					<p><a href="users.php">Manage all users</a></p>
 
-					<p><a href="manage.php">Manage all users</a></p>
+					<p><a href="page.php">Add new page</a></p>
+
+					<p><a href="pages.php">Manage pages</a></p>
 
 					<p><a href="logout.php">Logout</a></p>
 				

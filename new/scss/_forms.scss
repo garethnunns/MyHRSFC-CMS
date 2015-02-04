@@ -67,11 +67,11 @@ table {
 input, textarea {
 	font-size: 12px;
 	background: transparent;
-}
 
-.success{
-	-webkit-animation: success 1s ease-out;
-	animation: success 1s ease-out;
+	&.success{
+		-webkit-animation: success 1s ease-out;
+		animation: success 1s ease-out;
+	}
 }
 
 @-webkit-keyframes success {

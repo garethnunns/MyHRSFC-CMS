@@ -27,7 +27,7 @@
 			
 				<!-- masthead -->
 				<div id="masthead">
-					<span class="head">Welcome</span><span class="subhead">New site</span>
+					<span class="head"><a href="/admin">Admin</a></span><span class="subhead">Manage Pages</span>
 					<ul class="breadcrumbs">
 						<li><a href="/admin/logout.php">logout</a></li>
 					</ul>
@@ -78,6 +78,18 @@
 		}
 	}
 
+	if(isset($_POST['role'])) {
+		try {
+			$sth = $dbh->prepare("INSERT INTO councillors_roles (rolename) 
+				VALUES (:role)");
+			$sth->bindValue(':name',$_POST['role'], PDO::PARAM_STR);
+			$sth->execute();
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
 	try {
 
 		$sql = "SELECT *
@@ -121,7 +133,7 @@
 				echo '<td>
 				<h6>Tutor</h6>
 				<p><select name="role" 
-				onchange="update('.$row['idcouncillors'].',\'bio\',this)" >';
+				onchange="update('.$row['idcouncillors'].',\'tutor\',this)" >';
 				tutorSelect($row['tutor']);
 				echo '</select></p>';
 				echo '<h6>Subjects</h6>
@@ -131,6 +143,8 @@
 				//echo '<td><p>'.$row['bio'].'</p></td>';
 				echo '<td><textarea name="bio" placeholder="Short biography.." 
 				onblur="update('.$row['idcouncillors'].',\'bio\',this)" >'.$row['bio'].'</textarea></td>';
+
+				echo '</tr>';
 			}
 		}
 		else echo '<tr><td colspan="6"><p>No councillors are currently active</p></td></tr>'; // shouldn't occur as you have to be logged on to see this page

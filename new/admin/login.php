@@ -20,15 +20,15 @@
 
 					$result = $sth->fetch(PDO::FETCH_OBJ);
 
-					if ($result->password == crypt($password, $result->password) ) {
+					if ($result->password == crypt($password, $result->password)) {
 						$_SESSION['user'] = $result->idcouncillors;
 						if($result->sudo) $_SESSION['sudo'] = true;
+						header('Location: ' . urldecode($_GET['goto']));
+						exit();
 					}
-					else{
+					else {
 						$error=true;
 					}
-
-					header('Location: ' . urldecode($_GET['goto']));
 				}
 				else {
 					$error=true;

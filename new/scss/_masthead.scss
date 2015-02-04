@@ -28,14 +28,23 @@
 		}
 	}
 
-	.head {
+	.head, .subhead {
 		font-family: helvetica, arial, sans-serif;
+		a {
+			color: #ddd;
+			text-shadow: none;
+			&:after { // add arrows after
+				content: " \00bb";
+			}
+		}
+	}
+
+	.head {
 		font-size: 21px;
 		color: #ddd;
 	}
 
 	.subhead {
-		font-family: helvetica, arial, sans-serif;
 		font-size: 13px;
 		color: #888;
 		margin-left: 21px;

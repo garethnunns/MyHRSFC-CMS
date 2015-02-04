@@ -73,25 +73,56 @@
 		$hash = crypt($password, $salt);
 	}
 
+	function isSpecial($alias) {
+		$special = array('index','404');
+		return in_array($alias,$special);
+	}
+
 	function roleSelect($id) {
 		global $dbh;
 
-		$rolesql = "SELECT * FROM councillors_roles ORDER BY rolename";
-		foreach($dbh->query($rolesql) as $role) {
-			echo '<option value="'.$role["idroles"].'" ';
-			if($id == $role["idroles"]) echo 'selected';
-			echo '>'.$role["rolename"].'</option>';
+		try {
+			$rolesql = "SELECT * FROM councillors_roles ORDER BY rolename";
+			foreach($dbh->query($rolesql) as $role) {
+				echo '<option value="'.$role["idroles"].'" ';
+				if($id == $role["idroles"]) echo 'selected';
+				echo '>'.$role["rolename"].'</option>';
+			}
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
 		}
 	}
 
 	function tutorSelect($tutor) {
 		global $dbh;
 
-		$tutsql = "SELECT * FROM tutors ORDER BY name";
-		foreach($dbh->query($tutsql) as $tut) {
-			echo '<option value="'.$tut["initials"].'" ';
-			if($tutor == $tut["initials"]) echo 'selected';
-			echo '>'.$tut["name"].'</option>';
+		try {
+			$tutsql = "SELECT * FROM tutors ORDER BY name";
+			foreach($dbh->query($tutsql) as $tut) {
+				echo '<option value="'.$tut["initials"].'" ';
+				if($tutor == $tut["initials"]) echo 'selected';
+				echo '>'.$tut["name"].'</option>';
+			}
 		}
-	}		
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	function councSelect($counc) {
+		global $dbh;
+
+		try {
+			$councsql = "SELECT * FROM councillors ORDER BY name";
+			foreach($dbh->query($councsql) as $councillor) {
+				echo '<option value="'.$councillor["idcouncillors"].'" ';
+				if($counc == $councillor["idcouncillors"]) echo 'selected';
+				echo '>'.$councillor["name"].'</option>';
+			}
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}	
 ?>

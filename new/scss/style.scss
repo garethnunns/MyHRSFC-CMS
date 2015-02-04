@@ -199,6 +199,9 @@ body {
 		&.error {
 			color: $red;
 		}
+		&.success {
+			color: $green;
+		}
 	}
 
 
@@ -228,6 +231,16 @@ body {
 
 		img {
 			border: none;
+		}
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	.nomobile {
+		@include breakpoint(mid-bear) {
+			display: none;
 		}
 	}
 
