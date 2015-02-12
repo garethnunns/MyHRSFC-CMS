@@ -126,7 +126,9 @@
 				echo '</tr>';
 			}
 		}
-		else echo '<tr><td colspan="6"><p>There are no pages that you are able to edit</p></td></tr>';
+		else echo '<tr><td colspan="5">
+			<p>There are no pages that you are able to edit, <a href="page.php">create a new one</a>?</p>
+		</td></tr>';
 	}
 	catch (PDOException $e) {
 		echo $e->getMessage();

@@ -42,7 +42,7 @@ ExpiresByType application/pdf "access plus 1 year"
 ExpiresByType application/x-shockwave-flash "access plus 1 year"
 ExpiresByType application/javascript "access plus 1 month"
 ExpiresByType text/javascript "access plus 1 month"
-ExpiresByType text/css "access plugs 1 month"
+ExpiresByType text/css "access plus 1 month"
 <IfModule mod_headers.c>
   # allow proxies to cache
   Header set Cache-Control "public"

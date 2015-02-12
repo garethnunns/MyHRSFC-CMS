@@ -321,9 +321,14 @@ body .thumb {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 body .thumb.small {
-  width: 40px;
+  width: 35px;
   padding: 2px;
-  margin: 4px 10px 4px 4px;
+  margin: 4px 10px 4px 0;
+}
+body .thumb.med {
+  width: 50px;
+  padding: 2px;
+  margin: 5px 13px 5px 0;
 }
 body .imgleft {
   overflow: hidden;
@@ -693,6 +698,10 @@ aside {
     margin: 15px auto 0;
   }
 }
+aside .role {
+  color: #777;
+  padding-top: 0;
+}
 
 .featured {
   padding-bottom: 10px;
@@ -896,6 +905,10 @@ table img.thumb {
   table.responsive td {
     width: 100% !important;
   }
+}
+
+label.success {
+  color: green;
 }
 
 input, textarea {

@@ -41,8 +41,6 @@
 			else echo $page->title; 
 		?> | MyHRSFC</title>
 
-		<!--<meta name="description" content="Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council" />-->
-
 		<meta name="description" content="<?php outputContent($page->desc,false); ?>">
 
 <?php 
@@ -58,9 +56,8 @@
 
 		<!-- MAIN -->
 		<div id="main">
-				
 			<?php globalContentBlock('social'); globalContentBlock('sidewriting'); ?>
-			
+
 			<!-- Content -->
 			<div id="content">
 
@@ -90,40 +87,7 @@
 	if(($page->assoc_councillor!="") || ($page->sidebar!="")) {
 		echo '<aside>';
 
-		if ($page->assoc_councillor != "") {
-			try {
-				$sth = $dbh->prepare('SELECT councillors.name, councillors.shortname, councillors.email, councillors.bio, councillors.image, councillors.active, councillors_roles.rolename 
-					FROM councillors, councillors_roles
-					WHERE councillors.idcouncillors =  ?
-					AND councillors.role = councillors_roles.idroles');
-				$sth->bindValue(1, $page->assoc_councillor, PDO::PARAM_STR);
-				$sth->execute();
-
-				$count = $sth->rowCount();
-
-				if($count) {
-					$councillor = $sth->fetch(PDO::FETCH_OBJ);
-
-					// display their photo and link it to their email if they have one
-					if(($councillor->email != "") && ($councillor->image != "")) echo '<a href="mailto:'. $councillor->email .'">';
-					if($councillor->image != "") echo '<img src="'. $councillor->image .'" class="thumb small" alt="" /></a>';
-					if(($councillor->email != "") && ($councillor->image != "")) echo '</a>';
-
-					echo '<h3>';
-					if($councillor->email != "") echo '<a href="mailto:'. $councillor->email .'">';
-					echo $councillor->name;
-					if($councillor->email != "") echo '</a>';
-					echo '</h3>';
-					echo '<h5 style="color:#777">'.$councillor->rolename.'</h5>';
-					echo '<h6 style="clear: both">'.$councillor->shortname."'s Biography</h6>";
-					echo "<p>$councillor->bio</p>";
-				}
-				else '<p>Councillor not found</p>';
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-		}
+		if ($page->assoc_councillor != "") outputCouncillor($page->assoc_councillor);
 		if ($page->sidebar != "") {
 			outputContent($page->sidebar);
 		}

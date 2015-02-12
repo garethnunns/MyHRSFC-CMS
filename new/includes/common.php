@@ -74,6 +74,47 @@
 		}
 	}
 
+	function outputCouncillor($id) {
+		global $dbh;
+
+		try {
+			// look up councillor
+			$sth = $dbh->prepare("	SELECT 	councillors.name, councillors.shortname, councillors.email, councillors.bio, 
+											councillors.image, councillors.active, councillors_roles.rolename 
+									FROM councillors, councillors_roles
+									WHERE councillors.idcouncillors =  ?
+									AND councillors.role = councillors_roles.idroles LIMIT 1");
+			$sth->bindValue(1, $id, PDO::PARAM_STR);
+			$sth->execute();
+
+			$count = $sth->rowCount();
+
+			if($count) { // found one
+				$councillor = $sth->fetch(PDO::FETCH_OBJ);
+
+				// display their photo and link it to their email if they have one
+				if(($councillor->email != "") && ($councillor->image != "")) echo '<a href="mailto:'. $councillor->email .'">';
+				if($councillor->image != "") echo '<img src="'. $councillor->image .'" class="thumb med" alt="'.$councillor->name.'" /></a>';
+				if(($councillor->email != "") && ($councillor->image != "")) echo '</a>';
+
+				// link their name to their email if they have one
+				echo '<h3>';
+				if($councillor->email != "") echo '<a href="mailto:'. $councillor->email .'">';
+				echo $councillor->name;
+				if($councillor->email != "") echo '</a>';
+				echo '</h3>';
+				
+				echo '<h5 class="role">'.$councillor->rolename.'</h5>';
+				echo '<h6 style="clear: both">'.$councillor->shortname."'s Biography</h6>";
+				echo "<p>$councillor->bio</p>";
+			}
+			else '<p>Councillor not found</p>';
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	} 
+
 	function navBar() {
 		require_once dirname(__FILE__).'/header.php';
 	}

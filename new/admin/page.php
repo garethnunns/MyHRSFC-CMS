@@ -92,26 +92,23 @@
 			if($count) {
 				$result = $lookupsth->fetch(PDO::FETCH_OBJ);
 
-				if(isSpecial($result->alias)) {
-					$alias = $result->alias; // alias remains the same
-					echo '<p class="error">You can not edit the alias of this page</p>';
+				if(isSpecial($result->alias)) { // checks to see if page is special
+					$alias = $result->alias; // alias remains the same then update the other fields
 				}
-				else {
-					$sql = "UPDATE pages 
-							SET	title = :title,
-								subtitle = :subtitle,
-								body = :body,
-								sidebar = :sidebar,";
-					if($sudo) { // only sudo can change alias and owner
-						$sql.="	alias = :alias,
-								assoc_councillor = :councillor,";
-					}
-					$sql .= "	meta_title = :metatitle,
-								`desc` = :desc,
-								editor = :editor
-							WHERE idpages = :page";
-					if(!$sudo) $sql .= " AND assoc_councillor = :councillor";
+				$sql = "UPDATE pages 
+						SET	title = :title,
+							subtitle = :subtitle,
+							body = :body,
+							sidebar = :sidebar,";
+				if($sudo) { // only sudo can change alias and owner
+					$sql.="	alias = :alias,
+							assoc_councillor = :councillor,";
 				}
+				$sql .= "	meta_title = :metatitle,
+							`desc` = :desc,
+							editor = :editor
+						WHERE idpages = :page";
+				if(!$sudo) $sql .= " AND assoc_councillor = :councillor";
 			}
 			else {
 				$error = true;
@@ -155,7 +152,7 @@
 			$sql = "SELECT *
 				FROM pages
 				WHERE idpages = ?";
-			if(!$sudo) $sql .= " WHERE assoc_councillor = $user";
+			if(!$sudo) $sql .= " AND assoc_councillor = $user";
 			$sql .= " LIMIT 1";
 
 			$sth = $dbh->prepare($sql);
@@ -175,7 +172,7 @@
 
 	if((isset($reqpage)) && (!$count)) { // editing and page not found
 		echo '<p class="error">This page you requested doesn\'t exist or you don\'t have permission to edit it</p>
-			<p>You can see the pages that you can edit on the <a href="pages.php">Pages Manager</a></p>';
+			<p>You can see the pages that you can edit in the <a href="pages.php">Pages Manager</a></p>';
 	}
 	else {
 		echo '<form method="post">';

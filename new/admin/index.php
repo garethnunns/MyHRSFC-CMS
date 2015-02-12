@@ -36,17 +36,30 @@
 				
 				
 				<!-- page content -->
-				<div class="page-content">	        	
+				<div class="page-content hasaside">	        	
 					
 					<h1>Welcome to the MyHRSFC Admin</h1>
+					
+					<p><a href="user.php?user=<?php echo $user ?>">Edit profile</a></p>
+
+
+					<?php if($sudo) { ?>
+					<p><a href="user.php">Add user</a></p>
 
 					<p><a href="users.php">Manage all users</a></p>
+					<?php } ?>
+
 
 					<p><a href="page.php">Add new page</a></p>
 
 					<p><a href="pages.php">Manage pages</a></p>
 
 					<p><a href="logout.php">Logout</a></p>
+
+					<aside>
+						<?php outputCouncillor($user); ?>
+						<p><a href="user.php?user=<?php echo $user ?>">Edit profile</a></p>
+					</aside>
 				
 				</div>
 				<!-- ENDS page content -->
