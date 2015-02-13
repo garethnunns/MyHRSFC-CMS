@@ -1,5 +1,5 @@
 <?php
-	include '/home/a6325779/public_html/new/admin/checklogin.php';
+	include 'checklogin.php';
 ?><!doctype html>
 <html lang="en-gb">
 
@@ -27,7 +27,11 @@
 				<!-- masthead -->
 				<div id="masthead">
 					<span class="head"><a href="/admin">Admin</a></span>
-					<?php if($sudo) echo '<span class="subhead"><a href="users.php">Manage Users</a></span>'; ?>
+					<span class="subhead">
+					<?php
+						if($sudo) echo '<a href="users.php">Manage Users</a>';
+						else echo 'Update your profile' ?>
+					</span>
 					<ul class="breadcrumbs">
 						<li><a href="/admin/logout.php">logout</a></li>
 					</ul>

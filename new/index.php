@@ -36,7 +36,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title><?php 
+		<title><?php // output meta title if there is one
 			if(!empty($page->meta_title)) echo $page->meta_title;
 			else echo $page->title; 
 		?> | MyHRSFC</title>
@@ -45,7 +45,7 @@
 
 <?php 
 	globalContentBlock('head');
-	echo $page->special_head;
+	echo $page->special_head; // output page specific meta
 ?>
 		
 	</head>
@@ -63,12 +63,14 @@
 
 <?php
 
-	if(($page->title != "") || ($page->sidebar != "")) {
+	if(($page->title != "") || ($page->subtitle != "")) { // hide masthead when no title and subtitle, content full width
 ?>
 
 				<!-- masthead -->
 				<div id="masthead">
-					<span class="head"><?php echo $page->title; ?></span><span class="subhead"><?php echo $page->subtitle; ?></span>
+					<span class="head">
+						<?php echo $page->title; ?></span><span class="subhead"><?php echo $page->subtitle; ?>
+					</span>
 					<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
 						<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a></li>
 					</ul>
@@ -79,27 +81,27 @@
 				<div class="page-content <?php if(($page->assoc_councillor!="") || ($page->sidebar!="")) echo 'hasaside'; ?>">
 
 <?php
-	}
+	} // end non-full width content
 
-	if($page->editor) outputContent($page->body); 
-	else outputContent($page->body,false);
+	if($page->editor) outputContent($page->body); // use markdown
+	else outputContent($page->body,false); // don't use markdown
 
-	if(($page->assoc_councillor!="") || ($page->sidebar!="")) {
-		echo '<aside>';
+	if(($page->title != "") || ($page->subtitle != "")) { // show aside when not full width content
 
-		if ($page->assoc_councillor != "") outputCouncillor($page->assoc_councillor);
-		if ($page->sidebar != "") {
-			outputContent($page->sidebar);
+		if(($page->assoc_councillor!="") || ($page->sidebar!="")) { // to show sidebar if page owned or sidebar content set
+			echo '<aside>';
+
+			if ($page->assoc_councillor != "") outputCouncillor($page->assoc_councillor);
+			if ($page->sidebar != "") {
+				outputContent($page->sidebar);
+			}
+			echo '</aside><div class="clearfix"></div>';
 		}
-		echo '</aside><div class="clearfix"></div>';
-	}
-
-	if(($page->title != "") || ($page->sidebar != "")) {
 ?>
 				</div>
 				<!-- ENDS page content -->
 <?php
-	}
+	} // end non-full width content
 ?>
 			</div>
 			<!-- ENDS content -->

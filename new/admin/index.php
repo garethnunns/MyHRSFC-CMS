@@ -46,7 +46,9 @@
 					<?php if($sudo) { ?>
 					<p><a href="user.php">Add user</a></p>
 
-					<p><a href="users.php">Manage all users</a></p>
+					<p><a href="users.php">Manage users</a></p>
+
+					<p><a href="tutor.php">Manage tutors</a></p>
 					<?php } ?>
 
 

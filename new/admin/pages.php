@@ -1,5 +1,5 @@
 <?php
-	include '/home/a6325779/public_html/new/admin/checklogin.php';
+	include 'checklogin.php';
 ?><!doctype html>
 <html lang="en-gb">
 
@@ -113,7 +113,7 @@
 				if($sudo) {
 					echo '<td class="center">';
 					if(!isSpecial($row['alias'])) { // can be deactivated
-						echo '<a href="?act='.$row['idpages'].'">';
+						echo '<a href="pages.php?act='.$row['idpages'].'">';
 						if($row['active']) echo 'Deactivate';
 						else echo 'Activate';
 						echo ' &#187;</a>';

@@ -72,9 +72,94 @@
 		return crypt($password, $salt);
 	}
 
+	function validString($name,$string) {
+		$default = array(60,0); // max, min
+
+		// field valid length parameters
+		// in the form $fields['field name'] = array(max length, min length (optional))
+		// setting min length to -1 allows it to be blank
+		$fields['councillor name'] = array(50);
+		$fields['councillor shortname'] = array(30);
+		$fields['councillor email'] = array(100);
+		$fields['councillor password'] = array(150);
+		$fields['councillor subjects'] = array(150,-1);
+		$fields['councillor bio'] = array(1000,-1);
+		$fields['tutor name'] = array(60);
+
+		if(isset($fields[$name])) {
+				$length = $fields[$name][0];
+				if(isset($fields[$name][1])) $min = $fields[$name][1];
+				else $min = $default[1]; // if not defined set to default
+			}
+		else { // field name not defined
+			$length = $default[0];
+			$min = $default[1];
+		}
+
+		$string = trim($string);
+		$strlen = strlen($string);
+		if($strlen > $length) {
+			echo '<p class="error">The '.$name.' must be less than '.$length.' characters long</p>';
+			return false;
+		}
+		elseif($strlen==0 && $min==0) {
+			echo '<p class="error">The '.$name.' can not be left blank</p>';
+			return false;
+		}
+		elseif($strlen < $min) {
+			echo '<p class="error">The '.$name.' must be greater than '.$min.' characters long</p>';
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	function validInitials($initials,$current=null) { // checks to see if 3 letters and doesn't already exist
+		if(trim($initials) != "") { // not blank
+			if((strlen(trim($initials)) == 3) && ctype_alpha($initials)) { // 3 letters
+				$initials = strtoupper($initials);
+				$current = strtoupper($current);
+
+				global $dbh;
+
+				$sql = 'SELECT name
+					FROM tutors
+					WHERE initials = :initials';
+				if(!is_null($current) && $initials==$current) $sql .=  ' LIMIT 1, 1'; // if the tutor is currently in the table
+
+				$sth = $dbh->prepare($sql);
+				$sth->bindValue(':initials',$initials, PDO::PARAM_STR);
+				$sth->execute();
+
+				$count = $sth->rowCount();
+
+				if(!$count) { 
+					return true;
+				}
+				else { // a tutor with these initals already exists
+					$result = $sth->fetch(PDO::FETCH_OBJ);
+					echo '<p class="error">A tutor ('.$result->name.'), with those initials ('.$initials.') already exists</p>';
+					return false;
+				}
+			}
+			else {
+				echo '<p class="error">The initials must be 3 letters, containing no numbers or symbols</p>';
+				return false;
+			}
+		}
+		else {
+			echo '<p class="error">The initials can not be blank</p>';
+			return false;
+		}
+	}
+
 	function validEmail($email,$id=null) { // check to see if it is an email and if no other user has the same
 		global $dbh;
 
+		if(!validString('councillor email',$email)) {
+			return false;
+		}
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { // invalid email
 			echo '<p class="error">Invalid email address</p>';
 			return false;
@@ -84,7 +169,7 @@
 				$sql = 'SELECT name
 					FROM councillors
 					WHERE email = :email';
-				if(!is_null($id)) $sql .= ' AND idcouncillors <> :id';
+				if(!is_null($id)) $sql .= ' AND idcouncillors <> :id'; // not updating their own to be the same
 				$sth = $dbh->prepare($sql);
 				$sth->bindValue(':email',$email, PDO::PARAM_STR);
 				if(!is_null($id)) $sth->bindValue(':id',$id, PDO::PARAM_INT);
@@ -105,7 +190,7 @@
 		}
 	}
 
-	function getIDfromEmail($email) { // get idcouncillors from email address
+	function getIDfromEmail($email) { // return id of councillors from email address
 		global $dbh;
 		try { 
 			$sth = $dbh->prepare('SELECT idcouncillors
@@ -124,44 +209,41 @@
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
+			return false;
 		}
 	}
 
 	function addTutor($initials,$name) {
 		global $sudo;
 		if($sudo) {
-			if(trim($initials) != "" && trim($name) != "") { // not blank
-				if(strlen(trim($initials)) == 3) {
-					$initials = strtoupper($initials);
+			if(validInitials($initials) && validString('tutor name',$name)) { // valid inputs
+				$initials = strtoupper($initials);
 
-					global $dbh;
+				global $dbh;
 
-					try {
-						// see if that tutor already exists
-						$lookupsth = $dbh->prepare('SELECT initials
-							FROM tutors
-							WHERE initials LIKE ?');
-						$lookupsth->bindValue(1,'%'.$initials.'%', PDO::PARAM_STR);
-						$lookupsth->execute();
+				try {
+					// see if that tutor already exists
+					$lookupsth = $dbh->prepare('SELECT initials
+						FROM tutors
+						WHERE initials LIKE ?');
+					$lookupsth->bindValue(1,'%'.$initials.'%', PDO::PARAM_STR);
+					$lookupsth->execute();
 
-						$count = $lookupsth->rowCount();
+					$count = $lookupsth->rowCount();
 
-						if(!$count) { // doesn't already exist
-							$sth = $dbh->prepare("INSERT INTO tutors(initials,name) 
-								VALUES (:initials,:name)");
-							$sth->bindValue(':initials',$initials, PDO::PARAM_STR);
-							$sth->bindValue(':name',$name, PDO::PARAM_STR);
-							$sth->execute();
-						}
-						else echo '<p class="error">A tutor with those initials already, please try again</p>';
+					if(!$count) { // doesn't already exist
+						$sth = $dbh->prepare("INSERT INTO tutors(initials,name) 
+							VALUES (:initials,:name)");
+						$sth->bindValue(':initials',$initials, PDO::PARAM_STR);
+						$sth->bindValue(':name',$name, PDO::PARAM_STR);
+						$sth->execute();
 					}
-					catch (PDOException $e) {
-						echo $e->getMessage();
-					}
+					else echo '<p class="error">A tutor with those initials already, please try again</p>';
 				}
-				else echo '<p class="error">There must be three letters in the intials</p>';
+				catch (PDOException $e) {
+					echo $e->getMessage();
+				}
 			}
-			else echo '<p class="error">One of the fields for adding a tutor was left blank, please try again</p>';
 		}
 		else echo '<p class="error">You don\'t have permission to add tutors</p>';
 	}

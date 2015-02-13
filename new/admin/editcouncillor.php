@@ -8,7 +8,10 @@
 		if($sudo) array_push($allowed, 'active','sudo','role');
 
 		if(in_array($field,$allowed)) {
-			if($field != 'email' || ($field == 'email' && validEmail($_POST['value'],$_POST['id'])))  {
+			if(validString('councillor '.$field,$_POST['value']))  {
+				if($field == 'email' && !validEmail($_POST['value'],$_POST['id'])) {
+					exit(); // stop if invalid email
+				}
 				try {
 					$sth = $dbh->prepare("UPDATE councillors 
 						SET $field = :value 

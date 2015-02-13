@@ -1,5 +1,5 @@
 <?php
-	include '/home/a6325779/public_html/new/admin/checklogin.php';
+	include 'checklogin.php';
 	sudoOnly($sudo);
 ?><!doctype html>
 <html lang="en-gb">
@@ -80,7 +80,7 @@
 
 		$sql = "SELECT *
 				FROM councillors
-				ORDER BY councillors.active, councillors.name";
+				ORDER BY councillors.active DESC, councillors.name ASC";
 
 		$count = $dbh->query($sql)->rowCount();
 		if($count) {

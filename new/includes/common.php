@@ -12,6 +12,13 @@
 		echo htmlspecialchars_decode(htmlentities($parsedown->text($content)));
 	}
 
+	function line($content) {
+	// outputting markdown, allowing only inline HTML tags but encoding special characters, like £, etc.
+		global $parsedown;
+
+		echo htmlspecialchars_decode(htmlentities($parsedown->line($content)));
+	}
+
 	function outputContent($body,$markdown = true) {
 	// output content that includes functions, with or with out markdown parsed
 
@@ -74,7 +81,7 @@
 		}
 	}
 
-	function outputCouncillor($id) {
+	function outputCouncillor($id) { // show councillors details - optimised for use in <aside>
 		global $dbh;
 
 		try {
@@ -93,9 +100,12 @@
 				$councillor = $sth->fetch(PDO::FETCH_OBJ);
 
 				// display their photo and link it to their email if they have one
-				if(($councillor->email != "") && ($councillor->image != "")) echo '<a href="mailto:'. $councillor->email .'">';
-				if($councillor->image != "") echo '<img src="'. $councillor->image .'" class="thumb med" alt="'.$councillor->name.'" /></a>';
-				if(($councillor->email != "") && ($councillor->image != "")) echo '</a>';
+				if(($councillor->email != "") && ($councillor->image != "")) 
+					echo '<a href="mailto:'. $councillor->email .'">';
+				if($councillor->image != "") 
+					echo '<img src="'. $councillor->image .'" class="thumb med" alt="'.$councillor->name.'" /></a>';
+				if(($councillor->email != "") && ($councillor->image != "")) 
+					echo '</a>';
 
 				// link their name to their email if they have one
 				echo '<h3>';
@@ -105,8 +115,9 @@
 				echo '</h3>';
 				
 				echo '<h5 class="role">'.$councillor->rolename.'</h5>';
-				echo '<h6 style="clear: both">'.$councillor->shortname."'s Biography</h6>";
-				echo "<p>$councillor->bio</p>";
+				echo '<h6 style="clear: both">'.$councillor->shortname."'s Biography</h6><p>";
+				line($councillor->bio);
+				echo '<p>';
 			}
 			else '<p>Councillor not found</p>';
 		}
