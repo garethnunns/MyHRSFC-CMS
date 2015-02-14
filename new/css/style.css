@@ -287,6 +287,9 @@ body a img {
 body .center {
   text-align: center;
 }
+body .center input {
+  text-align: center;
+}
 @media only screen and (max-width: 600px) {
   body .nomobile {
     display: none;
@@ -461,7 +464,7 @@ nav #nav li {
   -o-transition: all 0.7s ease-out 0s;
   transition: all 0.7s ease-out 0s;
 }
-nav #nav li:first-child, nav #nav li.special-menu-item {
+nav #nav li.special-menu-item, nav #nav li.nochildren {
   background-image: none !important;
 }
 nav #nav li.current-s-menu-item > a {
@@ -956,8 +959,14 @@ input:focus {
   outline: none;
   border-bottom: 1px solid #000;
 }
+input.tiny {
+  max-width: 40px;
+}
 input.small {
   max-width: 90px;
+}
+input.full {
+  width: 100%;
 }
 input[type="file"] {
   width: 100px;

@@ -84,6 +84,7 @@
 		$fields['councillor password'] = array(150);
 		$fields['councillor subjects'] = array(150,-1);
 		$fields['councillor bio'] = array(1000,-1);
+		$fields['rolename'] = array(60);
 		$fields['tutor name'] = array(60);
 
 		if(isset($fields[$name])) {
@@ -251,7 +252,7 @@
 	function addRole($role) {
 		global $sudo;
 		if($sudo) {
-			if(trim($role) != "") { // role not blank
+			if(validString('rolename',$role)) { // valid role
 				global $dbh;
 
 				try {
@@ -264,7 +265,6 @@
 					echo $e->getMessage();
 				}
 			}
-			else echo '<p class="error">The role name can not be blank, please try again</p>';
 		}
 		else echo '<p class="error">You don\'t have permission to add roles</p>';
 	}

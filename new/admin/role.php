@@ -7,7 +7,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Tutors | Hills Road Sixth Form College</title>
+		<title>Roles | Hills Road Sixth Form College</title>
 
 		<?php globalContentBlock('head'); ?>
 		
@@ -27,7 +27,7 @@
 			
 				<!-- masthead -->
 				<div id="masthead">
-					<span class="head"><a href="/admin">Admin</a></span><span class="subhead">Manage Tutors</span>
+					<span class="head"><a href="/admin">Admin</a></span><span class="subhead">Manage Roles</span>
 					<ul class="breadcrumbs">
 						<li><a href="/admin/logout.php">logout</a></li>
 					</ul>
@@ -44,22 +44,18 @@
 <?php
 	if(isset($_GET['del'])) {
 		try {
-			$lookupsth = $dbh->prepare("SELECT idcouncillors 
+			$lookupsth = $dbh->prepare("SELECT name 
 				FROM councillors
-				WHERE tutor = :initials
-				UNION
-				SELECT idform_reps
-				FROM form_reps
-				WHERE tutor = :initials");
-			$lookupsth->bindValue(':initials',$_GET['del'], PDO::PARAM_STR);
+				WHERE role = :role");
+			$lookupsth->bindValue(':role',$_GET['del'], PDO::PARAM_STR);
 			$lookupsth->execute();
 
 			$lookupcount = $lookupsth->rowCount();
 
 			if(!$lookupcount) {
-				$sth = $dbh->prepare("DELETE FROM tutors
-							WHERE initials = :initials LIMIT 1");
-				$sth->bindValue(':initials',$_GET['del'], PDO::PARAM_STR);
+				$sth = $dbh->prepare("DELETE FROM councillors_roles
+							WHERE idroles = :role LIMIT 1");
+				$sth->bindValue(':role',$_GET['del'], PDO::PARAM_STR);
 				$sth->execute();
 
 				$count = $sth->rowCount();
@@ -71,33 +67,32 @@
 					echo '<p class="error">There was an error deleting the tutor</p>';
 				}
 			}
-			else echo '<p class="error">There are councillors or form reps with that tutor ('.$_GET['del'].'), 
-			so they weren\'t deleted</p>';
+			else echo '<p class="error">There are councillors with that role, so it wasn\'t deleted</p>';
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
 		}
 	}
 
-	// adding tutor
-	if(isset($_POST['initials']) && isset($_POST['tutor'])) addTutor($_POST['initials'],$_POST['tutor']);
+	// adding role
+	if(isset($_POST['addrole'])) addRole($_POST['addrole']);
 
 	try {
 		$sql = "SELECT *
-				FROM tutors
-				ORDER BY initials";
+				FROM councillors_roles
+
+				ORDER BY rolename";
 
 		$count = $dbh->query($sql)->rowCount();
 		if($count) { // are tutors in database
 			echo '<table rules="all">
-			<tr><th>Initials</th><th>Name</th><th>Delete</th></tr>';
+			<tr><th>ID</th><th>Role</th><th>Delete</th></tr>';
 			foreach($dbh->query($sql) as $row) {
 				echo '<tr>
-				<td class="center"><input type="text" name="initials" 
-				value="'.$row['initials'].'" class="tiny" onblur="update(\''.$row['initials'].'\',this)" /></td>
-				<td><input type="text" name="name" class="full"
-				value="'.$row['name'].'" onblur="update(\''.$row['initials'].'\',this)" /></td>
-				<td class="center"><a href="tutor.php?del='.$row['initials'].'">Delete &#187;</td>
+				<td class="center">'.$row['idroles'].'</td>
+				<td><input type="text"  class="full"
+				value="'.$row['rolename'].'" onblur="update(\''.$row['idroles'].'\',this)" /></td>
+				<td class="center"><a href="role.php?del='.$row['idroles'].'">Delete &#187;</td>
 				</tr>';
 			}
 			echo '</table>';
@@ -108,11 +103,10 @@
 		echo $e->getMessage();
 	}
 ?>
-					<h3>Add tutor</h3>
+					<h3>Add role</h3>
 					<form method="post">
-						<p>Initials: <input type="text" name="initials" class="tiny" placeholder="e.g. ADC" /> 
-						Tutor Name: <input type="text" name="tutor" placeholder="e.g. Mr Cumming" /> 
-						<input type="submit" value="Add Tutor &#187;"></p>
+						<p>Name of the role: <input type="text" name="addrole" placeholder="e.g. Chair" /> 
+						<input type="submit" value="Add role &#187;"></p>
 					</form>
 				</div>
 				<!-- ENDS page content -->
@@ -122,11 +116,11 @@
 		$(this).removeClass('success');
 	});
 
-	function update(initials,input) {
+	function update(id,input) {
 		$.ajax({
 			type: "POST",
-			url: "edittutor.php",
-			data: { initials: initials, field: input.name, value: $(input).val() }
+			url: "editrole.php",
+			data: { id: id, value: $(input).val() }
 		}).done(function(msg) {
 			if(msg == 'Success') $(input).addClass('success');
 			else $('.page-content').prepend(msg); // add errors to the top of the page

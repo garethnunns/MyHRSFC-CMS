@@ -99,8 +99,16 @@ input {
 		border-bottom: 1px solid #000;
 	}
 
+	&.tiny {
+		max-width: 40px;
+	}
+
 	&.small {
 		max-width: 90px;
+	}
+
+	&.full {
+		width: 100%;
 	}
 
 	&[type="file"] {

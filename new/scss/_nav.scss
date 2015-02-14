@@ -26,7 +26,7 @@ nav { // nav container
 
 			@include single-transition(all, 0.7s, ease-out, 0s);
 
-			&:first-child, &.special-menu-item { // not dropdowns
+			&.special-menu-item, &.nochildren { // not dropdowns
 				background-image: none !important;
 			}
 

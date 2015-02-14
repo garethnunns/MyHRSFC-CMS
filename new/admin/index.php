@@ -48,6 +48,8 @@
 
 					<p><a href="users.php">Manage users</a></p>
 
+					<p><a href="role.php">Manage roles</a></p>
+
 					<p><a href="tutor.php">Manage tutors</a></p>
 					<?php } ?>
 

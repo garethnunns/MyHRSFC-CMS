@@ -127,7 +127,95 @@
 	} 
 
 	function navBar() {
-		require_once dirname(__FILE__).'/header.php';
+		global $dbh;
+
+		echo '<header><div class="wrapper">';
+
+		// logo home link
+		echo '<a href="/" id="logo"><img  src="/img/site/logo.png" alt="Student Council Logo"></a>';
+
+		try {
+			$sql = 'SELECT parents.*, pages.alias 
+					FROM parents, pages 
+					WHERE parents.idpages = pages.idpages
+					ORDER BY parents.position';
+			
+			$count = $dbh->query($sql)->rowCount();
+
+			if($count) {
+				echo '<nav>
+				<h2>Menu</h2>
+				<ul id="nav" class="sf-menu">';
+
+				foreach($dbh->query($sql) as $parent) {
+					$id = $parent['idparents'];
+
+					$childsql = "SELECT nav.*, links.*, pages.alias, pages.title
+								FROM nav
+								LEFT JOIN links
+								ON nav.idlinks = links.idlinks
+								LEFT JOIN pages
+								ON nav.idpages = pages.idpages
+								WHERE nav.idparents = $id
+								ORDER BY position";
+
+					$children = $dbh->query($childsql)->rowCount();
+
+					$alias = $parent['alias'];
+					if($alias=='index') $alias = '';
+
+					echo '<li';
+					if(!$children) echo ' class="nochildren"';
+					echo '>
+					<a href="/'.$alias.'">'.$parent['name'].'
+					<span class="subheader">'.$parent['subheader'].'</span>
+					</a>';
+
+					if($children) { // has dropdown
+						echo '<ul>';
+						foreach($dbh->query($childsql) as $child) { // each dropdown element					
+							if(!empty($child['idpages'])) { // internal page link
+								$childalias = $child['alias'];
+								if($childalias=='index') $alias = '';
+								echo '<li><a href="/'.$childalias.'">'.$child['title'].'</a>';
+							}
+							else { // URL link
+								echo '<li'; 
+								if($child['email']) echo ' class="con"';
+								elseif(!empty($child['idcolours'])) {
+									$col = $dbh->query('SELECT class 
+											FROM colours 
+											WHERE idcolours = '.$child['idcolours']);
+									$colcount = $col->rowCount();
+
+									echo $colcount;
+
+									if($colcount) { // found colour with that id
+										$colour = $col->fetch(PDO::FETCH_OBJ);
+										echo ' class="'.$colour->class.'"';
+									}
+								}
+								echo '><a href="';
+								echo $child['email'] ? 'mailto:' : '';
+								echo $child['URL'].'">'.$child['name'].'</a>';
+							}
+
+							echo '</li>';
+						}
+						echo '</ul>';
+					}
+
+					echo '</li>';
+				}
+
+				echo '</ul></nav>';
+			}
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+
+		echo '</div></header>';
 	}
 
 	function globalContentBlock($name) {
