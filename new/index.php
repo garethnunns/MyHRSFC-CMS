@@ -52,7 +52,7 @@
 	
 	<body lang="en" ontouchstart="">
 
-		<?php navbar(); ?>
+		<?php navbar($page->idpages); ?>
 
 		<!-- MAIN -->
 		<div id="main">

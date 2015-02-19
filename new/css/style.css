@@ -28,6 +28,7 @@ body {
   font: 14px/1.5em Helvetica, Arial, sans-serif;
   color: #555;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 body .wrapper, body #main {
   margin: 0 auto;
@@ -158,18 +159,6 @@ body #main #content #masthead .breadcrumbs li {
 body #main #content #masthead .breadcrumbs li:last-child a {
   color: #555 !important;
 }
-body #main #content .headline {
-  font-family: helvetica, arial, sans-serif;
-  font-size: 26px;
-  line-height: 1.5em;
-  text-align: center;
-  padding: 20px 0px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid white;
-  margin-bottom: 50px;
-  background: #eaeaea;
-  color: #444;
-}
 body #main .page-content {
   margin: 12px 24px 40px 24px;
   position: relative;
@@ -262,6 +251,18 @@ body p.success {
 }
 body h1.heading, body h2.heading, body h3.heading, body h4.heading, body h5.heading, body h6.heading {
   margin-bottom: 21px;
+}
+body .headline {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.5em;
+  text-align: center;
+  padding: 20px 0px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid white;
+  margin-bottom: 20px;
+  background: #eaeaea;
+  color: #444;
 }
 body #bigp {
   font-size: 18px;
@@ -416,7 +417,7 @@ header {
 }
 @media only screen and (max-width: 600px) {
   header {
-    padding-bottom: 15px;
+    padding-bottom: 18px;
   }
 }
 header #logo {
@@ -426,6 +427,7 @@ header #logo {
 }
 @media only screen and (max-width: 1000px) {
   header #logo {
+    float: none;
     padding: 20px 10px;
   }
 }
@@ -434,6 +436,7 @@ header #logo:hover {
 }
 header #logo img {
   height: 60px;
+  width: auto;
 }
 
 nav {
@@ -514,6 +517,9 @@ nav #nav > li:hover > a {
   background-color: #222;
   border-bottom: solid #1c1d1d 5px;
 }
+nav #nav > li.current > a {
+  color: #6799c8;
+}
 nav #nav > li > a {
   display: block;
   overflow: hidden;
@@ -536,9 +542,6 @@ nav #nav > li > a .subheader {
 nav #nav > li > a.sf-sub-indicator {
   display: none;
 }
-nav #nav > li.current-menu-item > a, nav #nav > li.current_page_item > a {
-  color: #6799c8;
-}
 nav #nav > li.special-menu-item > a {
   background: rgba(103, 153, 200, 0.3);
   border-bottom: solid #6799c8 5px;
@@ -558,6 +561,11 @@ nav #nav > li ul {
 }
 nav #nav > li ul li {
   border-bottom: 1px solid #151515;
+}
+nav #nav > li ul li.current a {
+  padding: 10px 10px 10px 20px;
+  background-color: #717171;
+  color: #111;
 }
 nav #nav > li ul li a {
   display: block;

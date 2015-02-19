@@ -58,6 +58,7 @@ body {
 	font: 14px/1.5em Helvetica, Arial, sans-serif;
 	color: #555;
 	-webkit-text-size-adjust: 100%; // Stops Mobile Safari from auto-adjusting font-sizes - could remove
+	overflow-x: hidden; // IE fix
 
 	.wrapper, #main {
 		margin: 0 auto; 
@@ -207,6 +208,19 @@ body {
 
 	h1.heading, h2.heading, h3.heading, h4.heading, h5.heading, h6.heading {
 		margin-bottom: 21px;
+	}
+
+	.headline {
+		font-family: helvetica, arial, sans-serif;
+		font-size: 26px;
+		line-height: 1.5em;
+		text-align: center;
+		padding: 20px 0px;
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		border-bottom: 1px solid rgba(255, 255, 255, 1);
+		margin-bottom: 20px;
+		background: #eaeaea;
+		color: #444;
 	}
 
 	#bigp {

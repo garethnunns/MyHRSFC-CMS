@@ -80,10 +80,14 @@ nav { // nav container
 			&:hover {
 				background-position: center 150px;
 
-				 & > a {
+				& > a {
 					background-color: #222;
 					border-bottom: solid #1c1d1d 5px;
 				}
+			}
+
+			&.current  > a { // current page and override hover
+				color: #6799c8;
 			}
 
 			& > a {
@@ -109,10 +113,6 @@ nav { // nav container
 				}
 			}
 
-			&.current-menu-item > a, &.current_page_item > a {
-				color: #6799c8;
-			}
-
 			&.special-menu-item > a { // the special lower sixth at the end
 				background:rgba(103,153,200,0.3);
 				border-bottom: solid rgba(103,153,200,1) 5px;
@@ -135,6 +135,12 @@ nav { // nav container
 
 				li {
 					border-bottom: 1px solid #151515;
+
+					&.current a {
+						padding: 10px 10px 10px 20px;
+						background-color: #717171;
+						color: #111;
+					}
 
 					a {
 						display: block;

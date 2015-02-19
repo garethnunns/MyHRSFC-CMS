@@ -126,7 +126,7 @@
 		}
 	} 
 
-	function navBar() {
+	function navBar($page=0) { // output the navigation bar, with the current page highlighted if it is set
 		global $dbh;
 
 		echo '<header><div class="wrapper">';
@@ -150,6 +150,7 @@
 				foreach($dbh->query($sql) as $parent) {
 					$id = $parent['idparents'];
 
+					// look up to see if this parent has children
 					$childsql = "SELECT nav.*, links.*, pages.alias, pages.title
 								FROM nav
 								LEFT JOIN links
@@ -162,53 +163,56 @@
 					$children = $dbh->query($childsql)->rowCount();
 
 					$alias = $parent['alias'];
-					if($alias=='index') $alias = '';
+					if($alias=='index') $alias = ''; // links to home page '/' not '/index'
 
-					echo '<li';
-					if(!$children) echo ' class="nochildren"';
-					echo '>
+					echo '<li class="';
+					if(!$children) echo 'nochildren ';
+					if($page == $parent['idpages']) echo 'current ';
+					if($parent['special']) echo 'special-menu-item';
+					echo '">
 					<a href="/'.$alias.'">'.$parent['name'].'
 					<span class="subheader">'.$parent['subheader'].'</span>
 					</a>';
 
 					if($children) { // has dropdown
 						echo '<ul>';
-						foreach($dbh->query($childsql) as $child) { // each dropdown element					
+						foreach($dbh->query($childsql) as $child) { // each dropdown element
+							echo '<li class="';
 							if(!empty($child['idpages'])) { // internal page link
+								if($page == $child['idpages']) echo 'current';
+
 								$childalias = $child['alias'];
-								if($childalias=='index') $alias = '';
-								echo '<li><a href="/'.$childalias.'">'.$child['title'].'</a>';
+								if($childalias=='index') $childalias = ''; // links to home page '/' not '/index'
+
+								echo '"><a href="/'.$childalias.'">'.$child['title'].'</a>';
 							}
 							else { // URL link
-								echo '<li'; 
-								if($child['email']) echo ' class="con"';
+								if($child['email']) echo 'con'; // adds email symbol
 								elseif(!empty($child['idcolours'])) {
 									$col = $dbh->query('SELECT class 
-											FROM colours 
-											WHERE idcolours = '.$child['idcolours']);
+										FROM colours 
+										WHERE idcolours = '.$child['idcolours']);
 									$colcount = $col->rowCount();
-
-									echo $colcount;
 
 									if($colcount) { // found colour with that id
 										$colour = $col->fetch(PDO::FETCH_OBJ);
-										echo ' class="'.$colour->class.'"';
+										echo $colour->class;
 									}
 								}
-								echo '><a href="';
+								echo '"><a href="';
 								echo $child['email'] ? 'mailto:' : '';
-								echo $child['URL'].'">'.$child['name'].'</a>';
+								echo $child['URL'].'" target="_blank">'.$child['name'].'</a>';
 							}
 
-							echo '</li>';
+							echo '</li>'; // close drop down item
 						}
-						echo '</ul>';
+						echo '</ul>'; // close drop down menu
 					}
 
-					echo '</li>';
+					echo '</li>'; // close parent
 				}
 
-				echo '</ul></nav>';
+				echo '</ul></nav>'; // close nav bar
 			}
 		}
 		catch (PDOException $e) {
@@ -216,6 +220,23 @@
 		}
 
 		echo '</div></header>';
+	}
+
+	function breadcrumbs($page) { // output breadcrumb links to $page (id of page)
+		try {
+			$sql = 'SELECT parents.*, pages.alias 
+					FROM parents, pages 
+					WHERE parents.idpages = pages.idpages
+					AND parents.idpages = $page
+					ORDER BY parents.position';
+
+					// TODO union of nav and parents on idpages = $page
+			
+			$count = $dbh->query($sql)->rowCount();
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
 	}
 
 	function globalContentBlock($name) {
