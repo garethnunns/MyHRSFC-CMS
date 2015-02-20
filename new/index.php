@@ -71,9 +71,10 @@
 					<span class="head">
 						<?php echo $page->title; ?></span><span class="subhead"><?php echo $page->subtitle; ?>
 					</span>
-					<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+					<!--<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
 						<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a></li>
-					</ul>
+					</ul>-->
+					<?php breadcrumbs($page->idpages); ?>
 				</div>
 				<!-- ENDS masthead -->
 				

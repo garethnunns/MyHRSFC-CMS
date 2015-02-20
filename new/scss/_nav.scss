@@ -87,7 +87,7 @@ nav { // nav container
 			}
 
 			&.current  > a { // current page and override hover
-				color: #6799c8;
+				color: $blue;
 			}
 
 			& > a {

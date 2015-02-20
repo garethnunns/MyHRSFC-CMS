@@ -223,20 +223,59 @@
 	}
 
 	function breadcrumbs($page) { // output breadcrumb links to $page (id of page)
-		try {
-			$sql = 'SELECT parents.*, pages.alias 
-					FROM parents, pages 
-					WHERE parents.idpages = pages.idpages
-					AND parents.idpages = $page
-					ORDER BY parents.position';
+		global $dbh;
 
-					// TODO union of nav and parents on idpages = $page
+		echo '<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+		<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a></li>';
+
+		try {
+			$sql = "SELECT parents.name, child.alias AS childAlias, parent.alias AS parentAlias
+					FROM nav
+					LEFT JOIN parents
+					ON nav.idparents=parents.idparents
+					LEFT JOIN pages child
+					ON nav.idpages=child.idpages
+					LEFT JOIN pages parent
+					ON parents.idpages=parent.idpages
+					WHERE nav.idpages = $page
+
+					UNION -- for those only in parents table
+					SELECT name, null, pages.alias
+					FROM parents, pages
+					WHERE parents.idpages = $page
+					AND parents.idpages = pages.idpages";
 			
-			$count = $dbh->query($sql)->rowCount();
+			$result = $dbh->query($sql);
+			$count = $result->rowCount();
+			$breadcrumbs = $result->fetch(PDO::FETCH_OBJ);
+
+			echo ' / <li typeof="v:Breadcrumb">';
+			if($count == 1) { // the page has a unique location in the nav bar
+				echo '<a href="/'.$breadcrumbs->parentAlias.'" rel="v:url" property="v:title">'.
+				strtolower($breadcrumbs->name).'</a>';
+				if($breadcrumbs->childAlias != '') { // not a parent
+					echo '</li> /
+					<li typeof="v:Breadcrumb">
+					<a href="/'.$breadcrumbs->childAlias.'" rel="v:url" property="v:title">'.
+					strtolower($breadcrumbs->childAlias).'</a>';
+				}
+			}
+			elseif($count > 1) { // page appears in multiple dropdowns
+				echo '<a href="/'.$breadcrumbs->childAlias.'" rel="v:url" property="v:title">'.
+				strtolower($breadcrumbs->childAlias).'</a>';
+			}
+			else { // page not in nav
+				$page = $dbh->query("SELECT alias FROM pages WHERE idpages = $page LIMIT 1")->fetch(PDO::FETCH_OBJ);
+				echo '<a href="/'.$page->alias.'" rel="v:url" property="v:title">'.
+				strtolower($page->alias).'</a>';
+			}
+			echo '</li>';
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
 		}
+
+		echo '</ul>';
 	}
 
 	function globalContentBlock($name) {

@@ -27,8 +27,9 @@
 	}
 }
 
-$green: #3ADF5B;
 $red: #DF3A5A;
+$green: #3ADF5B;
+$blue: #6799c8;
 
 // resetting
 
@@ -383,6 +384,8 @@ body {-webkit-tap-highlight-color: rgb(255,255,158);}
 @import '_contact.scss';
 @import '_progress.scss';
 @import '_who.scss';
+
+@import '_sorting.scss';
 
 /* used nowhere 
 

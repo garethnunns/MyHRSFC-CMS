@@ -58,6 +58,11 @@
 
 					<p><a href="pages.php">Manage pages</a></p>
 
+					<?php if($sudo) { ?>
+					<p><a href="nav.php">Manage navigation</a></p>
+					<?php } ?>
+
+
 					<p><a href="logout.php">Logout</a></p>
 
 					<aside>
