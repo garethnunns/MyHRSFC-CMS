@@ -72,6 +72,30 @@
 		return crypt($password, $salt);
 	}
 
+	function pageExists($pageid) {
+		global $dbh;
+		try {
+			$sql = 'SELECT title
+					FROM pages
+					WHERE idpages = :pageid';
+
+			$sth = $dbh->prepare($sql);
+			$sth->bindValue(':pageid',$pageid, PDO::PARAM_INT);
+			$sth->execute();
+
+			$count = $sth->rowCount();
+
+			if($count) return true;
+			else {
+				echo '<p class="error">There is no page in the database with the ID '.$pageid.'</p>';
+				return false;
+			}
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
 	function validString($name,$string) {
 		$default = array(60,0); // max, min
 
@@ -84,15 +108,17 @@
 		$fields['councillor password'] = array(150);
 		$fields['councillor subjects'] = array(150,-1);
 		$fields['councillor bio'] = array(1000,-1);
+		$fields['parent name'] = array(15);
+		$fields['parent subheader'] = array(45);
 		$fields['rolename'] = array(60);
 		$fields['tutor name'] = array(60);
 
-		if(isset($fields[$name])) {
-				$length = $fields[$name][0];
-				if(isset($fields[$name][1])) $min = $fields[$name][1];
-				else $min = $default[1]; // if not defined set to default
-			}
-		else { // field name not defined
+		if(isset($fields[$name])) { // look up field name
+			$length = $fields[$name][0];
+			if(isset($fields[$name][1])) $min = $fields[$name][1];
+			else $min = $default[1]; // if not defined set to default
+		}
+		else { // field name not defined - use defaults
 			$length = $default[0];
 			$min = $default[1];
 		}
@@ -127,7 +153,7 @@
 				$sql = 'SELECT name
 					FROM tutors
 					WHERE initials = :initials';
-				if(!is_null($current) && $initials==$current) $sql .=  ' LIMIT 1, 1'; // if the tutor is currently in the table
+				if(!is_null($current) && $initials==$current) $sql .= ' LIMIT 1, 1'; // if the tutor is currently in the table
 
 				$sth = $dbh->prepare($sql);
 				$sth->bindValue(':initials',$initials, PDO::PARAM_STR);

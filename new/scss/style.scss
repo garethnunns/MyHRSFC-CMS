@@ -27,6 +27,8 @@
 	}
 }
 
+$grey: #eaeaea;
+
 $red: #DF3A5A;
 $green: #3ADF5B;
 $blue: #6799c8;
@@ -220,7 +222,7 @@ body {
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
 		border-bottom: 1px solid rgba(255, 255, 255, 1);
 		margin-bottom: 20px;
-		background: #eaeaea;
+		background: $grey;
 		color: #444;
 	}
 
@@ -525,7 +527,7 @@ aside.retractil{
 	position: absolute;
 	top: 34px;
 	left: 0px;
-	background: #eaeaea;
+	background: $grey;
 	width: 276px;
 	
 	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,.5); 
@@ -714,7 +716,7 @@ aside.retractil #sidebar-content a:hover{
 }
 
 #posts-list .read-more{
-	background: #eaeaea;
+	background: $grey;
 	padding: 5px 10px;
 	text-decoration: none;
 	color: #888;

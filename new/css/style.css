@@ -1267,12 +1267,13 @@ body.dragging, body.dragging * {
   z-index: 2000;
 }
 
-ol {
-  border: transparent 2px solid;
-}
 ol.sorting {
   margin: 0 0 9px 0;
   min-height: 10px;
+  border: transparent 2px solid;
+}
+ol.sorting.active, ol.sorting .active {
+  border: #222 2px solid !important;
 }
 ol.sorting li {
   display: block;
@@ -1280,7 +1281,7 @@ ol.sorting li {
   padding: 5px;
   border: 1px solid #CCC;
   color: #6799c8;
-  background: #ddd;
+  background: #dadada;
 }
 ol.sorting li.placeholder {
   position: relative;
@@ -1300,6 +1301,14 @@ ol.sorting li.placeholder:before {
   border-left-color: #df3a5a;
   border-right: none;
 }
-ol.active {
-  border: #222 2px solid;
+ol.sorting li ol {
+  border: transparent 2px solid;
+}
+ol.sorting li ol li {
+  background-color: #eaeaea;
+}
+ol.sorting li img {
+  float: right;
+  width: auto;
+  cursor: pointer;
 }

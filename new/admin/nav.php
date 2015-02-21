@@ -40,11 +40,42 @@
 				<div class="page-content hasaside">	        	
 					
 					<h1>Manage Navigation</h1>
-					
 <?php
 	try {
+		if(isset($_POST['add'])) { // adding parent item
+			if(validString('parent name',$_POST['name']) // validate name
+			&& validString('parent subheader',$_POST['subheader']) // validate subheader
+			&& pageExists($_POST['page'])) { // check page id relates to a page in the database
+					// check to see page isn't aready in the parents table
+				$lookupsql = 'SELECT name
+				FROM parents
+				WHERE idpages = :pageid';
+
+				$lookupsth = $dbh->prepare($lookupsql);
+				$lookupsth->bindValue(':pageid',$_POST['page'], PDO::PARAM_INT);
+				$lookupsth->execute();
+
+				$count = $lookupsth->rowCount();
+
+				if(!$count) {
+					$sql = 'INSERT INTO parents (idpages,name,subheader,position,special)
+					SELECT :pageid,:name,:subheader,MAX(position)+1,:special
+					FROM parents';
+					$sth = $dbh->prepare($sql);
+					$sth->bindValue(':pageid',$_POST['page'], PDO::PARAM_INT);
+					$sth->bindValue(':name',$_POST['name'], PDO::PARAM_STR);
+					$sth->bindValue(':subheader',$_POST['subheader'], PDO::PARAM_STR);
+					$sth->bindValue(':special',($_POST['special'] ? 1 : 0), PDO::PARAM_INT);
+					$sth->execute();
+
+					echo '<p class="success">Top level link successfully added</p>';
+				}
+				else echo '<p class="error">That page is already a top level link</p>';
+			}
+		}
+
 		// nav bar sorter
-		$navresult = $dbh->query("SELECT parents.name, parents.position AS parentpos, nav.idpages, 
+		$navresult = $dbh->query("SELECT parents.idparents, parents.name, parents.position AS parentpos, nav.idpages, 
 			nav.idlinks, nav.position AS childpos, pages.title, links.name AS link
 			FROM parents
 			LEFT JOIN nav
@@ -61,8 +92,15 @@
 			$pos = 0;
 			foreach ($navresult as $nav) {
 				if(($nav['parentpos'] > $pos) && $pos) echo '</ol></li>';
-				if($nav['parentpos'] > $pos) echo '<li>'.$nav['name'].'<ol>';
-				if($nav['childpos']) echo '<li>'.($nav['title'] ? $nav['title'] : $nav['link']).'</li>';
+				if($nav['parentpos'] > $pos) { // parent element
+					echo '<li data-id="'.$nav['idparents'].'" class="parent">
+					<img src="../img/icons/close.png" alt="x"/>'.$nav['name'].'<ol>';
+				}
+				if($nav['childpos']) { // child element
+					echo '<li data-id="'.
+					($nav['title'] ? ($nav['idpages'].'" data-name="page"') : $nav['idlinks'].'" data-name="link"').
+					'"><img src="../img/icons/close.png" alt="x"/>'.($nav['title'] ? $nav['title'] : $nav['link']).'</li>';
+				}
 				$pos = $nav['parentpos'];
 			}
 			echo '</ol></ol>'; // closing main list
@@ -74,9 +112,10 @@
 		echo '<aside><h3>Pages</h3>';
 		$pagesresult = $dbh->query("SELECT idpages, title, alias FROM pages ORDER BY title");
 		if($pagesresult->rowCount()) {
-			echo '<ol class="sorting" id="pages">';
+			echo '<ol class="sorting">';
 			foreach ($pagesresult as $page) {
-				echo '<li>'.($page['title'] ? $page['title'] : $page['alias']).'</li>';
+				echo '<li data-id="'.$page['idpages'].'" data-name="page"><img src="../img/icons/close.png" alt="x"/>'.
+				($page['title'] ? $page['title'] : $page['alias']).'</li>';
 			}
 			echo '</ol>';
 		}
@@ -85,9 +124,10 @@
 		echo '<h3>Links</h3>';
 		$linksresult = $dbh->query("SELECT idlinks, name FROM links ORDER BY name");
 		if($linksresult->rowCount()) {
-			echo '<ol class="sorting" id="pages">';
+			echo '<ol class="sorting">';
 			foreach ($linksresult as $link) {
-				echo '<li>'.$link['name'].'</li>';
+				echo '<li data-id="'.$link['idlinks'].'" data-name="link">
+				<img src="../img/icons/close.png" alt="x"/>'.$link['name'].'</li>';
 			}
 			echo '</ol>';
 		}
@@ -98,47 +138,106 @@
 	catch (PDOException $e) {
 		echo $e->getMessage();
 	}
-
 ?>
+					<input type="submit" value="Save changes" onclick="save()" />
+					<div id="output"></div> <!-- temp -->
+
+					<p>&nbsp;</p>
+					<h3>Add top level page link</h3>
+					<form method="post">
+<?php
+	try {
+		// output dropdown lost of pages that are not parents
+		$parentresult = $dbh->query("SELECT idpages, title
+			FROM pages
+			WHERE idpages NOT IN
+			(SELECT idpages 
+			FROM parents)");
+		
+		$parentcount = $parentresult->rowCount();
+
+		if($parentcount) {
+			echo '<p>Page: <select name="page">';
+			foreach ($parentresult as $parent) {
+				echo '<option value="'.$parent['idpages'].'">'.$parent['title'].'</option>';
+			}
+			echo '</select></p>';
+?>
+						<p>Name: <input type="text" name="name" placeholder="Main text for link" />
+						<p>Sub heading: <input type="text" name="subheader" placeholder="Text below name" />
+						<p>Special: <input type="checkbox" name="special" value="1" /></p>
+						<p><input type="submit" name="add" value="Add &#187;" /></p>
+<?php
+		} // end parents
+		else echo '<p class="error">No pages currently stored or they are all already top level page links</p>';
+	}
+	catch (PDOException $e) {
+		echo $e->getMessage();
+	}
+?>
+					</form>
 				</div>
 				<!-- ENDS page content -->
 
+<style type="text/css">
+	aside ol img {
+		display: none; /* hide close buttons for lists of pages and links */
+	}
+</style>
 <script src='../js/jquery-sortable.js'></script>
 <script type="text/javascript">
-	$(document).ready(function () {
-		var oldContainer;
-		$("#navsort").sortable({
-			group: 'nav',
-			onDragStart: function (item, container, _super) {
-			    // Duplicate pages/link dropped in from lists
-				if(!container.options.drop) {
-					item.clone().insertAfter(item)
-					_super(item)
-				}
-			},
-			afterMove: function (placeholder, container) {
-				if(oldContainer != container){
-					if(oldContainer) {
-						oldContainer.el.removeClass("active");
-						container.el.addClass("active");
-					}
-				  
-					oldContainer = container;
-				}
-			},
-			onDrop: function (item, container, _super) {
-				container.el.removeClass("active");
-				_super(item);
+	var oldContainer;
+	$("#navsort").sortable({
+		group: 'nav',
+		isValidTarget: function (item, container) {
+			if((item.is(".parent")) && (container.el[0] != item.parent("ol")[0])) {
+				return false; // parents can not go into submenus
 			}
-		});
-		//$("#navsort ol").sortable({
-			//drop: false
-		//});
-		$("#pages, #links").sortable({
-			group: 'nav',
-			drop: false
-		})
+			else if((!item.is(".parent")) && (container.el[0] == document.getElementById('navsort'))) {
+				return false; // children can't become parents
+			}
+			else {
+				return true; // other than that an element can be moved anywhere
+			}
+		},
+		onDragStart: function ($item, container, _super) {
+			oldContainer = null;
+			// Duplicate pages/link dropped in from side lists so they can be added again
+			if(!container.options.drop) {
+				$item.clone().insertAfter($item)
+				_super($item)
+			}
+
+			_super($item);
+		},
+		afterMove: function (placeholder, container) {
+			if(oldContainer != container) { // put a border round the one being dropped into
+				if(oldContainer) {
+					container.el.addClass("active");
+					oldContainer.el.removeClass("active");
+				}
+			  
+				oldContainer = container;
+			}
+		},
+		onDrop: function (item, container, _super) {
+			container.el.removeClass("active");
+
+			_super(item,container);
+		}
 	});
+	$("aside ol").sortable({ // lists of pages and links
+		group: 'nav',
+		drop: false
+	});
+	$("#navsort img").click(function () {
+		$(this).parent().remove(); // delete the surrounding ol
+	});
+	function save () {
+		var data = $("#navsort").sortable("serialize").get();
+		var jsonString = JSON.stringify(data, null, ' ');
+		$('#output').text(jsonString);
+	}
 </script>
 			
 			</div>
