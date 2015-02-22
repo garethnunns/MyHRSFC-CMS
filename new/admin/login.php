@@ -46,7 +46,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Admin Login | Hills Road Sixth Form College</title>
+		<title>Admin Login | MyHRSFC Admin</title>
 
 		<meta name="description" content="Login to edit the pages of the website" />
 

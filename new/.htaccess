@@ -1,25 +1,25 @@
 Options -Indexes
 
 <IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteBase /
+	RewriteEngine on
+	RewriteBase /
 
-#protected files:
-  RewriteRule ^.*\.htaccess - [L,F]
-  RewriteRule ^includes.* - [L,F]
+	#protected files:
+	RewriteRule ^.*\.htaccess - [L,F]
+	RewriteRule ^includes.* - [L,F]
 
-# rewrites URLS that aren't files or folders
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)$ index.php?page=$1 [QSA]
+	# rewrites URLS that aren't files or folders
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.+)$ index.php?page=$1 [QSA]
 </IfModule>
 
 #Error Documents
-  ErrorDocument 400 /404
-  ErrorDocument 401 /404
-  ErrorDocument 403 /404
-  ErrorDocument 404 /404
-  ErrorDocument 500 /404
+	ErrorDocument 400 /404
+	ErrorDocument 401 /404
+	ErrorDocument 403 /404
+	ErrorDocument 404 /404
+	ErrorDocument 500 /404
 
 # no double slashes on prepared statements
 php_value magic_quotes_gpc off
@@ -30,27 +30,28 @@ php_value auto_append_file none
 
 # allow caching in the browser
 <IfModule mod_expires.c>
-ExpiresActive On
-ExpiresDefault "access plus 1 month"
-ExpiresByType image/jpg "access plus 1 year"
-ExpiresByType image/gif "access plus 1 year"
-ExpiresByType image/gif "access plus 1 year"
-ExpiresByType image/ico "access plus 1 year"
-ExpiresByType image/png "access plus 1 year"
-ExpiresByType video/x-flv "access plus 1 year"
-ExpiresByType application/pdf "access plus 1 year"
-ExpiresByType application/x-shockwave-flash "access plus 1 year"
-ExpiresByType application/javascript "access plus 1 month"
-ExpiresByType text/javascript "access plus 1 month"
-ExpiresByType text/css "access plus 1 month"
-<IfModule mod_headers.c>
-  # allow proxies to cache
-  Header set Cache-Control "public"
-</IfModule>
+	ExpiresActive On
+	ExpiresDefault "access plus 1 month"
+	<Filesmatch "\.(jpg|jpeg|png|gif|ico|pdf)$">
+		ExpiresDefault "access plus 1 year"
+	</Filesmatch>
+	ExpiresByType video/x-flv "access plus 1 year"
+	ExpiresByType application/x-shockwave-flash	"access plus 1 year"
+	ExpiresByType application/javascript "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	ExpiresByType text/css "access plus 0 seconds"
+	# switch to "access plus 1 month" if not regularly updating
+
+	ExpiresByType text/html "access plus 0 seconds"
+	ExpiresByType text/x-php "access plus 0 seconds"
+	<IfModule mod_headers.c>
+		# allow proxies to cache
+		Header set Cache-Control "public"
+	</IfModule>
 </IfModule>
 
 # compress files
 <IfModule mod_deflate.c>
-# Compress css, plaintext, xml, gif, and images in transport.
-AddOutputFilterByType DEFLATE text/css text/plain text/xml image/gif image/jpeg image/png
+	# Compress css, plaintext, xml, gif, and images in transport.
+	AddOutputFilterByType DEFLATE text/css text/plain text/xml image/gif image/jpeg image/png
 </IfModule>

@@ -6,7 +6,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Page Editor | Hills Road Sixth Form College</title>
+		<title>Page Editor | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		

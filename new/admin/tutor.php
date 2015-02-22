@@ -7,7 +7,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Tutors | Hills Road Sixth Form College</title>
+		<title>Manage tutors | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		
@@ -37,7 +37,7 @@
 				
 				
 				<!-- page content -->
-				<div class="page-content">	        	
+				<div class="page-content hasaside">	        	
 					
 					<h1>Manage Tutors</h1>
 					
@@ -108,12 +108,14 @@
 		echo $e->getMessage();
 	}
 ?>
-					<h3>Add tutor</h3>
-					<form method="post">
-						<p>Initials: <input type="text" name="initials" class="tiny" placeholder="e.g. ADC" /> 
-						Tutor Name: <input type="text" name="tutor" placeholder="e.g. Mr Cumming" /> 
-						<input type="submit" value="Add Tutor &#187;"></p>
-					</form>
+					<aside>
+						<h3>Add tutor</h3>
+						<form method="post">
+							<p>Initials: <input type="text" name="initials" class="tiny" placeholder="ADC" /></p>
+							<p>Tutor Name: <input type="text" name="tutor" placeholder="Mr Cumming" /></p>
+							<p><input type="submit" value="Add Tutor &#187;"></p>
+						</form>
+					</aside>
 				</div>
 				<!-- ENDS page content -->
 

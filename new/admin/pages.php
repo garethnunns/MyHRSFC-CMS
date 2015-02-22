@@ -6,7 +6,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Manage Pages | Hills Road Sixth Form College</title>
+		<title>Manage Pages | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		
@@ -39,6 +39,8 @@
 				<div class="page-content">
 					
 					<h1>Pages Manager</h1>
+
+					<p><a href="page.php">Add page &#187;</a></p>
 
 					<table rules="all">
 						<tr class="headings">

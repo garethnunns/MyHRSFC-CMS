@@ -102,12 +102,16 @@
 		// field valid length parameters
 		// in the form $fields['field name'] = array(max length, min length (optional))
 		// setting min length to -1 allows it to be blank
+		$fields['A to Z name'] = array(60);
+		$fields['A to Z description'] = array(2000);
 		$fields['councillor name'] = array(50);
 		$fields['councillor shortname'] = array(30);
 		$fields['councillor email'] = array(100);
 		$fields['councillor password'] = array(150);
 		$fields['councillor subjects'] = array(150,-1);
 		$fields['councillor bio'] = array(1000,-1);
+		$fields['link name'] = array(60);
+		$fields['link URL'] = array(100);
 		$fields['parent name'] = array(15);
 		$fields['parent subheader'] = array(45);
 		$fields['rolename'] = array(60);

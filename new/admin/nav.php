@@ -7,7 +7,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Navigation | Hills Road Sixth Form College</title>
+		<title>Manage Navigation | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		
@@ -46,7 +46,7 @@
 			if(validString('parent name',$_POST['name']) // validate name
 			&& validString('parent subheader',$_POST['subheader']) // validate subheader
 			&& pageExists($_POST['page'])) { // check page id relates to a page in the database
-					// check to see page isn't aready in the parents table
+				// check to see page isn't aready in the parents table
 				$lookupsql = 'SELECT name
 				FROM parents
 				WHERE idpages = :pageid';
@@ -75,8 +75,9 @@
 		}
 
 		// nav bar sorter
-		$navresult = $dbh->query("SELECT parents.idparents, parents.name, parents.position AS parentpos, nav.idpages, 
-			nav.idlinks, nav.position AS childpos, pages.title, links.name AS link
+		$navresult = $dbh->query("SELECT parents.idpages as parentpage, parents.idparents, 
+			parents.name, parents.position AS parentpos,
+			nav.idpages, nav.idlinks, nav.position AS childpos, pages.title, links.name AS link
 			FROM parents
 			LEFT JOIN nav
 			ON nav.idparents=parents.idparents
@@ -89,18 +90,19 @@
 
 		if($navcount) {
 			echo '<ol class="sorting" id="navsort">';
-			$pos = 0;
+			$pos = -1;
 			foreach ($navresult as $nav) {
-				if(($nav['parentpos'] > $pos) && $pos) echo '</ol></li>';
-				if($nav['parentpos'] > $pos) { // parent element
-					echo '<li data-id="'.$nav['idparents'].'" class="parent">
+				if(($nav['parentpos'] > $pos) && ($pos>=0)) echo '</ol></li>';
+				if($nav['parentpos'] > $pos) { // different parent to before
+					echo '<li data-id="'.$nav['idparents'].'" data-name="'.$nav['parentpage'].'" class="parent">
 					<img src="../img/icons/close.png" alt="x"/>'.$nav['name'].'<ol>';
 				}
-				if($nav['childpos']) { // child element
+				if($nav['childpos']!='') {// child element
 					echo '<li data-id="'.
 					($nav['title'] ? ($nav['idpages'].'" data-name="page"') : $nav['idlinks'].'" data-name="link"').
 					'"><img src="../img/icons/close.png" alt="x"/>'.($nav['title'] ? $nav['title'] : $nav['link']).'</li>';
 				}
+
 				$pos = $nav['parentpos'];
 			}
 			echo '</ol></ol>'; // closing main list
@@ -109,7 +111,12 @@
 			echo "<p>The nav bar is currently empty</p>";
 		}
 
+		echo '<input type="submit" value="Save changes &#187;" onclick="save()" />
+		<div id="output"><p></p></div>';
+
 		echo '<aside><h3>Pages</h3>';
+		echo '<p><a href="pages.php">Manage pages &#187;</a></p>';
+		// list of pages
 		$pagesresult = $dbh->query("SELECT idpages, title, alias FROM pages ORDER BY title");
 		if($pagesresult->rowCount()) {
 			echo '<ol class="sorting">';
@@ -122,6 +129,8 @@
 		else echo '<p class="error">There are no pages in the database</p>';
 
 		echo '<h3>Links</h3>';
+		echo '<p><a href="link.php">Manage links &#187;</a></p>';
+		//list of links
 		$linksresult = $dbh->query("SELECT idlinks, name FROM links ORDER BY name");
 		if($linksresult->rowCount()) {
 			echo '<ol class="sorting">';
@@ -139,10 +148,7 @@
 		echo $e->getMessage();
 	}
 ?>
-					<input type="submit" value="Save changes" onclick="save()" />
-					<div id="output"></div> <!-- temp -->
 
-					<p>&nbsp;</p>
 					<h3>Add top level page link</h3>
 					<form method="post">
 <?php
@@ -208,7 +214,7 @@
 				_super($item)
 			}
 
-			_super($item);
+			_super($item); // default styling changes made on drag start
 		},
 		afterMove: function (placeholder, container) {
 			if(oldContainer != container) { // put a border round the one being dropped into
@@ -223,20 +229,36 @@
 		onDrop: function (item, container, _super) {
 			container.el.removeClass("active");
 
-			_super(item,container);
+			$("#navsort img").on('click touchstart', function () { // add event listener to any new ones added
+				$(this).parent().remove(); // delete the surrounding ol
+				$('#output').html('<p class="error">There are unsaved changes</p>');
+			});
+
+			$('#output').html('<p class="error">There are unsaved changes</p>');
+
+			_super(item,container); // perform default behaviour for on drop
 		}
 	});
 	$("aside ol").sortable({ // lists of pages and links
 		group: 'nav',
 		drop: false
 	});
-	$("#navsort img").click(function () {
+	$("#navsort img").on('click touchstart', function () {
 		$(this).parent().remove(); // delete the surrounding ol
+		$('#output').html('<p class="error">There are unsaved changes</p>');
 	});
 	function save () {
-		var data = $("#navsort").sortable("serialize").get();
-		var jsonString = JSON.stringify(data, null, ' ');
-		$('#output').text(jsonString);
+		$('#output').html('<p>Updating...</p>');
+
+		var data = $("#navsort").sortable("serialize").get(); // get sorted nav as JSON
+
+		$.ajax({
+			type: 'post',
+			url: 'editnav.php',
+			data: {nav: data},
+		}).done(function(msg) {
+			$('#output').html(msg); // give feedback to user
+		});
 	}
 </script>
 			

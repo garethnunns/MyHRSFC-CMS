@@ -6,7 +6,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Admin | Hills Road Sixth Form College</title>
+		<title>Admin | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		
@@ -60,8 +60,12 @@
 
 					<?php if($sudo) { ?>
 					<p><a href="nav.php">Manage navigation</a></p>
+
+					<p><a href="link.php">Manage links</a></p>
 					<?php } ?>
 
+
+					<p><a href="atoz.php">Manage A to Z</a></p>
 
 					<p><a href="logout.php">Logout</a></p>
 

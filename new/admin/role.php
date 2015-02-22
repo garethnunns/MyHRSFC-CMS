@@ -7,7 +7,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Roles | Hills Road Sixth Form College</title>
+		<title>Roles | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		
@@ -37,7 +37,7 @@
 				
 				
 				<!-- page content -->
-				<div class="page-content">	        	
+				<div class="page-content hasaside">	        	
 					
 					<h1>Manage Tutors</h1>
 					
@@ -103,11 +103,13 @@
 		echo $e->getMessage();
 	}
 ?>
-					<h3>Add role</h3>
-					<form method="post">
-						<p>Name of the role: <input type="text" name="addrole" placeholder="e.g. Chair" /> 
-						<input type="submit" value="Add role &#187;"></p>
-					</form>
+					<aside>
+						<h3>Add role</h3>
+						<form method="post">
+							<p>Name of the role: <input type="text" name="addrole" placeholder="e.g. Chair" /></p>
+							<p><input type="submit" value="Add role &#187;"></p>
+						</form>
+					</aside>
 				</div>
 				<!-- ENDS page content -->
 

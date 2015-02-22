@@ -69,7 +69,8 @@
 				<!-- masthead -->
 				<div id="masthead">
 					<span class="head">
-						<?php echo $page->title; ?></span><span class="subhead"><?php echo $page->subtitle; ?>
+						<?php echo htmlentities($page->title); ?></span>
+						<span class="subhead"><?php echo htmlentities($page->subtitle); ?>
 					</span>
 					<!--<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
 						<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a></li>

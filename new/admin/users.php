@@ -7,7 +7,7 @@
 	<!-- HEADER -->
 	<head>
 
-		<title>Manage Users | Hills Road Sixth Form College</title>
+		<title>Manage Users | MyHRSFC Admin</title>
 
 		<?php globalContentBlock('head'); ?>
 		
