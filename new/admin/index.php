@@ -42,8 +42,12 @@
 					
 					<p><a href="user.php?user=<?php echo $user ?>">Edit profile</a></p>
 
+					<p><a href="logout.php">Logout</a></p>
+
 
 					<?php if($sudo) { ?>
+					<h3>Users</h3>
+
 					<p><a href="user.php">Add user</a></p>
 
 					<p><a href="users.php">Manage users</a></p>
@@ -53,10 +57,12 @@
 					<p><a href="tutor.php">Manage tutors</a></p>
 					<?php } ?>
 
+					<h3>Content</h3>
 
 					<p><a href="page.php">Add new page</a></p>
 
 					<p><a href="pages.php">Manage pages</a></p>
+
 
 					<?php if($sudo) { ?>
 					<p><a href="nav.php">Manage navigation</a></p>
@@ -64,14 +70,25 @@
 					<p><a href="link.php">Manage links</a></p>
 					<?php } ?>
 
+					<h4>Lists</h4>
 
 					<p><a href="atoz.php">Manage A to Z</a></p>
 
-					<p><a href="logout.php">Logout</a></p>
+					<p><a href="faq.php">Manage FAQs</a></p>
+
+
+					<?php if($sudo) { ?>
+					<h3>Advanced</h3>
+
+					<p><a href="gcb.php">Manage global content blocks</a></p>
+
+					<p><a href="function.php">Manage functions</a></p>
+					<?php } ?>
 
 					<aside>
 						<?php outputCouncillor($user); ?>
 						<p><a href="user.php?user=<?php echo $user ?>">Edit profile</a></p>
+						<p><a href="logout.php">Logout</a></p>
 					</aside>
 				
 				</div>

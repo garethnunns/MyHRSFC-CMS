@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2015 at 03:44 PM
+-- Generation Time: Feb 22, 2015 at 08:09 PM
 -- Server version: 5.1.57
 -- PHP Version: 5.2.17
 
@@ -24,7 +24,7 @@ CREATE TABLE `AtoZ` (
   `name` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
   `desc` text COLLATE latin1_general_ci,
   PRIMARY KEY (`idAtoZ`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=47 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `AtoZ`
@@ -222,12 +222,16 @@ CREATE TABLE `faqs` (
   `question` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `answer` text COLLATE latin1_general_ci,
   PRIMARY KEY (`idfaqs`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `faqs`
 --
 
+INSERT INTO `faqs` VALUES(1, 'Feel ill?', 'If you are taken ill during the day go to the Guidance Office where staff will help you if first aid is needed; checking you can get home; filling in your absence on the register and hearing from you or parent/guardian when you get home. You may use the medical room to rest and recover until you can be collected or if you feel well enough to get yourself home, or return to lessons.');
+INSERT INTO `faqs` VALUES(2, 'Have timetable queries?', 'If you have any timetable queries, please go to Guidance Office where they will be able to help you.');
+INSERT INTO `faqs` VALUES(3, 'Want to change courses?', 'If you feel you have given serious consideration to changing your course, you need to speak with your tutor as soon as possible. He/she will probably suggest that you speak to your class teacher, and also to someone in careers (as a course change may affect your choice of career and limit your options later on). Your tutor will discuss the issues with you and take further action as appropriate. Please note that changing courses is a very big step, and it may not be possible and/or advisable to grant course change requests.');
+INSERT INTO `faqs` VALUES(4, 'Don''t know where something is?', 'There are various maps of the building up around College to help you find your way around. If you do get lost, don''t be afraid to ask someone for help! You can also take a look at the College Map by [clicking here](/docs/hrmap.pdf).');
 
 -- --------------------------------------------------------
 
@@ -262,14 +266,15 @@ CREATE TABLE `functions` (
   `desc` text COLLATE latin1_general_ci,
   `content` text COLLATE latin1_general_ci,
   PRIMARY KEY (`idfunctions`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `functions`
 --
 
-INSERT INTO `functions` VALUES(1, 'AtoZ', 'Output all of the A to Z items in alphabetical order', 'try {\r\n	$sql = "SELECT `name`,`desc` FROM AtoZ ORDER BY name";\r\n							\r\n	foreach ($dbh->query($sql) as $row) {\r\n		echo ''<h3>''.htmlentities($row[''name'']).''</h3>'';\r\n		echo write($row[''desc'']);\r\n	}\r\n}\r\ncatch (PDOException $e) {\r\n	echo $e->getMessage();\r\n}');
-INSERT INTO `functions` VALUES(3, 'showImage(role)', 'Display image of councillor from role', 'try {\r\n	$sth = $dbh->prepare(''SELECT councillors.name, councillors.image\r\n		FROM councillors, councillors_roles\r\n		WHERE councillors_roles.rolename = ? \r\n		AND councillors_roles.idroles = councillors.role\r\n		AND councillors.active = 1 \r\n		LIMIT 1'');\r\n	$sth->bindValue(1, $role, PDO::PARAM_STR);\r\n	$sth->execute();\r\n	\r\n	$result = $sth->fetch(PDO::FETCH_OBJ);					\r\n	\r\n	echo ''<img src="''.$result->image.''" class="thumb" alt="''.$result->name.'' - ''.$role.''" />'';\r\n}\r\ncatch (PDOException $e) {\r\n	echo $e->getMessage();\r\n}');
+INSERT INTO `functions` VALUES(1, 'AtoZ', 'Output all of the A to Z items in alphabetical order', 'try {\n	$sql = "SELECT `name`,`desc` FROM AtoZ ORDER BY name";\n							\n	foreach ($dbh->query($sql) as $row) {\n		echo ''<h3>''.htmlentities($row[''name'']).''</h3>'';\n		echo write($row[''desc'']);\n	}\n}\ncatch (PDOException $e) {\n	echo $e->getMessage();\n}');
+INSERT INTO `functions` VALUES(3, 'showImage(role)', 'Display image of councillor from specified **role id**', 'try {\n	$sth = $dbh->prepare(''SELECT councillors.name, councillors.image\n		FROM councillors, councillors_roles\n		WHERE councillors_roles.rolename = ? \n		AND councillors_roles.idroles = councillors.role\n		AND councillors.active = 1 \n		LIMIT 1'');\n	$sth->bindValue(1, $role, PDO::PARAM_STR);\n	$sth->execute();\n	\n	$result = $sth->fetch(PDO::FETCH_OBJ);					\n	\n	echo ''<img src="''.$result->image.''" class="thumb" alt="''.$result->name.'' - ''.$role.''" />'';\n}\ncatch (PDOException $e) {\n	echo $e->getMessage();\n}');
+INSERT INTO `functions` VALUES(5, 'FAQs', 'Output all of the FAQs in alphabetical order by question', 'try {\r\n	$sql = "SELECT question,answer FROM faqs ORDER BY question";\r\n							\r\n	foreach ($dbh->query($sql) as $row) {\r\n		echo ''<h3>''.htmlentities($row[''question'']).''</h3>'';\r\n		echo line($row[''answer'']);\r\n	}\r\n}\r\ncatch (PDOException $e) {\r\n	echo $e->getMessage();\r\n}');
 
 -- --------------------------------------------------------
 
@@ -282,16 +287,16 @@ CREATE TABLE `gcb` (
   `name` varchar(45) COLLATE latin1_general_ci NOT NULL,
   `content` text COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`idgcb`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Global Content Blocks' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Global Content Blocks' AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `gcb`
 --
 
-INSERT INTO `gcb` VALUES(1, 'head', '<meta name="robots" content="index, follow" />\r\n<meta http-equiv="content-type" content="text/html; charset=UTF-8" />\r\n<meta name="geo.position" content="52.188179;0.136028" />\r\n<meta name="geo.placename" content="Hills Road Sixth Form College, Cambridge, United Kingdom" />\r\n<meta name="geo.region" content="GB-CAM" />\r\n<link rel = "icon" type = "image/x-icon" href = "http://www.myhrsfc.co.uk/favicon.ico" />\r\n        \r\n<!-- \r\n	Design Copyright 2012, Andrew J. Watts\r\n	All Rights Reserved\r\n     \r\n	LEGAL DISCLAIMER:\r\n     \r\n	Between April 2014 and March 2015, Hills Road Sixth Form College and the Hills Road Student community are authorised to use this website, it''s content and it''s design(s).\r\n	From March 2015 this website will be FULL PROPERTY of the author, Andrew J Watts. Hills Road Sixth Form College will have no right or obligation to have access to or to use this website, it''s content and it''s design(s) from this date onwards unless agreed with any future Student Council.\r\n	END OF DISCLAIMER\r\n-->\r\n\r\n\r\n<!--[if lt IE 9]>\r\n	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\r\n<![endif]-->\r\n<link rel="stylesheet" media="all" type="text/css" href="/css/style.css"/>\r\n<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>\r\n\r\n<!-- JS -->\r\n\r\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>\r\n<script src="/js/css3-mediaqueries.js" type="text/javascript"></script>\r\n<script src="/site/custom.js" type="text/javascript"></script>\r\n<!-- not used? <script src="/js/tabs.js" type="text/javascript"></script> -->\r\n\r\n<!-- superfish: drop down menu -->\r\n<link rel="stylesheet" media="screen" type="text/css" href="/css/superfish.css" /> \r\n<script src="/js/superfish.js" type="text/javascript"></script>\r\n<script src="/js/hoverIntent.js" type="text/javascript"></script>\r\n<script src="/js/supersubs.js" type="text/javascript"></script>\r\n<!-- ENDS superfish -->\r\n\r\n<!-- prettyPhoto -->\r\n\r\n<link rel="stylesheet" href="/css/prettyPhoto.css" type="text/css" media="screen"> \r\n<script src="/js/jquery.prettyPhoto.js" type="text/javascript"></script>\r\n<!-- ENDS prettyPhoto -->\r\n\r\n<!-- poshytip -->\r\n<link rel="stylesheet" href="/css/tip-twitter.css" type="text/css">\r\n<link rel="stylesheet" href="css/tip-yellowsimple.css" type="text/css">\r\n<script src="/js/jquery.poshytip.min.js" type="text/javascript"></script>\r\n<!-- ENDS poshytip -->\r\n\r\n<!-- Flex Slider -->\r\n<link rel="stylesheet" href="/css/flexslider.css" type="text/css">\r\n<script src="/js/jquery.flexslider-min.js" type="text/javascript"></script>\r\n<!-- ENDS Flex Slider -->\r\n\r\n<!--[if IE 6]>\r\n<link rel="stylesheet" href="css/ie6-hacks.css" type="text/css" media="screen" />\r\n<script type="text/javascript" src="js/DD_belatedPNG.js"></script>\r\n	<script>\r\n  		/* EXAMPLE */\r\n  		DD_belatedPNG.fix(''*'');\r\n	</script>\r\n<![endif]-->\r\n\r\n<!-- Lessgrid -->\r\n<link rel="stylesheet" type="text/css" href="/css/lessgrid.css"/>\r\n\r\n<!-- Google Analytic -->\r\n<script>\r\n	(function(i,s,o,g,r,a,m){i[''GoogleAnalyticsObject'']=r;i[r]=i[r]||function(){\r\n	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\r\n	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\r\n	})(window,document,''script'',''//www.google-analytics.com/analytics.js'',''ga'');\r\n\r\n	ga(''create'', ''UA-53004474-2'', ''auto'');\r\n	ga(''send'', ''pageview'');\r\n</script>');
-INSERT INTO `gcb` VALUES(2, 'social', '<div id="social-cont">\r\n	<div id="social-bar">\r\n		<ul>\r\n			<li><a href="http://www.facebook.com/myhrsfc" target="_blank" title="Facebook"><img src="/img/icons/facebook.png"  alt="Facebook" /></a></li>\r\n			<li><a href="mailto:studentcouncil13@hillsroad.ac.uk"  title="Email"><img src="/img/icons/email.png"  alt="Email" /></a></li>\r\n		</ul>\r\n	</div>\r\n</div>');
-INSERT INTO `gcb` VALUES(4, 'sidewriting', '<!-- Sideways writing down side of content by Thomas Frodsham, 2013 -->\r\n<div id="hrscside">Hills Road Student Council 2014-2015</div>');
-INSERT INTO `gcb` VALUES(3, 'footer', '<footer>\r\n	<div class="wrapper">\r\n	\r\n		<ul id="footer-cols">\r\n			\r\n			<li class="first-col">\r\n				\r\n				<div class="widget-block">\r\n					<h4>Quick Contact</h4>\r\n					<div class="recent-post">\r\n						<img src="//placehold.it/100" alt="Profile" class="thumb small" />\r\n						<h6>Chair''s name</h6>\r\n						<p><a href="#" target="_blank">Email the chair</a></p>\r\n					</div>\r\n					<div class="recent-post">\r\n						<img src="//placehold.it/100" alt="Profile" class="thumb small" />\r\n						<h6>Vice chair''s name</h6>\r\n						<p><a href="#" target="_blank">Email the vice chair</a></p>\r\n					</div>\r\n					<div class="recent-post">\r\n						<img src="//placehold.it/100" alt="Profile" class="thumb small" />\r\n						<h6>Webmaster''s name</h6>\r\n						<p><a href="#" target="_blank">Email the webmaster</a></p>\r\n					</div>\r\n				</div>\r\n\r\n			</li>\r\n			\r\n			<li class="second-col">\r\n				\r\n				<div class="widget-block">\r\n					<h4>Copyright</h4>\r\n					<p>Copyright &#169; <?php echo Date(''Y''); ?> Hills Road Sixth Form College Student Council</p>\r\n					<p>This site, its content and its designs are permitted for use only by the Hills Road Sixth Form College Student Council for 2014-2015.</p><!--You should probably ask AW if you want to use them-->\r\n					<p>Originally designed by <a href="http://www.andrew-watts.co.uk" target="_blank">Andrew Watts</a>, with JS from Luis Zuno</p>\r\n\r\n					<p>Modified by <a href="http://www.ely-web-design.co.uk/" target="_blank">Thomas Frodsham</a>, then by <a href="//garethnunns.com">Gareth Nunns</a></p>\r\n				</div>\r\n				\r\n			</li>\r\n			\r\n			<li class="third-col">\r\n				\r\n				<img src = "/img/site/studentcouncil.png" alt = "Student Council, Hills Road Sixth Form College" />\r\n				<a href = "http://www.hrsfc.ac.uk/"><img src = "/img/site/hrsfc.png" alt = "Hills Road Sixth Form College, Cambridge" /></a>\r\n				<p style = "text-align: center; font-size: 11px; line-height: 16px">This website is run solely by the Hills Road Sixth Form College Student Council. It does not reflect the views or opinions of Hills Road Sixth Form College.</p>\r\n\r\n			</li>	\r\n		</ul>				\r\n		<div class="clearfix"></div>\r\n		\r\n		\r\n	</div>\r\n	\r\n	<div id="to-top"></div>\r\n</footer>');
+INSERT INTO `gcb` VALUES(1, 'head', '<meta name="robots" content="index, follow" />\n<meta http-equiv="content-type" content="text/html; charset=UTF-8" />\n<meta name="geo.position" content="52.188179;0.136028" />\n<meta name="geo.placename" content="Hills Road Sixth Form College, Cambridge, United Kingdom" />\n<meta name="geo.region" content="GB-CAM" />\n<link rel = "icon" type = "image/x-icon" href = "http://www.myhrsfc.co.uk/favicon.ico" />\n        \n<!-- \n	Design Copyright 2012, Andrew J. Watts\n	All Rights Reserved\n     \n	LEGAL DISCLAIMER:\n     \n	Between April 2014 and March 2015, Hills Road Sixth Form College and the Hills Road Student community are authorised to use this website, it''s content and it''s design(s).\n	From March 2015 this website will be FULL PROPERTY of the author, Andrew J Watts. Hills Road Sixth Form College will have no right or obligation to have access to or to use this website, it''s content and it''s design(s) from this date onwards unless agreed with any future Student Council.\n	END OF DISCLAIMER\n-->\n\n\n<!--[if lt IE 9]>\n	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\n<![endif]-->\n<link rel="stylesheet" media="all" type="text/css" href="/css/style.css"/>\n<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>\n\n<!-- JS -->\n\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>\n<script src="/js/css3-mediaqueries.js" type="text/javascript"></script>\n<script src="/site/custom.js" type="text/javascript"></script>\n<!-- not used? <script src="/js/tabs.js" type="text/javascript"></script> -->\n\n<!-- superfish: drop down menu -->\n<link rel="stylesheet" media="screen" type="text/css" href="/css/superfish.css" /> \n<script src="/js/superfish.js" type="text/javascript"></script>\n<script src="/js/hoverIntent.js" type="text/javascript"></script>\n<script src="/js/supersubs.js" type="text/javascript"></script>\n<!-- ENDS superfish -->\n\n<!-- prettyPhoto -->\n\n<link rel="stylesheet" href="/css/prettyPhoto.css" type="text/css" media="screen"> \n<script src="/js/jquery.prettyPhoto.js" type="text/javascript"></script>\n<!-- ENDS prettyPhoto -->\n\n<!-- poshytip -->\n<link rel="stylesheet" href="/css/tip-twitter.css" type="text/css">\n<link rel="stylesheet" href="css/tip-yellowsimple.css" type="text/css">\n<script src="/js/jquery.poshytip.min.js" type="text/javascript"></script>\n<!-- ENDS poshytip -->\n\n<!-- Flex Slider -->\n<link rel="stylesheet" href="/css/flexslider.css" type="text/css">\n<script src="/js/jquery.flexslider-min.js" type="text/javascript"></script>\n<!-- ENDS Flex Slider -->\n\n<!--[if IE 6]>\n<link rel="stylesheet" href="css/ie6-hacks.css" type="text/css" media="screen" />\n<script type="text/javascript" src="js/DD_belatedPNG.js"></script>\n	<script>\n  		/* EXAMPLE */\n  		DD_belatedPNG.fix(''*'');\n	</script>\n<![endif]-->\n\n<!-- Lessgrid -->\n<link rel="stylesheet" type="text/css" href="/css/lessgrid.css"/>\n\n<!-- Google Analytic -->\n<script>\n	(function(i,s,o,g,r,a,m){i[''GoogleAnalyticsObject'']=r;i[r]=i[r]||function(){\n	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n	})(window,document,''script'',''//www.google-analytics.com/analytics.js'',''ga'');\n\n	ga(''create'', ''UA-53004474-2'', ''auto'');\n	ga(''send'', ''pageview'');\n</script>');
+INSERT INTO `gcb` VALUES(2, 'social', '<div id="social-cont">\n	<div id="social-bar">\n		<ul>\n			<li><a href="http://www.facebook.com/myhrsfc" target="_blank" title="Facebook"><img src="/img/icons/facebook.png"  alt="Facebook" /></a></li>\n			<li><a href="mailto:studentcouncil13@hillsroad.ac.uk"  title="Email"><img src="/img/icons/email.png"  alt="Email" /></a></li>\n		</ul>\n	</div>\n</div>');
+INSERT INTO `gcb` VALUES(4, 'sidewriting', '<!-- Sideways writing down side of content by Thomas Frodsham, 2013 -->\n<div id="hrscside">Hills Road Student Council 2014-2015</div>');
+INSERT INTO `gcb` VALUES(3, 'footer', '<footer>\n	<div class="wrapper">\n	\n		<ul id="footer-cols">\n			\n			<li class="first-col">\n				\n				<div class="widget-block">\n					<h4>Quick Contact</h4>\n					<div class="recent-post">\n						<img src="//placehold.it/100" alt="Profile" class="thumb small" />\n						<h6>Chair''s name</h6>\n						<p><a href="#" target="_blank">Email the chair</a></p>\n					</div>\n					<div class="recent-post">\n						<img src="//placehold.it/100" alt="Profile" class="thumb small" />\n						<h6>Vice chair''s name</h6>\n						<p><a href="#" target="_blank">Email the vice chair</a></p>\n					</div>\n					<div class="recent-post">\n						<img src="//placehold.it/100" alt="Profile" class="thumb small" />\n						<h6>Webmaster''s name</h6>\n						<p><a href="#" target="_blank">Email the webmaster</a></p>\n					</div>\n				</div>\n\n			</li>\n			\n			<li class="second-col">\n				\n				<div class="widget-block">\n					<h4>Copyright</h4>\n					<p>Copyright Â© <?php echo Date(''Y''); ?> Hills Road Sixth Form College Student Council</p>\n					<p>This site, its content and its designs are permitted for use only by the Hills Road Sixth Form College Student Council for 2014-2015.</p><!--You should probably ask AW if you want to use them-->\n					<p>Originally designed by <a href="http://www.andrew-watts.co.uk" target="_blank">Andrew Watts</a>, with JS from Luis Zuno</p>\n\n					<p>Modified by <a href="http://www.ely-web-design.co.uk/" target="_blank">Thomas Frodsham</a>, then by <a href="//garethnunns.com">Gareth Nunns</a></p>\n				</div>\n				\n			</li>\n			\n			<li class="third-col">\n				\n				<img src = "/img/site/studentcouncil.png" alt = "Student Council, Hills Road Sixth Form College" />\n				<a href = "http://www.hrsfc.ac.uk/"><img src = "/img/site/hrsfc.png" alt = "Hills Road Sixth Form College, Cambridge" /></a>\n				<p style = "text-align: center; font-size: 11px; line-height: 16px">This website is run solely by the Hills Road Sixth Form College Student Council. It does not reflect the views or opinions of Hills Road Sixth Form College.</p>\n\n			</li>	\n		</ul>				\n		<div class="clearfix"></div>\n		\n		\n	</div>\n	\n	<div id="to-top"></div>\n</footer>');
 
 -- --------------------------------------------------------
 
@@ -307,14 +312,15 @@ CREATE TABLE `links` (
   `idcolours` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idlinks`),
   KEY `idcolours_idx` (`idcolours`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `links`
 --
 
 INSERT INTO `links` VALUES(1, 'Email Welfare', 'bla@bla.com', 1, NULL);
-INSERT INTO `links` VALUES(2, 'Example Link', '//garethnunns.com', NULL, 1);
+INSERT INTO `links` VALUES(3, 'Example', 'http://garethnunns.com', 0, NULL);
+INSERT INTO `links` VALUES(4, 'Email the council', 'studentcouncil14@hillsroad.ac.uk', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -332,16 +338,16 @@ CREATE TABLE `nav` (
   KEY `idparents_idx` (`idparents`),
   KEY `idlinks_idx` (`idlinks`),
   KEY `idpages_idx` (`idpages`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=81 ;
 
 --
 -- Dumping data for table `nav`
 --
 
-INSERT INTO `nav` VALUES(1, 2, 5, NULL, 1);
-INSERT INTO `nav` VALUES(2, 2, NULL, 1, 2);
-INSERT INTO `nav` VALUES(3, 2, NULL, 2, 3);
-INSERT INTO `nav` VALUES(5, 3, 1, NULL, 1);
+INSERT INTO `nav` VALUES(78, 32, 5, NULL, 1);
+INSERT INTO `nav` VALUES(80, 33, 7, NULL, 1);
+INSERT INTO `nav` VALUES(77, 32, 4, NULL, 0);
+INSERT INTO `nav` VALUES(79, 33, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -366,7 +372,7 @@ CREATE TABLE `pages` (
   PRIMARY KEY (`idpages`),
   UNIQUE KEY `idcontent_UNIQUE` (`idpages`),
   KEY `idcouncilllors_idx` (`assoc_councillor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `pages`
@@ -378,6 +384,7 @@ INSERT INTO `pages` VALUES(3, 'index', '', '', 'Home', '<script type="text/javas
 INSERT INTO `pages` VALUES(6, 'welcome', 'Welcome', 'An introduction from your Council', 'Welcome, Lower 6th!', NULL, '<img src="/img/2014/group.jpg" />\r\n\r\nHey lower 6th - welcome to Hills! The first few weeks can be a bit daunting so we''ve put together a handy section on the site to ensure the process is as stress-free as possible for everyone involved.\r\n\r\nHills Road is an energetic, exciting place with a limitless opportunities for you to engage in, so make sure that you make full use of the range of societies and clubs we''ve worked hard to provide in the coming year.\r\n \r\nIf you want more information about what we do please feel free to look through the rest of this website which is specifically designed to get the most important information to you in a quick manner.\r\n\r\nIf you''ve any questions at all please email your Chair, Alice French or  the entire council. You can also contact us anonymously using our online contact form. We''re ready on standby to reply to any queries you may have. \r\n\r\nThanks for reading and have fun in the year ahead!!\r\n\r\nYour Student Council, 2015', '', 2, 'A warm welcome from the Hills Road Student Council to new and prospective students', NULL, 1, 1);
 INSERT INTO `pages` VALUES(4, 'support', 'Support & Welfare', 'Helping you along the way', '', NULL, '### Help is at hand!\r\n\r\nEllie is responsible for welfare, diversity and equality at Hills, and is here to support you! From the trivial to more serious matters, you''re able to confidentially discuss anything at all with Ellie. If you have any problems at all, then please do click below to email her. Or if you prefer to contact us anonymously, find the link just below.\r\n\r\n- [Email the Welfare Officer](mailto:welfare@officer.com)\r\n- [Anonymous Contact Form](/acf)\r\n- http://stonewall.org.uk (LGBT)\r\n- http://ditchthelabel.org (Anti-bullying)\r\n- http://equalityhumanrights.com\r\n- http://interfaith.org.uk\r\n- http://disabledgo.com\r\n- http://syacambs.org (local LGBT group)\r\n- http://mind.org.uk (mental health charity)\r\n- http://mindincambs.org.uk (local mental health group)\r\n- http://scope.org.uk\r\n- http://mindfull.org\r\n\r\nIf it takes your fancy, why not check out this [Student Welfare site on Direct.gov](http://www.direct.gov.uk/en/YoungPeople/DG_10016099)?', NULL, NULL, 'Support and Welfare at Hills Road Sixth Form College', NULL, 1, 1);
 INSERT INTO `pages` VALUES(5, 'equality', 'Equality & Diversity', NULL, '', NULL, '##### Official documents published by Hills Road regarding the Equality and Diversity of the College:\r\n\r\n- [HRSFC equality & diversity](http://www.hrsfc.ac.uk/equalityDiversity.aspx)\r\n- [The equality and diversity report on HRSFC (2011-2012)](http://myhrsfc.co.uk/docs/ED_Report_for_Corporation_2012.docx)\r\n- [Single Equality Scheme HRSFC (2010-2013)](http://myhrsfc.co.uk/docs/Single_Equality_Scheme.doc)\r\n- [The SES (Single Equality Scheme) HRSFC action plan (2011-2012)](http://www.hrsfc.ac.uk/SESActionPlan2011_12.pdf)\r\n- [The SES (Single Equality Scheme) HRSFC action plan REVIEW (Oct 2012)](http://myhrsfc.co.uk/docs/SES_Action_Plan_2011-12_-_Review.doc)\r\n\r\nIf you have any specific questions relating to the equality and diversity of the college, then please do contact us.', NULL, NULL, 'Equality and Diversity information for Hills Road Sixth Form College', NULL, 1, 1);
+INSERT INTO `pages` VALUES(7, 'faq', 'Frequently Asked Questions', 'Some popular questions from new students!', 'FAQ', NULL, '## What do I do if I...\r\n\r\n{ FAQs }', '', NULL, 'Frequently Asked Questions to the Hills Road Student Council', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -388,21 +395,21 @@ INSERT INTO `pages` VALUES(5, 'equality', 'Equality & Diversity', NULL, '', NULL
 CREATE TABLE `parents` (
   `idparents` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idpages` int(10) unsigned NOT NULL,
-  `name` varchar(30) COLLATE latin1_general_ci NOT NULL,
+  `name` varchar(15) COLLATE latin1_general_ci NOT NULL,
   `subheader` varchar(45) COLLATE latin1_general_ci NOT NULL,
-  `position` varchar(11) COLLATE latin1_general_ci NOT NULL,
+  `position` tinyint(11) NOT NULL,
   `special` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idparents`),
   KEY `idpages_idx` (`idpages`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `parents`
 --
 
-INSERT INTO `parents` VALUES(1, 3, 'MyHRSFC', 'welcome', '1', 0);
-INSERT INTO `parents` VALUES(2, 4, 'support', 'here to help', '2', 0);
-INSERT INTO `parents` VALUES(3, 6, 'Lower 6th', 'all the info', '8', 1);
+INSERT INTO `parents` VALUES(32, 4, 'support', 'Here to help', 1, 0);
+INSERT INTO `parents` VALUES(33, 6, 'Lower 6th', 'all the info', 2, 1);
+INSERT INTO `parents` VALUES(27, 3, 'MyHRSFC', 'welcome', 0, 0);
 
 -- --------------------------------------------------------
 

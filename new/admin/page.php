@@ -37,7 +37,7 @@
 				
 				
 				<!-- page content -->
-				<div class="page-content">
+				<div class="page-content hasaside">
 
 					<?php 
 						if(isset($_GET['page'])) {
@@ -79,21 +79,11 @@
 			}
 		}
 		else { // updating
-
-			// look up page in database
-			$lookupsth = $dbh->prepare('SELECT alias
-										FROM pages
-										WHERE idpages = ?');
-			$lookupsth->bindValue(1, $_POST['page'], PDO::PARAM_INT);
-			$lookupsth->execute();
-
-			$count = $lookupsth->rowCount();
-
-			if($count) {
+			if(pageExists($_POST['page'])) { // check page exists in the db
 				$result = $lookupsth->fetch(PDO::FETCH_OBJ);
 
 				if(isSpecial($result->alias)) { // checks to see if page is special
-					$alias = $result->alias; // alias remains the same then update the other fields
+					$alias = $result->alias; // alias remains the same and then updates the other fields
 				}
 				$sql = "UPDATE pages 
 						SET	title = :title,
@@ -110,10 +100,7 @@
 						WHERE idpages = :page";
 				if(!$sudo) $sql .= " AND assoc_councillor = :councillor";
 			}
-			else {
-				$error = true;
-				echo '<p class="error">The page you are trying to edit does not exist in the database</p>';
-			}
+			else $error = true;
 		}
 
 		if(!$error) {
@@ -178,45 +165,113 @@
 		echo '<form method="post">';
 
 		if(isset($page->idpages)) echo '<input type="hidden" name="page" value="'.$page->idpages.'"/>';
-		echo '<p>Title: <input type="text" name="title" placeholder="Used in the mast head" value="'.$page->title.'" /></p>';
+		echo '
+		<p><i>The title and subtitle are used in the masthead above, if both are left blank it is not shown</i></p>
+		<p>Title:
+		<input type="text" name="title" placeholder="Used in the mast head" value="'.$page->title.'" /></p>
 
-		echo '<p>Subtitle: <input type="text" name="subtitle" placeholder="Used in the mast head" value="'.$page->subtitle.'" /></p>';
+		<p>Subtitle: 
+		<input type="text" name="subtitle" placeholder="Used in the mast head" value="'.$page->subtitle.'" /></p>
 
-		echo '<p>Content:</p><textarea name="body" placeholder="Main content for the page">'.$page->body.'</textarea>';
+		<p><b>Content</b>: <i>The main content of the page, using functions and optionally MarkDown</i></p>
+		<textarea name="body" placeholder="Main content for the page">'.$page->body.'</textarea>
 
-		echo '<p>Sidebar:</p><textarea name="sidebar" placeholder="Content to go in the sidebar">'.$page->sidebar.'</textarea>';
+		<p>Sidebar: <i>If left blank, the sidebar isn\'t display</i></p>
+		<textarea name="sidebar" placeholder="Content to go in the sidebar">'.$page->sidebar.'</textarea>
 
-		echo '<h3>Advanced</h3>';
+		<h3>Advanced</h3>
+
+		<p><input type="checkbox" name="editor" id="editor" value="1" ';
+		if (!isset($reqpage) || $page->editor) echo 'checked'; // set by default for creating new pages
+		echo '/> <label for="editor">Use MarkDown (recommended)</label>
+		<i><a href="https://help.github.com/articles/markdown-basics/">Learn more about MarkDown</a></i></p>';
 
 		if((!isset($reqpage)) || ((isset($sudo)) && !isSpecial($page->alias))) { 
 			// adding the page or editing the page as sudo and not a special page
-			echo '<p>Alias: <input type="text" name="alias" class="short" placeholder="The link to the page" value="'.$page->alias.'" /></p>';
+			echo '<p><b>Alias</b>: 
+			<input type="text" name="alias" class="short" placeholder="Link to the page" value="'.$page->alias.'" />
+			<i>e.g. myhrsfc.co.uk/<u>welcome</u></i></p>';
 		}
 
-		echo '<p>Page title: <input type="text" name="metatitle" placeholder="Used in the tab name" value="'.$page->meta_title.'" /></p>';
+		echo '<p>Page title: 
+		<input type="text" name="metatitle" placeholder="Used in the tab name" value="'.$page->meta_title.'" /><br>
+		<i>The short title of the page that is shown in the browser\'s tab, e.g. <u>Home</u> | MyHRSFC<br>
+		If it is left blank the title attribute is used</i></p>
 
-		echo '<p>Description: <input type="text" name="desc" placeholder="Used in the mast head" value="'.$page->desc.'" /></p>';
+		<p>Description:</p>
+		<input type="text" name="desc" class="full" placeholder="A summary of the page" value="'.$page->desc.'" /><br>
+		<i>Used in search engine summaries of pages and when linked on social media<br>
+		If it is left blank, the start of the page is used instead</i></p>
 
-		echo '<p><input type="checkbox" name="editor" id="editor" value="1" ';
-		if (!isset($reqpage) || $page->editor) echo 'checked'; // set by default
-		echo '/> <label for="editor">Use Markdown (recommended)</label>';
+		<p>Social Image</p>
+		<input type="text" name="social_img" class="full" 
+		placeholder="Picture for the page" value="'.$page->social_img.'" /><br>
+		<i>The image associated with the page when it is linked on social media</i></p>';
+
+		// todo: page specific meta and social image being added/updated
 
 		if($sudo) {
 			echo '<p>Owner: <select name="councillor">
 			<option value="0">None</option>';
 			councSelect($page->assoc_councillor);
-			echo '</select></p>';
+			echo '</select>
+			<i>If set, displays the sidebar with details about the councillor</i></p>';
 		}
 
 		echo '<p><input type="submit" name="submit" value="';
 		if(!isset($reqpage)) echo 'Add';
 		else echo 'Update';
-		echo ' Page &#187;"" /></p>';
-		echo '</form>';
+		echo ' Page &#187;"" /></p>
+		<p><b>Bold attribute names indicate required fields</b></p>
+		</form>';
 	}
 ?>
-					</table>
-				
+					<aside>
+						<h3>Functions:</h3>
+<?php
+	$functions = $dbh->query("SELECT `name`,`desc` FROM functions ORDER BY name");
+
+	$funccount = $functions->rowCount();
+
+	if($funccount) { // there are functions in the database
+		foreach($functions as $function) {
+			echo '<h3>',htmlentities($function['name']).'</h3>';
+			echo '<p>';
+			line($function['desc']);
+			echo '</p>';
+		}
+	}
+
+	$dir = '../img/'.$page->alias.'/'; // that page's folder
+
+	if(isset($_FILES['file']) && $_FILES["file"]['name'] != '') { // upload file into page folder
+		if(!move_uploaded_file($_FILES["file"]["tmp_name"], $dir.basename($_FILES["file"]['name']))){
+			echo '<p class="error">There was an error uploading the file</p>';
+		}
+	}
+
+	if(isset($reqpage) && !file_exists($dir)) mkdir($dir); // editing and folder doesn't already exist
+	if(isset($reqpage) && file_exists($dir)) { // editing and folder exists
+		echo '<h3>Files</h3>';
+
+		$files = array_diff(scandir($dir), array('..', '.'));
+		if(count($files)) { // the page does have some files in the folder
+			echo '<ul>';
+			foreach ($files as $file) { // output list of files
+				$url = '/img/'.$page->alias.'/'.$file;
+				echo '<li><a href="'.$url.'" target="_blank">'.$url.'</a></li>';
+			}
+			echo '</ul>';
+		}
+		else echo '<p><i>No files stored for this page</i></p>';
+
+		echo '<h5>Add file</h6>
+		<form method="post" enctype="multipart/form-data">
+		<p><input type="file" name="file" /></p>
+		<p><input type="submit" value="Upload &#187;" /></p>';
+	} 
+?>
+					</aside>
 				</div>
 				<!-- ENDS page content -->
 			

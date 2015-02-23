@@ -230,12 +230,12 @@
 
 		try {
 			$sql = "SELECT parents.name, child.alias AS childAlias, parent.alias AS parentAlias
-					FROM nav
+					FROM nav -- child nav element
 					LEFT JOIN parents
 					ON nav.idparents=parents.idparents
-					LEFT JOIN pages child
+					LEFT JOIN pages child -- for page alias
 					ON nav.idpages=child.idpages
-					LEFT JOIN pages parent
+					LEFT JOIN pages parent -- for parent alias
 					ON parents.idpages=parent.idpages
 					WHERE nav.idpages = $page
 
@@ -298,7 +298,7 @@
 
 		$count = $gcbsth->rowCount();
 		if($count) echo $gcb->content;
-		else echo "Function '$name' not found";
+		else echo "The global content block, '$name', was not found";
 	}
 
 ?>

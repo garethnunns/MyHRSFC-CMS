@@ -36,12 +36,16 @@
 	<!-- HEADER -->
 	<head>
 
-		<title><?php // output meta title if there is one
-			if(!empty($page->meta_title)) echo $page->meta_title;
-			else echo $page->title; 
+		<title><?php // output meta title if there is one, if not use page title
+			if(!empty($page->meta_title)) echo htmlentities($page->meta_title);
+			else echo htmlentities($page->title); 
 		?> | MyHRSFC</title>
 
-		<meta name="description" content="<?php outputContent($page->desc,false); ?>">
+		<meta name="description" content="<?php // output the first 150 characters of desc (or body if no desc)
+	$desc = $page->desc ? $page->desc : strip_tags($page->body);
+	if(strlen($desc)>150) $desc = substr($desc, 0, 150).'...'; 
+	echo htmlentities($desc);
+?>">
 
 <?php 
 	globalContentBlock('head');
@@ -72,9 +76,6 @@
 						<?php echo htmlentities($page->title); ?></span>
 						<span class="subhead"><?php echo htmlentities($page->subtitle); ?>
 					</span>
-					<!--<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
-						<li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">home</a></li>
-					</ul>-->
 					<?php breadcrumbs($page->idpages); ?>
 				</div>
 				<!-- ENDS masthead -->
@@ -85,8 +86,7 @@
 <?php
 	} // end non-full width content
 
-	if($page->editor) outputContent($page->body); // use markdown
-	else outputContent($page->body,false); // don't use markdown
+	outputContent($page->body,($page->editor ? true : false)); // output content using markdown or not
 
 	if(($page->title != "") || ($page->subtitle != "")) { // show aside when not full width content
 

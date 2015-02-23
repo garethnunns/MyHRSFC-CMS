@@ -96,7 +96,7 @@
 		}
 	}
 
-	function validString($name,$string) {
+	function validString($name,$string) { // basic validation: checking inputted string's length is within bounds
 		$default = array(60,0); // max, min
 
 		// field valid length parameters
@@ -110,6 +110,13 @@
 		$fields['councillor password'] = array(150);
 		$fields['councillor subjects'] = array(150,-1);
 		$fields['councillor bio'] = array(1000,-1);
+		$fields['FAQ question'] = array(100);
+		$fields['FAQ answer'] = array(2500);
+		$fields['function name'] = array(60);
+		$fields['function description'] = array(750);
+		$fields['function content'] = array(10000); // almost limitless
+		$fields['GCB name'] = array(45);
+		$fields['GCB content'] = array(5000);
 		$fields['link name'] = array(60);
 		$fields['link URL'] = array(100);
 		$fields['parent name'] = array(15);

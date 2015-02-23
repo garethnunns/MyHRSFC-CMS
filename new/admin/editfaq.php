@@ -2,16 +2,15 @@
 	include 'checklogin.php';
 
 	$field = strtolower($_POST['field']);
-	$allowed = array('name','desc');
+	$allowed = array('question','answer');
 
 	if(in_array($field,$allowed)) {
-		if (($field == 'name' && validString('A to Z name',$_POST['value'])) ||
-			($field == 'desc' && validString('A to Z description',$_POST['value']))) {
+		if (validString('FAQ '.$field,$_POST['value'])) {
 
 			try {
-				$sth = $dbh->prepare("UPDATE AtoZ 
-					SET `$field` = :value 
-					WHERE idAtoZ = :id");
+				$sth = $dbh->prepare("UPDATE faqs 
+					SET $field = :value 
+					WHERE idfaqs = :id");
 				$sth->bindValue(':id',$_POST['id'], PDO::PARAM_INT);
 				$sth->bindValue(':value',$_POST['value'], PDO::PARAM_STR);
 				$sth->execute();
