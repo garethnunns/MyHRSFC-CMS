@@ -41,6 +41,8 @@
 					
 					<h1>Manage Users</h1>
 
+					<p><a href="user.php">Add user &#187;</a></p>
+
 					<table rules="all" class="responsive">
 						<tr class="headings">
 							<th class="image">Image</th>

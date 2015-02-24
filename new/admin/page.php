@@ -51,12 +51,19 @@
 	if(isset($_POST['submit'])) { // creating or updating
 		$error = false;
 
-		if(!$sudo) $councillor = $user; // normal users only create/update own page
-		else $councillor = $_POST['councillor']; // sudo choose author of page
+		if(!$sudo) {
+			$councillor = $user; // normal users only create/update own page
+			$specialhead = '';
+		}
+		else {
+			$councillor = $_POST['councillor']; // sudo choose author of page
+			$specialhead = $_POST['specialhead'];
+		}
 
 		$alias = $_POST['alias']; // may be changed later if special
 
 		$editor = isset($_POST['editor']) ? 1 : 0;
+
 
 		if(!isset($_POST['page'])) { // creating
 
@@ -69,34 +76,41 @@
 
 			$count = $lookupsth->rowCount();
 
-			if($count) { // already exists
+			if($count && !isSpecial($alias)) { // already exists
 				$error = true;
 				echo '<p class="error"><a href="/'.$alias.'">A page with that alias</a> already exists</p>';
 			}
 			else {
-				$sql = "INSERT INTO pages (title,subtitle,body,sidebar,alias,meta_title,`desc`,assoc_councillor,editor,active)
-						VALUES (:title,:subtitle,:body,:sidebar,:alias,:metatitle,:desc,:councillor,:editor,'1')";
+				$sql = "INSERT INTO pages 
+				VALUES 
+				(null,:alias,:title,:subtitle,:metatitle,:head,:body,:sidebar,:councillor,:desc,:social,:editor,1)";
+
+				$dir = '../img/'.$alias;
+				if(!file_exists($dir)) mkdir($dir); // make files folder for that page
 			}
 		}
 		else { // updating
-			if(pageExists($_POST['page'])) { // check page exists in the db
-				$result = $lookupsth->fetch(PDO::FETCH_OBJ);
+			$result = pageExists($_POST['page']);
 
-				if(isSpecial($result->alias)) { // checks to see if page is special
-					$alias = $result->alias; // alias remains the same and then updates the other fields
+			if($result) { // check page exists in the db
+
+				if(isSpecial($alias) || isSpecial($result)) { // checks to see if new or old alias is special
+					$alias = $result; // alias remains the same and then updates the other fields
 				}
 				$sql = "UPDATE pages 
 						SET	title = :title,
 							subtitle = :subtitle,
 							body = :body,
 							sidebar = :sidebar,";
-				if($sudo) { // only sudo can change alias and owner
+				if($sudo) { // only sudo can update the alias, owner and special head
 					$sql.="	alias = :alias,
-							assoc_councillor = :councillor,";
+							assoc_councillor = :councillor,
+							special_head = :head,";
 				}
 				$sql .= "	meta_title = :metatitle,
 							`desc` = :desc,
-							editor = :editor
+							editor = :editor,
+							social_img = :social
 						WHERE idpages = :page";
 				if(!$sudo) $sql .= " AND assoc_councillor = :councillor";
 			}
@@ -104,30 +118,43 @@
 		}
 
 		if(!$error) {
-			try {
-				$sth = $dbh->prepare($sql);
-				$sth->bindValue(':title',$_POST['title'], PDO::PARAM_STR);
-				$sth->bindValue(':subtitle',$_POST['subtitle'], PDO::PARAM_STR);
-				$sth->bindValue(':body',$_POST['body'], PDO::PARAM_STR);
-				$sth->bindValue(':sidebar',$_POST['sidebar'], PDO::PARAM_STR);
-				if(!isset($_POST['page']) || ($sudo)) { // if adding the page or editing the page as sudo
-					$sth->bindValue(':alias',$alias, PDO::PARAM_STR); 
-				}
-				$sth->bindValue(':metatitle',$_POST['metatitle'], PDO::PARAM_STR);
-				$sth->bindValue(':desc',$_POST['desc'], PDO::PARAM_STR);
-				$sth->bindValue(':editor',$editor, PDO::PARAM_INT);
-				if(isset($_POST['page'])) $sth->bindValue(':page',$_POST['page'], PDO::PARAM_INT); // updating only
-				if(!$councillor) $sth->bindValue(':councillor',null, PDO::PARAM_INT); // 'none' councillor
-				else $sth->bindValue(':councillor',$councillor, PDO::PARAM_INT);
-				$sth->execute();
+			if ( ((!isset($_POST['page']) || ($sudo)) && validAlias($alias)) &&
+				validString('page title',$_POST['title']) &&
+				validString('page subtitle',$_POST['subtitle']) &&
+				validString('page meta title',$_POST['metatitle']) &&
+				validString('page special head',$_POST['specialhead']) &&
+				validString('page content',$_POST['body']) &&
+				validString('page sidebar',$_POST['sidebar']) &&
+				validString('page description',$_POST['desc']) &&
+				validString('page social image',$_POST['social_img'])) {
 
-				echo '<p class="success">Page successly ';
-				if(isset($_POST['page'])) echo 'updated';
-				else echo 'created, create another or <a href="pages.php">view all</a>';
-				echo '</p>';
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
+				try {
+					$sth = $dbh->prepare($sql);
+					$sth->bindValue(':title',$_POST['title'], PDO::PARAM_STR);
+					$sth->bindValue(':subtitle',$_POST['subtitle'], PDO::PARAM_STR);
+					$sth->bindValue(':body',$_POST['body'], PDO::PARAM_STR);
+					$sth->bindValue(':sidebar',$_POST['sidebar'], PDO::PARAM_STR);
+					if(!isset($_POST['page']) || ($sudo)) { // if adding the page or editing the page as sudo
+						$sth->bindValue(':alias',$alias, PDO::PARAM_STR); 
+					}
+					$sth->bindValue(':metatitle',$_POST['metatitle'], PDO::PARAM_STR);
+					$sth->bindValue(':desc',$_POST['desc'], PDO::PARAM_STR);
+					$sth->bindValue(':editor',$editor, PDO::PARAM_INT);
+					if(isset($_POST['page'])) $sth->bindValue(':page',$_POST['page'], PDO::PARAM_INT); // updating only
+					if(!$councillor) $sth->bindValue(':councillor',null, PDO::PARAM_INT); // 'none' councillor
+					else $sth->bindValue(':councillor',$councillor, PDO::PARAM_INT);
+					$sth->bindValue(':social',$_POST['social_img'], PDO::PARAM_STR);
+					$sth->bindValue(':head',$_POST['specialhead'], PDO::PARAM_STR);
+					$sth->execute();
+
+					echo '<p class="success">Page successly ';
+					if(isset($_POST['page'])) echo 'updated';
+					else echo 'created, create another or <a href="pages.php">view all</a>';
+					echo '</p>';
+				}
+				catch (PDOException $e) {
+					echo $e->getMessage();
+				}
 			}
 		}
 	}
@@ -208,10 +235,12 @@
 		placeholder="Picture for the page" value="'.$page->social_img.'" /><br>
 		<i>The image associated with the page when it is linked on social media</i></p>';
 
-		// todo: page specific meta and social image being added/updated
-
 		if($sudo) {
-			echo '<p>Owner: <select name="councillor">
+			echo '<p>Special Head: <i>Content that you want to specifically go in the &lt;head&gt; of this page</i></p>
+			<textarea name="specialhead" placeholder="Code to go in the head section of this page" class="small">'.
+			$page->special_head.'</textarea>
+
+			<p>Owner: <select name="councillor">
 			<option value="0">None</option>';
 			councSelect($page->assoc_councillor);
 			echo '</select>
@@ -227,7 +256,38 @@
 	}
 ?>
 					<aside>
-						<h3>Functions:</h3>
+						<h3>MarkDown &dtrif;</h3>
+						<div>
+							<p><a href="http://daringfireball.net/projects/markdown/syntax">MarkDown</a> is a way 
+							formatting text, here are the basics:</p>
+
+							<p>You can just type a paragraph of text, then leave 2 lines before the next</p>
+
+							<h6>###### Headers</h6>
+							<p>1 to 6 hashes, 1 being the largest, define a heading</p>
+
+							<p><i>*Italic*</i> &amp; <b>**bold**</b><br>
+							(You can also use <i>_underscores_</i>)</p>
+
+							<ul>
+								<li>- Lists are done</li>
+								<li>- Like this</li>
+								<li>- You can also use</li>
+								<li>* Astericks</li>
+								<li>+ or plusses, interchangably</li>
+							</ul>
+
+							<p><b>Links</b> can be done literally:<br>
+							<a href="http://garethnunns.com">http://garethnunns.com</a><br>
+							Or you can change the text:<br>[A link](http://garethnunns.com)<br>
+							<a href="//garethnunns.com">A link</a></p>
+							<p><b>Images:</b><br>
+							![Description of image](/img/profiles/councillor.png)<br>
+							<img src="/img/profiles/councillor.png" alt="Description of image" /></p>
+						</div>
+
+						<h3>Functions &dtrif;</h3>
+						<div>
 <?php
 	$functions = $dbh->query("SELECT `name`,`desc` FROM functions ORDER BY name");
 
@@ -235,13 +295,15 @@
 
 	if($funccount) { // there are functions in the database
 		foreach($functions as $function) {
-			echo '<h3>',htmlentities($function['name']).'</h3>';
+			echo '<h5>{ ',htmlentities($function['name']).' }</h5>';
 			echo '<p>';
 			line($function['desc']);
 			echo '</p>';
 		}
 	}
-
+?>
+						</div>
+<?php
 	$dir = '../img/'.$page->alias.'/'; // that page's folder
 
 	if(isset($_FILES['file']) && $_FILES["file"]['name'] != '') { // upload file into page folder
@@ -252,8 +314,8 @@
 
 	if(isset($reqpage) && !file_exists($dir)) mkdir($dir); // editing and folder doesn't already exist
 	if(isset($reqpage) && file_exists($dir)) { // editing and folder exists
-		echo '<h3>Files</h3>';
-
+		echo '<h3>Files &dtrif;</h3>';
+		echo '<div>';
 		$files = array_diff(scandir($dir), array('..', '.'));
 		if(count($files)) { // the page does have some files in the folder
 			echo '<ul>';
@@ -269,15 +331,31 @@
 		<form method="post" enctype="multipart/form-data">
 		<p><input type="file" name="file" /></p>
 		<p><input type="submit" value="Upload &#187;" /></p>';
+		echo '</div>';
 	} 
 ?>
 					</aside>
+					<div class="clearfix"></div>
 				</div>
 				<!-- ENDS page content -->
 			
 			</div>
 			<!-- ENDS content -->
-			
+
+<script type="text/javascript">
+	$('aside h3').on('click touchstart', function () { // expand pane when heading is clicked
+		$('aside div').not($(this).next()).slideUp();
+		$(this).next().slideToggle();
+	});
+</script>
+<style>
+	aside h3 {
+		cursor: pointer;
+	}
+	aside div {
+		display: none;
+	}
+</style>	
 			<div class="clearfix"></div>
 			<div class="shadow-main"></div>
 		</div>

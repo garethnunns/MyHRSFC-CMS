@@ -73,7 +73,8 @@
 					try {
 						$password = cryptPassword($_POST['password']);
 						$sth = $dbh->prepare("INSERT INTO councillors
-							VALUES (null,:name,:shortname,:email,:password,:role,:tutor,:subjects,:bio,null,:sudo,1)");
+							(name,shortname,email,password,role,tutor,subjects,bio,sudo,active)
+							VALUES (:name,:shortname,:email,:password,:role,:tutor,:subjects,:bio,:sudo,1)");
 						$sth->bindValue(':name',$_POST['name'], PDO::PARAM_STR);
 						$sth->bindValue(':shortname',$_POST['shortname'], PDO::PARAM_STR);
 						$sth->bindValue(':email',$_POST['email'], PDO::PARAM_STR);
@@ -176,8 +177,8 @@
 		echo '</select></p>
 
 		<h6>Subjects</h6>
-		<textarea name="subjects" class="small" 
-		onblur="update(this)" placeholder="Subjects taken this year">'.$councillor->subjects.'</textarea>
+		<input type="text" name="subjects" class="full" 
+		onblur="update(this)" placeholder="Subjects taken this year" value="'.$councillor->subjects.'"/>
 
 		<h6>Biography</h6>
 		<textarea name="bio" placeholder="Short biography.." 

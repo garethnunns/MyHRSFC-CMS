@@ -1,22 +1,22 @@
 <?php
+	// CMS written by Gareth Nunns: http://garethnunns.com
 
+	// functions used by both the admin and public page
 	require_once dirname(__FILE__).'/secure.php';
 	require_once dirname(__FILE__).'/parsedown.php';
 
 	$parsedown = new Parsedown();
 
-	function write($content) {
-	// outputting markdown, allowing HTML tags but encoding special characters, like £, etc.
+	function write($content) { // outputting MarkDown, allowing HTML tags 
 		global $parsedown;
 
-		echo htmlspecialchars_decode(htmlentities($parsedown->text($content)));
+		echo $parsedown->text($content);
 	}
 
-	function line($content) {
-	// outputting markdown, allowing only inline HTML tags but encoding special characters, like £, etc.
+	function line($content) { // outputting markdown, allowing only inline MarkDown
 		global $parsedown;
 
-		echo htmlspecialchars_decode(htmlentities($parsedown->line($content)));
+		echo $parsedown->line(htmlspecialchars($content));
 	}
 
 	function outputContent($body,$markdown = true) {

@@ -3,12 +3,13 @@
 
 	if($sudo) {
 		$field = $_POST['field'];
-		$allowed = array('name','URL','email');
+		$allowed = array('name','URL','email','idcolours');
 
 		if(in_array($field,$allowed)) {
 			if (($field == 'name' && validString('link name',$_POST['value'])) ||
 				($field == 'URL' && validString('link URL',$_POST['value'])) ||
-				($field == 'email' && ($_POST['value'] == 0 || $_POST['value'] == 1))) {
+				($field == 'email' && ($_POST['value'] == 0 || $_POST['value'] == 1)) ||
+				($field == 'idcolours' && isColour($_POST['value']))) {
 
 				try {
 					$sth = $dbh->prepare("UPDATE links 

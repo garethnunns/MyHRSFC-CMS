@@ -70,7 +70,7 @@
 					<p><a href="link.php">Manage links</a></p>
 					<?php } ?>
 
-					<h4>Lists</h4>
+					<h3>Lists</h3>
 
 					<p><a href="atoz.php">Manage A to Z</a></p>
 

@@ -47,7 +47,7 @@
 							<th>ID</th>
 							<th>Page</th>
 							<th class="nomobile">Title</th>
-							<th>Owner</th>
+							<?php if($sudo) {?><th>Owner</th><?php } // they will own all the pages they can see?>
 							<th>Edit</th>
 							<?php if($sudo) { ?><th>Deactivate</th> <?php } ?>
 						</tr>
@@ -108,7 +108,7 @@
 
 				echo '<td class="nomobile">'.$row['title'].'</td>';
 
-				echo '<td>'.$row['name'].'</td>';
+				if($sudo) echo '<td>'.$row['name'].'</td>';
 
 				echo '<td class="center"><a href="page.php?page='.$row['idpages'].'"">Edit &#187;</a></td>';
 
@@ -120,7 +120,7 @@
 						else echo 'Activate';
 						echo ' &#187;</a>';
 					}
-					else echo '<i>Cannot be deleted</i>';
+					else echo '<i>Cannot be deactivated</i>';
 
 					echo '</td>';
 				}

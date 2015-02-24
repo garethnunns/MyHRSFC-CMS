@@ -23,7 +23,10 @@
 
 			$sth = $dbh->query($sql);
 
-			if ($sth->rowCount() == 0) echo "!!! NO 404 PAGE EXISTS !!!";
+			if ($sth->rowCount() == 0) {
+				echo "!!! NO 404 PAGE EXISTS !!!";
+				exit();
+			}
 			else $page = $sth->fetch(PDO::FETCH_OBJ);
 		}
 	}
@@ -37,17 +40,44 @@
 	<head>
 
 		<title><?php // output meta title if there is one, if not use page title
-			if(!empty($page->meta_title)) echo htmlentities($page->meta_title);
-			else echo htmlentities($page->title); 
+			if(!empty($page->meta_title)) $meta_title = htmlentities($page->meta_title);
+			else $meta_title = htmlentities($page->title); 
+			echo $meta_title;
 		?> | MyHRSFC</title>
 
-		<meta name="description" content="<?php // output the first 150 characters of desc (or body if no desc)
+		<meta name="description" 
+content="<?php // output the first 150 characters of desc (or body if no desc)
 	$desc = $page->desc ? $page->desc : strip_tags($page->body);
 	if(strlen($desc)>150) $desc = substr($desc, 0, 150).'...'; 
 	echo htmlentities($desc);
 ?>">
 
-<?php 
+<?php
+	echo '<!--Open Graph -->
+	<meta property="og:url" content="http://www.myhrsfc.co.uk/'.$page->alias.'"">
+	<meta property="og:site_name" content="MyHRSFC">
+	<meta property="og:title" content="'.$meta_title.' - MyHRSFC">
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="en_GB">
+	<meta property="og:description" content="'.$page->desc.'">';
+	if(!empty($page->social_img)) echo '<meta property="og:image" content="'.$page->social_img.'">';
+
+	echo '
+	<!-- Twitter Cards -->
+	<meta name="twitter:card" content="'; // if there is an image, show it larger
+	echo empty($page->social_img) ? 'Summary Card' : 'Summary Card with Large Image';
+	echo '">
+	<meta name="twitter:site" content="@myhrsfc"><!-- may be inactive now -->
+	<meta name="twitter:title" content="'.$meta_title.' - MyHRSFC">
+	<meta name="twitter:description" content="'.$page->desc.'">';
+	if(!empty($page->social_img)) echo '<meta name="twitter:image:src" content="'.$page->social_img.'">';
+
+	echo '
+	<!-- Schema/Google+ -->
+	<meta itemprop="name" content="'.$meta_title.' - MyHRSFC">
+	<meta itemprop="description" content='.$page->desc.'">';
+	if(!empty($page->social_img)) echo '<meta itemprop="image" content="'.$page->social_img.'">';
+
 	globalContentBlock('head');
 	echo $page->special_head; // output page specific meta
 ?>

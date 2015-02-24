@@ -1,0 +1,3 @@
+<FilesMatch "\.(jpg|png|gif)">
+	ExpiresDefault "access plus 0 seconds"
+</Filesmatch>

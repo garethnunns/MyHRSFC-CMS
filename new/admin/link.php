@@ -75,16 +75,19 @@
 	}
 
 	if(isset($_POST['name']) && isset($_POST['url'])) { // adding an item
-		if(validString('link name',$_POST['name']) && validString('link URL',$_POST['url'])) {
-			// valid name and url
-			if($_POST['email'] && (filter_var($_POST['url'], FILTER_VALIDATE_EMAIL))) {
-				// valid email address
+		if(validString('link name',$_POST['name']) 
+			&& validString('link URL',$_POST['url']) 
+			&& isColour($_POST['colour'])) {
+			// valid name and url, and the colour id exists
+			if(!$_POST['email'] || ($_POST['email'] && filter_var($_POST['url'], FILTER_VALIDATE_EMAIL))) {
+				// valid email address if it is meant to be one
 				try {
-					$sth = $dbh->prepare("INSERT INTO links (name,URL,email) -- todo adding colour 
-						VALUES (:name,:url,:email)");
+					$sth = $dbh->prepare("INSERT INTO links (name,URL,email,idcolours) 
+						VALUES (:name,:url,:email,:colour)");
 					$sth->bindValue(':name',$_POST['name'], PDO::PARAM_STR);
 					$sth->bindValue(':url',$_POST['url'], PDO::PARAM_STR);
-					$sth->bindValue(':email',($_POST['email'] ? 1 : 0), PDO::PARAM_INT);
+					$sth->bindValue(':email',(($_POST['email']=='yes') ? 1 : 0), PDO::PARAM_INT);
+					$sth->bindValue(':colour',$_POST['colour'], PDO::PARAM_INT);
 					$sth->execute();
 
 					$count = $sth->rowCount();
@@ -112,11 +115,17 @@
 		$count = $dbh->query($sql)->rowCount();
 		if($count) { // are links stored in the database
 			echo '<table rules="all" class="responsive">
-			<tr><th>Name</th><th>URL/Email</th><th>Email</th><th>Delete</th></tr>';
+			<tr>
+				<th width=100>Name</th>
+				<th>URL/Email Address</th>
+				<th width=110>Email?</th>
+				<th width=100>Colour</th>
+				<th width=75>Delete</th>
+			</tr>';
 			foreach($dbh->query($sql) as $row) {
 				echo '<tr>
 				<td>
-				<input type="text" name="name"
+				<input type="text" name="name" class="small"
 				value="'.htmlentities($row['name']).'" onblur="update(\''.$row['idlinks'].'\',this)" />
 				</td>
 
@@ -125,7 +134,7 @@
 				value="'.$row['URL'].'" onblur="update(\''.$row['idlinks'].'\',this)" />
 				</td>
 
-				<td>
+				<td class="center">
 				<input type="radio" name="email'.$row['idlinks'].'" id="yes'.$row['idlinks'].'" value="1"';
 				echo $row['email'] ? ' checked ':'';
 				echo ' onchange="update('.$row['idlinks'].',this)" title="email" />
@@ -135,6 +144,12 @@
 				echo ' onchange="update('.$row['idlinks'].',this)" title="email" />
 				<label for="no'.$row['idlinks'].'"> No</label>
 				</td>
+
+				<td>
+				<select name="idcolours" onchange="update('.$row['idlinks'].',this)">
+				<option value="0" title="No colour - good for emails">None</option>';
+				colourSelect($row['idcolours']);
+				echo '</option></td>
 
 				<td class="center"><a href="link.php?del='.$row['idlinks'].'">Delete &#187;</td>
 				</tr>';
@@ -155,6 +170,10 @@
 							<input type="text" name="url" class="full" placeholder="http://... / bla@bla.com" />
 							<p><input type="checkbox" name="email" id="email">
 							<label for="email">Link is an email address</label></p>
+							<select name="colour">
+								<option value="0" title="No colour - good for emails">None</option>
+								<?php colourSelect(); ?>
+							</select>
 							<p><input type="submit" value="Add links &#187;"></p>
 						</form>
 					</aside>

@@ -8,61 +8,65 @@
 
 	function uploadProfilePic($picture,$id) { // compresses and stores image then updates database
 		global $dbh, $sudo, $user;
-		if(($sudo) || ($user == $id)) {
 
-			$toUpload = true;
-			$absFolder = '/img/profiles/';
-			$relFolder = '..'.$absFolder;
-			$pictureExt = end((explode(".", $picture["name"])));
+		if(!empty($picture["name"])) {
+
+			if(($sudo) || ($user == $id)) {
+
+				$toUpload = true;
+				$absFolder = '/img/profiles/';
+				$relFolder = '..'.$absFolder;
+				$pictureExt = end((explode(".", $picture["name"])));
 
 
-			if(!file_exists($relFolder)) { // check to see if folder exists
-				if (!mkdir($relFolder, 0777, true)) { // tries to create folder
-					die('<p class="error">Failed to create the folder to store the photo in</p>');
+				if(!file_exists($relFolder)) { // check to see if folder exists
+					if (!mkdir($relFolder, 0777, true)) { // tries to create folder
+						die('<p class="error">Failed to create the folder to store the photo in</p>');
+						$toUpload = false;
+					}
+				}
+
+				$allowedType = array("jpg","jpeg","png","gif");
+				if(!in_array(strtolower($pictureExt),$allowedType)) { // check to see if allowed file type
+					echo '<p class="error">Sorry, only ';
+					foreach ($allowedType as $ext) {
+						echo '.'.$ext.', ';
+					}
+					echo 'are allowed</p>';
 					$toUpload = false;
 				}
-			}
 
-			$allowedType = array("jpg","jpeg","png","gif");
-			if(!in_array(strtolower($pictureExt),$allowedType)) { // check to see if allowed file type
-				echo '<p class="error">Sorry, only ';
-				foreach ($allowedType as $ext) {
-					echo '.'.$ext.', ';
-				}
-				echo 'are allowed</p>';
-				$toUpload = false;
-			}
+				if($toUpload) {
+					$newName = 'councillor'.$id.'.'.$pictureExt;
+					if(file_exists($relFolder.$newName)) unlink($relFolder.$newName);
+					require_once dirname(__FILE__).'/../includes/simpleimage.php';
+					$image = new SimpleImage();
+					$image->load($picture['tmp_name']);
+					$image->resizeToWidth(100);
+					if($image->getHeight() <= 150) { // no greater than 2:3
+						$image->save($relFolder.$newName);
 
-			if($toUpload) {
-				$newName = 'councillor'.$id.'.'.$pictureExt;
-				if(file_exists($relFolder.$newName)) unlink($relFolder.$newName);
-				require_once dirname(__FILE__).'/../includes/simpleimage.php';
-				$image = new SimpleImage();
-				$image->load($picture['tmp_name']);
-				$image->resizeToWidth(100);
-				if($image->getHeight() <= 150) { // no greater than 2:3
-					$image->save($relFolder.$newName);
+						try {
+							$picsth = $dbh->prepare("UPDATE councillors 
+								SET image = :imgpath
+								WHERE idcouncillors = :id");
+							$picsth->bindValue(':imgpath',$absFolder.$newName, PDO::PARAM_STR);
+							$picsth->bindValue(':id',$id, PDO::PARAM_INT);
+							$picsth->execute();
 
-					try {
-						$picsth = $dbh->prepare("UPDATE councillors 
-							SET image = :imgpath
-							WHERE idcouncillors = :id");
-						$picsth->bindValue(':imgpath',$absFolder.$newName, PDO::PARAM_STR);
-						$picsth->bindValue(':id',$id, PDO::PARAM_INT);
-						$picsth->execute();
-
-						echo '<p class="success">
-						The <a href="'.$absFolder.$newName.'" target="_blank">image</a> was successfully uploaded, 
-						<i>large files may take a moment to process</i></p>';
+							echo '<p class="success">
+							The <a href="'.$absFolder.$newName.'" target="_blank">image</a> was successfully uploaded, 
+							<i>large files may take a moment to process</i></p>';
+						}
+						catch (PDOException $e) {
+							echo $e->getMessage();
+						}
 					}
-					catch (PDOException $e) {
-						echo $e->getMessage();
-					}
+					else echo '<p class="error">Sorry, the image you uploaded was too tall</p>';
 				}
-				else echo '<p class="error">Sorry, the image you uploaded was too tall</p>';
 			}
+			else echo '<p class="error">You don\'t have permission to edit that profile picture</p>';
 		}
-		else echo '<p class="error">You don\'t have permission to edit that profile picture</p>';
 	}
 
 	function cryptPassword($password) { // crypts password
@@ -72,10 +76,10 @@
 		return crypt($password, $salt);
 	}
 
-	function pageExists($pageid) {
+	function pageExists($pageid) { // checks to see if a page with that ID exists and returns the alias if it does
 		global $dbh;
 		try {
-			$sql = 'SELECT title
+			$sql = 'SELECT alias
 					FROM pages
 					WHERE idpages = :pageid';
 
@@ -85,14 +89,28 @@
 
 			$count = $sth->rowCount();
 
-			if($count) return true;
+			if($count) {
+				$result = $sth->fetch(PDO::FETCH_OBJ);
+				return $result->alias;
+			}
 			else {
 				echo '<p class="error">There is no page in the database with the ID '.$pageid.'</p>';
 				return false;
 			}
 		}
 		catch (PDOException $e) {
+			return false;
 			echo $e->getMessage();
+		}
+	}
+
+	function validAlias($alias) {
+		if(validString('page alias',$alias)) {
+			if(ctype_alnum($alias)) return true;
+			else {
+				echo '<p class="error">The page alias can only be letter and numbers</p>';
+				return false;
+			}
 		}
 	}
 
@@ -119,6 +137,15 @@
 		$fields['GCB content'] = array(5000);
 		$fields['link name'] = array(60);
 		$fields['link URL'] = array(100);
+		$fields['page alias'] = array(45);
+		$fields['page title'] = array(60,-1);
+		$fields['page subtitle'] = array(45,-1);
+		$fields['page meta title'] = array(100,-1);
+		$fields['page special head'] = array(5000,-1);
+		$fields['page content'] = array(10000);
+		$fields['page sidebar'] = array(5000,-1);
+		$fields['page description'] = array(200,-1);
+		$fields['page social image'] = array(80,-1);
 		$fields['parent name'] = array(15);
 		$fields['parent subheader'] = array(45);
 		$fields['rolename'] = array(60);
@@ -306,9 +333,16 @@
 		else echo '<p class="error">You don\'t have permission to add roles</p>';
 	}
 
-	function isSpecial($alias) {
-		$special = array('index','404');
-		return in_array($alias,$special);
+	function isSpecial($alias) { // is a special page that can't be edited or url that can't be set
+		$special = array('index','404','icons','profiles','site','year'); // ones that are special
+
+		$rootfull = glob(dirname(__FILE__).'/../*' , GLOB_ONLYDIR); // directories in /
+		foreach ($rootfull as $path) {
+			$root[] = basename($path);
+		}
+
+		$notallowed = array_merge($special,$root);
+		return in_array($alias,$notallowed);
 	}
 
 	function roleSelect($id) {
@@ -330,15 +364,15 @@
 		}
 	}
 
-	function tutorSelect($tutor) {
+	function tutorSelect($tutor) { // list of tutor <option>s for <select>
 		global $dbh;
 
 		try {
 			$tutsql = "SELECT * FROM tutors ORDER BY name";
 			foreach($dbh->query($tutsql) as $tut) {
-				echo '<option value="'.$tut["initials"].'" ';
+				echo '<option value="'.$tut["initials"].'" title="'.$tut["initials"].'" ';
 				if($tutor == $tut["initials"]) echo 'selected';
-				echo '>'.$tut["name"].'</option>';
+				echo '>'.htmlentities($tut["name"]).'</option>';
 			}
 		}
 		catch (PDOException $e) {
@@ -346,19 +380,50 @@
 		}
 	}
 
-	function councSelect($counc) {
+	function councSelect($counc) { // list of all councillor <option>s for <select>
 		global $dbh;
 
 		try {
-			$councsql = "SELECT * FROM councillors ORDER BY name";
+			$councsql = "SELECT * FROM councillors ORDER BY active DESC, name";
 			foreach($dbh->query($councsql) as $councillor) {
 				echo '<option value="'.$councillor["idcouncillors"].'" ';
 				if($counc == $councillor["idcouncillors"]) echo 'selected';
-				echo '>'.$councillor["name"].'</option>';
+				echo '>'.htmlentities($councillor["name"]).'</option>';
 			}
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
 		}
-	}	
+	}
+
+	function colourSelect($col) { // outputs list of colour <option>s for <select>
+		global $dbh;
+
+		try {
+			foreach($dbh->query('SELECT * FROM colours ORDER BY name') as $colour) {
+				echo '<option value="'.$colour["idcolours"].'" title="CSS class: .'.$colour["class"].'" ';
+				if($col == $colour["idcolours"]) echo 'selected';
+				echo '>'.htmlentities($colour["name"]).'</option>';
+			}
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	function isColour($col) { // check if there is a colour with that id in the colours table
+		global $dbh;
+
+		$sth = $dbh->prepare("SELECT COUNT(*) AS count FROM colours WHERE idcolours = :colour");
+		$sth->bindValue(':colour',$col, PDO::PARAM_INT);
+		$sth->execute();
+
+		$result = $sth->fetch(PDO::FETCH_OBJ);
+
+		if($result->count || $col == 0) return true; // finds colour with that id
+		else { // doesn't find colour with that id
+			echo '<p class="error">The colour you selected does not exist</p>';
+			return false;
+		}
+	}
 ?>

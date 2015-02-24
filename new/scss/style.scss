@@ -5,6 +5,7 @@
 @import url('elements.css');
 
 @import "compass/css3";
+@import "compass/utilities/general/clearfix";
 
 @mixin breakpoint($point) { // ex: @include breakpoint(papa-bear) { content }
 	@if $point == tiny-bear {
@@ -352,7 +353,9 @@ body {
 		padding: 3px;
 	}
 
-	.clearfix { clear:both; }
+	.clearfix { 
+		clear: both;
+	}
 }
 
 // selection colours
