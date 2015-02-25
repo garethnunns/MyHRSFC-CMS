@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en-gb" class="no-js">
+
+	<head>
+
+<meta name="description" content="Contact the Hills Road Student Council ANONYMOUSLY." />
+
+		<title>Contact Us | Hills Road Student Council</title>
+
+<?php include '/home/a6325779/public_html/old/includes/head.php'; ?>
+
+	</head>
+	
+	<body lang="en">
+
+<?php include '/home/a6325779/public_html/old/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+				
+<?php include '/home/a6325779/public_html/old/includes/social.php'; ?>
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+		        <div id="masthead">
+					<span class="head">Contact</span><span class="subhead">Talk to us</span>
+    <ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+    <li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+    <li typeof="v:Breadcrumb"><a href="acf.html" rel="v:url" property="v:title">contact</a></li>
+
+    </ul>
+				</div>
+	        	<!-- ENDS masthead -->
+	        	
+	        	
+	        	
+	        	<!-- page content -->
+	        	<div id="page-content">
+	        	
+						
+					<!-- Map -->
+				<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true" /></script>
+				<script type="text/javascript">
+					function initialize() {
+						var latlng = new google.maps.LatLng(52.188125, 0.136219);
+						var myOptions = {
+						  zoom: 17,
+						  center: latlng,
+						  mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+					var map = new google.maps.Map(document.getElementById("map"),
+					    myOptions);
+					}
+				</script>
+				
+				<div id="map-holder">
+					<div id="map"></div>
+					
+				</div>
+				
+				<!-- ENDS Map -->
+                
+                <h2>Want to contact us anonymously?</h2>
+                <br />
+                <p>Fill out the form below to send a <b>confidential</b> message to the Student Council. <?php /* <br><b>WE WILL ONLY BE ABLE TO TAKE LIMITED ACTION IF YOU CHOOSE TO REMAIN ANONYMOUS.</b> */ ?>
+<br><br> Feel free to <b>remain anonymous by leaving the Name and Email boxes blank</b>, but remember this means we'll be unable to contact you in the future!</p>
+                <br>
+					
+                    <div class="acform">
+
+<iframe src = "/acf/contactform.htm" width = "500" height = "600"></iframe>
+
+
+	        	</div>
+		
+	        		
+	        	</div>
+	        	<!-- ENDS page content -->
+	        	
+	        	
+	        	<!-- sidebar -->
+	        	<aside id="sidebar">
+	        		<div class="block">
+		        		<h4>Come Find Us</h4>
+		        		<p>Any students are welcome to drop in to the Student Council offices in the Hub whenever the lights are on or the door is unlocked. Come in and have a chat! (We have tea)</p>
+		        		<br />
+		        		<ul class="address-block">
+		        			<li class="address">The Hub, HRSFC</li>
+		        			<li class="email"><a href="mailto:studentcouncil13@hillsroad.ac.uk">studentcouncil13@hillsroad.ac.uk</a></li>
+		        		</ul>
+		        		
+	        		</div>	        	
+	        	</aside>
+	        	<div class="clearfix"></div>
+				<!-- ENDS sidebar -->
+				
+				
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+<?php include '/home/a6325779/public_html/old/includes/footer.php'; ?>
+
+
+		<!-- Start google map -->
+		<script>initialize();</script>
+
+	</body>
+</html>

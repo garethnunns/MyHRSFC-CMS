@@ -1,0 +1,134 @@
+<?php
+  if(!isset($common_included_flag)) { require_once '/home/a6325779/public_html/old/includes/common.php'; }
+  if(!$mysqlconnected) mysqlConnect();
+
+
+
+
+# IF THIS PAGE ISN'T ACCESSIBLE, FIND THE LINE WITHIN .htaccess (in root directory) AND COMMENT IT OUT
+
+
+
+
+?>
+<!doctype html>
+<html>
+<head>
+
+<title>Officer Pictures</title>
+
+<style type = "text/css">
+
+body {
+	font-family: sans-serif;
+}
+
+h3 {
+  margin-left: 50px;
+}
+
+table {
+  border-collapse: collapse;
+
+}
+td, th {
+  border: 1px solid #eee;
+  padding: 5px 8px;
+}
+
+</style>
+
+
+</head>
+<body>
+<?php  ?>
+<p style = "padding: 11px 20px; border: 1px solid #c54444; background: #f3c3c3">.jpg only, 100x100 recommended</p
+<?php if(isset($_FILES['picture'])) {
+  move_uploaded_file($_FILES['picture']['tmp_name'], '/home/a6325779/public_html/img/profiles/thumbs/'.$_POST['in'].'.jpg');
+} ?>
+<h3>!URGENT! Active officers without a photo:</h3>
+
+<table>
+<thead>
+<tr><th>Name</th><th>Image name</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<?php
+
+$inactiveOfficerQuery = mysql_query("SELECT * FROM councillors WHERE active = true");
+
+while($curInactiveOfficer = mysql_fetch_assoc($inactiveOfficerQuery)) {
+
+  $imageFound = file_exists('/home/a6325779/public_html/img/profiles/thumbs/'.$curInactiveOfficer['imagename'].'.jpg');
+  if(!$imageFound)
+    echo '<tr><td>'.$curInactiveOfficer['name'].'</td><td>'.$curInactiveOfficer['imagename'].'</td><td>Add photo: <form action = "/manage/officerPictures.html" method = "post" enctype = "multipart/form-data"><input type = "file" name = "picture" /><input type = "hidden" name = "in" value = "'.$curInactiveOfficer['imagename'].'" /><input type = "submit" value = "Upload &#187;" /></form></td></tr>';
+
+}
+
+?>
+
+</tbody>
+</table>
+
+
+
+
+
+<h3>Current pictures (active):</h3>
+
+<table>
+<thead>
+<tr><th>Name</th><th>Image name</th><th>Image</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<?php
+
+$inactiveOfficerQuery = mysql_query("SELECT * FROM councillors WHERE active = true");
+
+while($curInactiveOfficer = mysql_fetch_assoc($inactiveOfficerQuery)) {
+
+  $imageFound = file_exists('/home/a6325779/public_html/img/profiles/thumbs/'.$curInactiveOfficer['imagename'].'.jpg');
+  if($imageFound)
+    echo '<tr><td>'.$curInactiveOfficer['name'].'</td><td>'.$curInactiveOfficer['imagename'].'</td><td>'.($imageFound?'<img src = "/img/profiles/thumbs/'.$curInactiveOfficer['imagename'].'.jpg" />':'-').'</td><td>Update photo: <form action = "/manage/officerPictures.html" method = "post" enctype = "multipart/form-data"><input type = "file" name = "picture" /><input type = "hidden" name = "in" value = "'.$curInactiveOfficer['imagename'].'" /><input type = "submit" value = "Upload &#187;" /></form></td></tr>';
+
+}
+
+?>
+
+</tbody>
+</table>
+
+
+
+
+
+
+<h3>Inactive officers:</h3>
+
+<table>
+<thead>
+<tr><th>Name</th><th>Image name</th><th>Image exists?</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<?php
+
+$inactiveOfficerQuery = mysql_query("SELECT * FROM councillors WHERE active = false");
+
+while($curInactiveOfficer = mysql_fetch_assoc($inactiveOfficerQuery)) {
+
+  $imageFound = file_exists('/home/a6325779/public_html/img/profiles/thumbs/'.$curInactiveOfficer['imagename'].'.jpg');
+
+  echo '<tr><td>'.$curInactiveOfficer['name'].'</td><td>'.$curInactiveOfficer['imagename'].'</td><td>'.($imageFound?'yes':'no').'</td><td>'.($imageFound?'<a href = "/img/profiles/thumbs/'.$curInactiveOfficer['imagename'].'.jpg">view</a>':'-').'</td></tr>';
+
+}
+
+?>
+
+
+
+</tbody>
+</table>
+
+
+</body>
+</html>

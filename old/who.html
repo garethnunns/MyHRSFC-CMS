@@ -1,0 +1,129 @@
+<?php if(!isset($common_included_flag)) { require_once '/home/a6325779/public_html/old/includes/common.php'; } ?><!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER -->
+	<head>
+		<title>Meet The Council | Hills Road Student Council</title>
+        
+<?php include '/home/a6325779/public_html/old/includes/head.php'; ?>
+
+<meta name="description" content="Meet the officers of the Hills Road Sixth Form College Student Council." />
+	</head>
+	
+	<body lang="en">
+	
+
+<?php include '/home/a6325779/public_html/old/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+				
+
+<?php include '/home/a6325779/public_html/old/includes/social.php'; ?>
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+		        <div id="masthead">
+					<span class="head">Your Council</span><span class="subhead">Who we are and what we do</span>
+    <ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+    <li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+    <li typeof="v:Breadcrumb"><a href="who.html" rel="v:url" property="v:title">who</a></li>
+    </ul>
+				</div>
+	        	<!-- ENDS masthead -->
+	        	
+	        	
+
+<?php
+
+/* PHP script and design of the contents of who.html by Thomas Frodsham, 2013
+   design based on the original website design by Andrew Watts */
+
+$curNode = -1;
+
+function getCouncillorNode($role) {
+  global $curNode;
+  $curNode++;
+
+  return '
+  <div class = "officerProfile'.(($curNode%2)==0?'L':'R').'">
+    <div class = "officerTitle">'.getCouncillorName($role).' <h5>'.getRoleFromShorthand($role).'</h5><div class = "clearfix"></div></div>
+    <div class = "officerDetails"><div><a href="mailto:'.getCouncillorEmail($role).'">Email <img src="img/social/email_32.png" alt = " them" /></a></div>
+      <img src="'.getCouncillorImagename($role).'" class="who" width="100" alt="'.getRoleFromShorthand($role).'" />
+
+                    <h6>Tutor</h6>
+                     <p>'.getCouncillorTutor($role).'</p>
+
+                    <h6>Studying</h6>
+                    <p>'.getCouncillorSubjects($role).'</p>
+
+                    <h6 style = "clear: both">'.getCouncillorFriendlyName($role, true).' Biography</h6>
+             		<p>'.getCouncillorBiography($role).'</p>
+
+           </div>
+				
+  </div>';
+
+
+}
+
+####################### LIST OF OFFICER ROLES, SAME AS IN THE DATABASE'S 'role' FIELD ######### ADD TO TO DISPLAY MORE #######################
+
+$roles[] = 'chair';
+$roles[] = 'vicechair';
+$roles[] = 'secretary';
+$roles[] = 'treasurer';
+$roles[] = 'events';
+$roles[] = 'welfare';
+$roles[] = 'nus';
+$roles[] = 'charities';
+$roles[] = 'comms';
+#$roles[] = 'comms2';
+#$roles[] = 'commsgraph';
+#$roles[] = 'commsmedia';
+$roles[] = 'commsweb';
+$roles[] = 'environment';
+$roles[] = 'societies';
+
+####################### END #######################
+
+foreach($roles as $curRole) {
+
+  echo getCouncillorNode($curRole);
+
+} ?>
+
+<div class="clearfix"></div>
+
+
+
+
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+
+<?php include '/home/a6325779/public_html/old/includes/footer.php'; ?>
+
+    
+    <!-- Tipsy -->
+    <script type='text/javascript' src='js/jquery.tipsy.js'></script>
+
+		<script type='text/javascript'>
+		$(function() {
+			$('#tipsy').tipsy({fade: true, gravity: 's'});
+		});
+		</script>
+		
+    </body>
+	
+</html>

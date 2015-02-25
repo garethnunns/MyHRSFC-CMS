@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER -->
+	<head>
+
+<?php include '/home/a6325779/public_html/old/includes/head.php'; ?>
+		<meta name="description" content="See what our Communications Officer, <?php echo getCouncillorName('environment'); ?>, is up to." />
+		<title>Media | Hills Road Student Council</title>
+	</head>
+	
+	<body lang="en">
+
+<?php include '/home/a6325779/public_html/old/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+
+<?php include '/home/a6325779/public_html/old/includes/social.php'; ?>
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+				<div id="masthead">
+					<span class="head">Media</span><span class="subhead">Keeping you in the know</span>
+					<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+						<li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+						<li typeof="v:Breadcrumb"><a href="media.html" rel="v:url" property="v:title">media</a></li>
+					</ul>
+				</div>
+				<!-- ENDS masthead -->
+				
+				<!-- page content -->
+				<div id="page-content">
+			
+				<p>The media subcommittee is an addition to the student council committee itself, and there are various jobs which we deal with. We help to provide coverage for events, as well as creating promotional material. The team works closely with social media and IT to provide information for students online, which can be viewed on this website and on our highly popular Facebook page. We have four U6 members on the subcommittee with a variety of skills including photography and web design. If you have any questions or requests please contact Claudia.</p>
+			</div>
+			<!-- ENDS page content -->
+				
+			<!-- sidebar -->
+			<aside id="sidebar">
+				<div class="block">
+					<a href="mailto:<?php echo getCouncillorEmail('comms'); ?>" class="who"><img src="<?php echo getCouncillorImagename('comms'); ?>" width="50" alt="" /></a>
+					<h3><?php echo getCouncillorName('comms'); ?></h3>
+					<h5 style="color:#777"><?php echo getRoleFromShorthand('comms'); ?></h5>
+					<h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('comms', true); ?> Biography</h6>
+					<p><?php echo getCouncillorBiography('comms'); ?></p>
+				</div>
+			</aside>
+			<div class="clearfix"></div>
+			<!-- ENDS sidebar -->
+				
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+	
+<?php include '/home/a6325779/public_html/old/includes/footer.php'; ?>
+	</body>
+</html>

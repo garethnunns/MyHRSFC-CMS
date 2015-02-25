@@ -4,28 +4,54 @@
 	background: #1c1d1d;
 	
 	padding-left: 24px;
-	
-	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,.5); 
-	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,.5); 
-	box-shadow: 0px 0px 4px rgba(0,0,0,.5);
+
+	@include box-shadow(0px 0px 4px rgba(0,0,0,.5));
 	
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 1); 
 
+	@include breakpoint(papa-bear) {
+		position: static;
+		margin-top: -30px;
+	}
+	@include breakpoint(mid-bear) {
+		margin-top: -25px;
+	}
+
 	span {
 		line-height: 69px;
+
+		@include breakpoint(papa-bear) {
+			line-height: 55px;
+		}
+		@include breakpoint(mid-bear) {
+			line-height: 40px;
+		}
+	}
+
+	.head, .subhead {
+		font-family: helvetica, arial, sans-serif;
+		a {
+			color: #ddd;
+			text-shadow: none;
+			&:after { // add arrows after
+				content: " \00bb";
+			}
+		}
 	}
 
 	.head {
-		font-family: helvetica, arial, sans-serif;
 		font-size: 21px;
 		color: #ddd;
 	}
 
 	.subhead {
-		font-family: helvetica, arial, sans-serif;
 		font-size: 13px;
 		color: #888;
 		margin-left: 21px;
+
+		@include breakpoint(mid-bear) {
+			display: none;
+		}
 	}
 
 	.breadcrumbs {
@@ -36,6 +62,10 @@
 		height: auto;
 		font-size: 11px;
 		color: #444;
+
+		@include breakpoint(mama-bear) {
+			display: none;
+		}
 
 		a {
 			text-decoration: none;
@@ -60,17 +90,4 @@
 			}
 		}
 	}
-}
-
-.headline {
-	font-family: helvetica, arial, sans-serif;
-	font-size: 26px;
-	line-height: 1.5em;
-	text-align: center;
-	padding: 20px 0px;
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-	border-bottom: 1px solid rgba(255, 255, 255, 1);
-	margin-bottom: 50px;
-	background: #eaeaea;
-	color: #444;
 }

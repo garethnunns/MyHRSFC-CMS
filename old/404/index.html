@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER -->
+	<head>
+
+<?php include '/home/a6325779/public_html/old/includes/head.php'; ?>
+		<meta name="description" content="Page not found" />
+		<title>Error | Hills Road Student Council</title>
+	</head>
+	
+	<body lang="en">
+
+<?php include '/home/a6325779/public_html/old/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+
+<?php include '/home/a6325779/public_html/old/includes/social.php'; ?>
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+				<div id="masthead">
+					<span class="head">Error 404</span><span class="subhead">Page not found</span>
+				</div>
+				<!-- ENDS masthead -->
+				
+				<!-- page content -->
+				<div id="page-content">
+			
+				<h2>Damn it</h2>
+
+				<p>Basically, you've ended up here because the page you were looking for doesn't exist or maybe hasn't even been made yet. That or there is the chance that there's a serious error on our server&hellip;</p>
+
+				<p>Either way, we hope our minions (mainly our <a href="mailto:<?php echo getCouncillorEmail('commsweb'); ?>" target="_blank">webmaster</a>) will fix it soon.</p>
+
+				<p>Go back to the <a href="/index.html">home page</a> for now?</p>
+			</div>
+			<!-- ENDS page content -->
+				
+			<!-- sidebar -->
+			<aside id="sidebar">
+				<div class="block">
+					<a href="mailto:<?php echo getCouncillorEmail('commsweb'); ?>" class="who"><img src="<?php echo getCouncillorImagename('commsweb'); ?>" width="50" alt="" /></a>
+					<h3><?php echo getCouncillorName('commsweb'); ?></h3>
+					<h5 style="color:#777"><?php echo getRoleFromShorthand('commsweb'); ?></h5>
+					<h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('commsweb', true); ?> Biography</h6>
+					<p><?php echo getCouncillorBiography('commsweb'); ?></p>
+				</div>
+			</aside>
+			<div class="clearfix"></div>
+			<!-- ENDS sidebar -->
+				
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+	
+<?php include '/home/a6325779/public_html/old/includes/footer.php'; ?>
+	</body>
+</html>

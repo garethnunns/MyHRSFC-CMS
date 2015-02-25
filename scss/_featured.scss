@@ -10,7 +10,7 @@
 
 		.thumb {
 			display: block;
-			background: url(../img/go.png) no-repeat center center;
+			background: url(../img/site/go.png) no-repeat center center;
 			margin-bottom: 21px;
 			
 			-webkit-box-shadow: 3px 3px 0px rgba(0,0,0,.2); 
@@ -51,7 +51,7 @@
 		}
 
 		// not used as I think it was replaced by the code above
-
+		/*
 		.link {
 			display: none;
 			position: absolute;
@@ -74,5 +74,6 @@
 		&:hover .link {
 			display: block;
 		}
+		*/
 	}
 }

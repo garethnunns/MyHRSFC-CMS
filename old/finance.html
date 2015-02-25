@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-gb" class="no-js">
+
+<!-- HEADER -->
+	<head>
+
+<?php include '/home/a6325779/public_html/old/includes/head.php'; ?>
+		<meta name="description" content="See what our Communications Officer, <?php echo getCouncillorName('environment'); ?>, is up to." />
+		<title>Finance | Hills Road Student Council</title>
+	</head>
+	
+	<body lang="en">
+
+<?php include '/home/a6325779/public_html/old/includes/header.php'; ?>
+	
+		<!-- MAIN -->
+		<div id="main">
+
+<?php include '/home/a6325779/public_html/old/includes/social.php'; ?>
+			
+			<!-- Content -->
+			<div id="content">
+			
+				<!-- masthead -->
+				<div id="masthead">
+					<span class="head">Finance</span><span class="subhead">Looking after your money</span>
+					<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+						<li typeof="v:Breadcrumb"><a href="index.html" rel="v:url" property="v:title">home</a> / </li>
+						<li typeof="v:Breadcrumb"><a href="finance.html" rel="v:url" property="v:title">finance</a></li>
+					</ul>
+				</div>
+				<!-- ENDS masthead -->
+				
+				<!-- page content -->
+				<div id="page-content">
+			
+				<p>The Financial Subcommittee plays a vital role in ensuring the success of the Student Council and its activities. Eliza works with George and the Events' Subcommittee to budget our social events. The loans and grants process is being headed by Emily who coordinates any requests received from students and societies. Zak helps in deciding which purchases would be beneficial to the student body, whilst Carla heads the raising of funds in order for our projects to be financially viable.</p>
+
+				<h4><a href="/docs/Loans_and_Grants Application.docx">Loans and Grants Application Form</a></h4>
+			</div>
+			<!-- ENDS page content -->
+				
+			<!-- sidebar -->
+			<aside id="sidebar">
+				<div class="block">
+					<a href="mailto:<?php echo getCouncillorEmail('treasurer'); ?>" class="who"><img src="<?php echo getCouncillorImagename('treasurer'); ?>" width="50" alt="" /></a>
+					<h3><?php echo getCouncillorName('treasurer'); ?></h3>
+					<h5 style="color:#777"><?php echo getRoleFromShorthand('treasurer'); ?></h5>
+					<h6 style = "clear: both;"><?php echo getCouncillorFriendlyName('treasurer', true); ?> Biography</h6>
+					<p><?php echo getCouncillorBiography('treasurer'); ?></p>
+				</div>
+			</aside>
+			<div class="clearfix"></div>
+			<!-- ENDS sidebar -->
+				
+			
+			</div>
+			<!-- ENDS content -->
+			
+			<div class="clearfix"></div>
+			<div class="shadow-main"></div>
+			
+			
+		</div>
+		<!-- ENDS MAIN -->
+		
+	
+<?php include '/home/a6325779/public_html/old/includes/footer.php'; ?>
+	</body>
+</html>

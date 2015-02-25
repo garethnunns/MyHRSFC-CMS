@@ -1,6 +1,6 @@
 .related-projects {
 	display: block;
-	background:#eaeaea;
+	background: $grey;
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 24px 0px 50px 0px;
 
@@ -21,7 +21,7 @@
 
 			.thumb {
 				display: block;
-				background: url(../img/go.png) no-repeat center center;
+				background: url(../img/site/go.png) no-repeat center center;
 				margin-bottom: 21px;
 				
 				-webkit-box-shadow: 3px 3px 0px rgba(0,0,0,.2); 

@@ -11,19 +11,7 @@
 	transition: all 0.1s ease;
 
 	&:hover {
-		background: #eee;
-	}
-
-	.thumb{
-		display: block;
-		float: left;
-		line-height: 0em;
-		background: #fff;
-		padding: 3px;
-		
-		-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,.3); 
-		-moz-box-shadow: 0px 0px 4px rgba(0,0,0,.3); 
-		box-shadow: 0px 0px 4px rgba(0,0,0,.3); 
+		//background: #eee;
 	}
 
 	.post-head{

@@ -1,18 +1,22 @@
 #social-cont { // the container that sticks
 	display: block;
 	float: left;
-	width: 68px;
+	width: 60px;
 	min-height: 1px;
+
+	@include breakpoint(papa-bear) {
+		display: none !important;
+	}
 
 	#social-bar { // the container
 		display: block;
 		width: 68px;
-		background: url(../img/social-desktop.png) no-repeat bottom center;
+		background: url(../img/site/social-desktop.png) no-repeat bottom center;
 		padding: 10px 0px 20px 0px;
 
 		ul {
 			display: block;
-			margin: 0 auto ;
+			margin: 0 auto;
 			width: 32px;
 
 			li{

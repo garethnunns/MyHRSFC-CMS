@@ -8,6 +8,10 @@ nav { // nav container
 		text-shadow: none;
 	}
 
+	h2 {
+		display: none;
+	}
+
 	#nav {
 		margin-top: 40px;
 
@@ -20,13 +24,9 @@ nav { // nav container
 			font-size: 16px;
 			float: left;
 
-			-ms-transition: all 0.7s ease-out;
-			-webkit-transition: all 0.7s ease-out;
-			-moz-transition: all 0.7s ease-out;
-			-o-transition: all 0.7s ease-out;
-			transition: all 0.7s ease-out;
+			@include single-transition(all, 0.7s, ease-out, 0s);
 
-			&:first-child, &.special-menu-item { // not dropdowns
+			&.special-menu-item, &.nochildren { // not dropdowns
 				background-image: none !important;
 			}
 
@@ -36,7 +36,7 @@ nav { // nav container
 			}
 
 			&.con a { // email someone
-				background: url("/img/social/email_32.png") no-repeat scroll 8px center / 16px 16px;
+				background: url("/img/icons/email.png") no-repeat scroll 8px center / 16px 16px;
 				padding: 10px 5px 10px 30px !important;
 				&:hover {
 					padding: 10px 0px 10px 35px !important;
@@ -74,16 +74,20 @@ nav { // nav container
 		}
 
 		& > li { // top of the tree styling
-			background: transparent url('/img/down.png') center 37px no-repeat;
+			background: transparent url('/img/site/nav-down.png') center 37px no-repeat;
 			height: 135px;
 
 			&:hover {
 				background-position: center 150px;
 
-				 & > a {
+				& > a {
 					background-color: #222;
 					border-bottom: solid #1c1d1d 5px;
 				}
+			}
+
+			&.current  > a { // current page and override hover
+				color: $blue;
 			}
 
 			& > a {
@@ -94,27 +98,19 @@ nav { // nav container
 				
 				text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
 				
-				-ms-transition: all 0.3s ease;
-				-webkit-transition: all 0.3s ease;
-				-moz-transition: all 0.3s ease;
-				-o-transition: all 0.3s ease;
-				transition: all 0.3s ease;
+				@include single-transition(all, 0.3s, ease, 0s);
 
 				.subheader {
 					color: #DEDEDE;
 					display: block;
 					font-size: 11px;
-					margin-top: -8px;
+					margin-top: -10px;
 					font-weight: lighter;
 				}
 
 				&.sf-sub-indicator { //?
 					display: none;
 				}
-			}
-
-			&.current-menu-item > a, &.current_page_item > a {
-				color: #6799c8;
 			}
 
 			&.special-menu-item > a { // the special lower sixth at the end
@@ -140,7 +136,13 @@ nav { // nav container
 				li {
 					border-bottom: 1px solid #151515;
 
-					a{
+					&.current a {
+						padding: 10px 10px 10px 20px;
+						background-color: #717171;
+						color: #111;
+					}
+
+					a {
 						display: block;
 						padding: 10px 15px;
 						display: block;
@@ -148,11 +150,7 @@ nav { // nav container
 						color: #CCCCCC;
 						text-decoration: none;
 
-						-ms-transition: all 0.2s linear;
-						-webkit-transition: all 0.2s linear;
-						-moz-transition: all 0.2s linear;
-						-o-transition: all 0.2s linear;
-						transition: all 0.2s linear;
+						@include single-transition(all, 0.2s, linear, 0s);
 
 						&:hover {
 							padding: 10px 10px 10px 20px;
@@ -163,6 +161,48 @@ nav { // nav container
 						span{
 							display: block;
 						}
+					}
+				}
+			}
+		}
+	}
+
+	@include breakpoint(papa-bear) { // mobile
+		display: block;
+		background: black url('../img/icons/menu.png') no-repeat right top;
+		position: absolute;
+		right: 0;
+		top: 25px;
+		width: 50px;
+		height: 50px;
+		z-index: 20;
+
+		ul,li,h2 {
+			display: none;
+		}
+
+		&:hover { // when open
+			width: 100%;
+			height: auto;
+
+			h2 {
+				display: block;
+			}
+
+			#nav {
+				display: block;
+
+				li {
+					display: block;
+					height: auto;
+					width: 100%;
+					background-image: none;
+
+					ul,li {
+						display: block !important;
+						visibility: visible !important;
+						position: static !important;
+						width: 100% !important;
 					}
 				}
 			}

@@ -1,0 +1,29 @@
+#social-cont { // the container that sticks
+	display: block;
+	float: left;
+	width: 68px;
+	min-height: 1px;
+
+	#social-bar { // the container
+		display: block;
+		width: 68px;
+		background: url(../img/social-desktop.png) no-repeat bottom center;
+		padding: 10px 0px 20px 0px;
+
+		ul {
+			display: block;
+			margin: 0 auto ;
+			width: 32px;
+
+			li{
+				display: block;
+				padding: 0px;
+				margin: 3px 0px;
+
+				a {
+					display: block;
+				}
+			}
+		}
+	}
+}
