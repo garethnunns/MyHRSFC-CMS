@@ -1,0 +1,247 @@
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	
+	/* slider */
+	
+	.shadow-slider{  background: url(../img/shadow-main-tablet.png) no-repeat top center ; }
+	
+	/* featured */
+	
+	.featured figure{
+		width: 344px;
+		margin-left: 24px;
+	}
+	
+	/*text posts */
+	
+	.text-posts li{
+		margin-left: 24px;
+		width: 160px;
+	}
+	
+	/* home gallery */
+
+	.home-gallery li{ 
+		margin-left: 24px;
+		width: 160px;
+	}
+	
+
+	/* aside */
+	
+	aside.retractil{
+		top: 72px;
+	}
+	
+	/* portfolio */
+	
+	.project-description{ width: 528px; }
+	
+	.project-info{ width: 160px; }
+	
+	.related-projects figure{ width: 160px; }
+	
+	/* blog */
+	
+	#posts-list,
+	#post-content,
+	#page-content{ width: 436px;}
+
+	/* footer 
+	
+	#footer-cols>li{
+		display: block;
+		float: left;
+		width: 229px;
+		margin-left: 24px;	
+	} */
+	
+	/* widgets */
+	
+	.recent-post .post-head{ width: 162px; }
+}
+
+
+
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+
+@media only screen and (max-width: 767px) {
+	
+	/*nav{ display: none; }
+	
+	#mobile-nav-holder{ display: block; } */
+	
+	.home-block-heading{
+		font-size: 24px;
+		margin-left: 33px;
+		margin-right: 33px;
+	}
+	
+	/* slider */
+	
+	.shadow-slider{  background: url(../img/shadow-main-mobile-por.png) no-repeat top center  ; }
+	
+	/* featured */
+	
+	.featured figure{ 
+		width: 252px;
+		margin-left: 33px;
+	}
+
+	/* aside */
+	
+	aside.retractil{
+		top: 69px;
+	}
+	
+	/* portfolio */
+	
+	.project-description{ width: 252px; clear: both; }
+	
+	.project-info{ width: 252px; }
+	
+	/* blog */
+	
+	#posts-list,
+	#post-content,
+	#page-content{ 
+		width: 252px;
+		margin-left: 33px;
+	}
+
+	#contactForm label,
+	#commentform label{
+		margin-top: -13px;
+		margin-bottom: 13px;
+		display: block;
+	}
+	
+	/* sidebar */
+	
+	#sidebar{ width: 252px; margin-left: 33px; }
+	
+	/* widgets */
+	
+	.recent-post .post-head{ width: 185px; }
+	
+	/* slider */
+	
+	.slider-home .flex-control-nav { display: none; }
+	
+	/* headline */
+	
+	.headline{
+		font-family: Helvetica, arial, sans-serif;
+		font-size: 16px;
+	}
+	
+	/* portfolio */
+	
+	.project-heading h1{ 
+		font-family: helvetica, arial, sans-serif;
+		font-size: 16px;
+	}
+	
+	.related-projects figure{ margin-left: 33px; width: 252px; }
+	
+	/*text posts */
+	
+	.text-posts li{
+		margin-left: 33px;
+		width: 252px;
+	}
+	
+	/* home gallery */
+
+	.home-gallery li{ 
+		margin-left: 33px;
+		width: 252px;
+	}
+		
+}
+
+
+
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	
+	.home-block-heading{
+		margin-left: 24px;
+		margin-right: 24px;
+	}
+	
+	/* slider */
+	
+	.shadow-slider{  background: url(../img/shadow-main-mobile-lan.png) no-repeat top center  ; }
+	
+	/* featured */
+	
+	.featured figure{ 
+		width: 436px;
+		margin-left: 24px;
+	}
+	
+	/*text posts */
+	
+	.text-posts li{
+		margin-left: 24px;
+		width: 207px;
+	}
+	
+	/* home gallery */
+
+	.home-gallery li{ 
+		margin-left: 24px;
+		width: 206px;
+	}
+	
+	/* portfolio */
+	
+	.project-description{ width: 435px; clear: both; }
+	
+	.project-info{ width: 435px; }
+	
+	.related-projects figure{ margin-left: 24px; width: 206px; }
+	
+	/* blog */
+	
+	#posts-list,
+	#post-content,
+	#page-content{
+		width: 434px;
+		margin-left: 24px;
+	}
+	
+	#contactForm label,
+	#commentform label{
+		margin-top: auto;
+		margin-bottom: auto;
+		display: inline;
+	}
+	
+	/* sidebar */
+	
+	#sidebar{
+		width: 434px;
+		margin-left: 24px;
+	}
+	
+	/* widgets */
+	
+	.recent-post .post-head{ width: 140px; }
+	
+
+	
+}
