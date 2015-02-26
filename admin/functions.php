@@ -133,7 +133,7 @@
 		$fields['form rep1'] = array(80);
 		$fields['form rep2'] = array(80,-1); // second one can be blank
 		$fields['function name'] = array(60);
-		$fields['function desc'] = array(350);
+		$fields['function desc'] = array(350,-1);
 		$fields['function content'] = array(10000); // almost limitless
 		$fields['GCB name'] = array(45);
 		$fields['GCB content'] = array(5000);

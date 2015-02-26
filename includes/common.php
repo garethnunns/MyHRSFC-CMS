@@ -331,7 +331,8 @@
 						<body>
 							<p>Hi '.($counc ? $result->shortname : 'council').'</p>
 
-							<p>A person with the name "'.$name.'" and email "'.$email.'" sent this message:</p>
+							<p>A person with the name "'.$name.'" and email "'.$email.'" sent 
+							<a href="http://myhrsfc.co.uk/admin/message.php">this message</a>:</p>
 
 							<p><b>Subject: '.$subject.'</b></p>
 							<p>'.nl2br($message).'</p>

@@ -1,5 +1,5 @@
 <?php
-	include '/home/a6325779/public_html/new/admin/checklogin.php';
+	include 'checklogin.php';
 ?><!doctype html>
 <html lang="en-gb">
 

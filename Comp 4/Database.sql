@@ -2,13 +2,13 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-#CREATE SCHEMA IF NOT EXISTS `myhrsfc` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-#USE `myhrsfc` ;
+CREATE SCHEMA IF NOT EXISTS `myhrsfc` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `myhrsfc` ;
 
 -- -----------------------------------------------------
--- Table `councillors_roles`
+-- Table `myhrsfc`.`councillors_roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `councillors_roles` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`councillors_roles` (
   `idroles` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `rolename` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`idroles`),
@@ -17,9 +17,9 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `tutors`
+-- Table `myhrsfc`.`tutors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tutors` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`tutors` (
   `initials` VARCHAR(3) NOT NULL,
   `name` VARCHAR(60) NULL,
   PRIMARY KEY (`initials`))
@@ -27,9 +27,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `councillors`
+-- Table `myhrsfc`.`councillors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `councillors` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`councillors` (
   `idcouncillors` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `shortname` VARCHAR(30) NULL,
@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `councillors` (
   `tutor` VARCHAR(3) NULL,
   `subjects` VARCHAR(150) NULL,
   `biography` TEXT NULL,
-  `image` VARCHAR(50) NULL,
-  `sudo` TINYINT(1) NULL,
-  `active` TINYINT(1) NULL,
+  `image` VARCHAR(50) NULL DEFAULT '/img/profiles/councillor.png',
+  `sudo` TINYINT(1) NULL DEFAULT 0,
+  `active` TINYINT(1) NULL DEFAULT 1,
   PRIMARY KEY (`idcouncillors`),
   INDEX `idroles_idx` (`role` ASC),
   INDEX `tutor_idx` (`tutor` ASC))
@@ -49,21 +49,22 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `pages`
+-- Table `myhrsfc`.`pages`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pages` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`pages` (
   `idpages` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `alias` VARCHAR(45) NOT NULL,
   `title` VARCHAR(60) NOT NULL,
   `subtitle` VARCHAR(45) NULL,
+  `meta_title` VARCHAR(100) NULL,
   `special_head` TEXT NULL,
   `body` TEXT NOT NULL,
   `sidebar` TEXT NULL,
   `assoc_councillor` INT UNSIGNED NULL,
   `desc` VARCHAR(200) NULL,
   `social_img` VARCHAR(80) NULL,
-  `editor` TINYINT(1) NULL,
-  `active` TINYINT(1) NULL,
+  `editor` TINYINT(1) NULL DEFAULT 1,
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`idpages`),
   INDEX `idcouncilllors_idx` (`assoc_councillor` ASC),
   UNIQUE INDEX `idcontent_UNIQUE` (`idpages` ASC))
@@ -71,9 +72,9 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `gcb`
+-- Table `myhrsfc`.`gcb`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gcb` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`gcb` (
   `idgcb` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `content` TEXT NOT NULL,
@@ -83,9 +84,9 @@ COMMENT = 'Global Content Blocks';
 
 
 -- -----------------------------------------------------
--- Table `policies`
+-- Table `myhrsfc`.`policies`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `policies` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`policies` (
   `idpolicies` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `assoc_councillor` INT UNSIGNED NULL,
   `name` VARCHAR(60) NOT NULL,
@@ -95,16 +96,16 @@ CREATE TABLE IF NOT EXISTS `policies` (
   INDEX `idcouncillors_idx` (`assoc_councillor` ASC),
   CONSTRAINT `idcouncillors`
     FOREIGN KEY (`assoc_councillor`)
-    REFERENCES `councillors` (`idcouncillors`)
+    REFERENCES `myhrsfc`.`councillors` (`idcouncillors`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `societies`
+-- Table `myhrsfc`.`societies`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `societies` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`societies` (
   `idsocieties` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `society` VARCHAR(60) NOT NULL,
   `name` VARCHAR(60) NOT NULL,
@@ -115,9 +116,9 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `contact`
+-- Table `myhrsfc`.`contact`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `contact` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`contact` (
   `idcontact` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(60) NULL,
   `email` VARCHAR(100) NULL,
@@ -129,33 +130,36 @@ CREATE TABLE IF NOT EXISTS `contact` (
   INDEX `idcouncillor_idx` (`assoc_councillor` ASC),
   CONSTRAINT `idcouncillor`
     FOREIGN KEY (`assoc_councillor`)
-    REFERENCES `councillors` (`idcouncillors`)
+    REFERENCES `myhrsfc`.`councillors` (`idcouncillors`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `parents`
+-- Table `myhrsfc`.`parents`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `parents` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`parents` (
   `idparents` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `idpages` INT UNSIGNED NOT NULL,
+  `name` VARCHAR(15) NOT NULL,
   `subheader` VARCHAR(45) NOT NULL,
+  `position` TINYINT(11) NOT NULL,
+  `special` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`idparents`),
   INDEX `idpages_idx` (`idpages` ASC),
   CONSTRAINT `idpages`
     FOREIGN KEY (`idpages`)
-    REFERENCES `pages` (`idpages`)
+    REFERENCES `myhrsfc`.`pages` (`idpages`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `colours`
+-- Table `myhrsfc`.`colours`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `colours` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`colours` (
   `idcolours` INT UNSIGNED NOT NULL,
   `name` VARCHAR(30) NOT NULL,
   `class` VARCHAR(10) NOT NULL,
@@ -164,9 +168,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `links`
+-- Table `myhrsfc`.`links`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `links` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`links` (
   `idlinks` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(60) NOT NULL,
   `URL` VARCHAR(100) NOT NULL,
@@ -176,16 +180,16 @@ CREATE TABLE IF NOT EXISTS `links` (
   INDEX `idcolours_idx` (`idcolours` ASC),
   CONSTRAINT `idcolours`
     FOREIGN KEY (`idcolours`)
-    REFERENCES `colours` (`idcolours`)
+    REFERENCES `myhrsfc`.`colours` (`idcolours`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `nav`
+-- Table `myhrsfc`.`nav`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nav` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`nav` (
   `idnav` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `idparents` INT UNSIGNED NOT NULL,
   `idpages` INT UNSIGNED NULL,
@@ -197,26 +201,26 @@ CREATE TABLE IF NOT EXISTS `nav` (
   INDEX `idpages_idx` (`idpages` ASC),
   CONSTRAINT `idparents`
     FOREIGN KEY (`idparents`)
-    REFERENCES `parents` (`idparents`)
+    REFERENCES `myhrsfc`.`parents` (`idparents`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idlinks`
     FOREIGN KEY (`idlinks`)
-    REFERENCES `links` (`idlinks`)
+    REFERENCES `myhrsfc`.`links` (`idlinks`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idpages`
     FOREIGN KEY (`idpages`)
-    REFERENCES `pages` (`idpages`)
+    REFERENCES `myhrsfc`.`pages` (`idpages`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `blog`
+-- Table `myhrsfc`.`blog`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blog` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`blog` (
   `idblog` VARCHAR(45) NOT NULL,
   `alias` VARCHAR(60) NOT NULL,
   `title` VARCHAR(60) NOT NULL,
@@ -232,63 +236,62 @@ CREATE TABLE IF NOT EXISTS `blog` (
   PRIMARY KEY (`idblog`),
   CONSTRAINT `idcouncillors`
     FOREIGN KEY (`assoc_councillor`)
-    REFERENCES `councillors` (`idcouncillors`)
+    REFERENCES `myhrsfc`.`councillors` (`idcouncillors`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `settings`
+-- Table `myhrsfc`.`settings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `settings` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`settings` (
   `year` INT NOT NULL,
   `email` VARCHAR(60) NOT NULL,
   `specialhead` TEXT NULL,
   `image` VARCHAR(100) NOT NULL,
-  `404` TEXT NULL,
   PRIMARY KEY (`year`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `faqs`
+-- Table `myhrsfc`.`faqs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `faqs` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`faqs` (
   `idfaqs` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `question` VARCHAR(100) NULL,
-  `answer` TEXT NULL,
+  `question` VARCHAR(100) NOT NULL,
+  `answer` TEXT NOT NULL,
   PRIMARY KEY (`idfaqs`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `functions`
+-- Table `myhrsfc`.`functions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `functions` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`functions` (
   `idfunctions` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(60) NULL,
+  `name` VARCHAR(60) NOT NULL,
   `desc` TEXT NULL,
-  `content` TEXT NULL,
+  `content` TEXT NOT NULL,
   PRIMARY KEY (`idfunctions`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `AtoZ`
+-- Table `myhrsfc`.`AtoZ`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `AtoZ` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`AtoZ` (
   `idAtoZ` INT UNSIGNED NOT NULL,
-  `name` VARCHAR(60) NULL,
+  `name` VARCHAR(60) NOT NULL,
   `desc` TEXT NULL,
   PRIMARY KEY (`idAtoZ`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `form_reps`
+-- Table `myhrsfc`.`form_reps`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `form_reps` (
+CREATE TABLE IF NOT EXISTS `myhrsfc`.`form_reps` (
   `idform_reps` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `tutor` VARCHAR(3) NOT NULL,
   `upper` TINYINT(1) NOT NULL,
@@ -298,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `form_reps` (
   INDEX `tutor_idx` (`tutor` ASC),
   CONSTRAINT `tutor`
     FOREIGN KEY (`tutor`)
-    REFERENCES `tutors` (`initials`)
+    REFERENCES `myhrsfc`.`tutors` (`initials`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

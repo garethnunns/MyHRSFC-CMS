@@ -7,6 +7,8 @@
 		$field = strtolower($_POST['field']);
 		$allowed = array('initials','name');
 
+		// todo check tutor not used in councillors or form reps with that initial
+
 		if(in_array($field,$allowed)) {
 			if (($field == 'initials' && validInitials($_POST['value'],$initials)) || 
 				($field == 'name' && validString('tutor name',$_POST['value']))) {
