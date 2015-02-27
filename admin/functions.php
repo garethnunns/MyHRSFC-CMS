@@ -37,13 +37,13 @@
 				}
 
 				if($toUpload) {
-					$newName = 'councillor'.$id.'.'.$pictureExt;
-					if(file_exists($relFolder.$newName)) unlink($relFolder.$newName);
 					require_once dirname(__FILE__).'/../includes/simpleimage.php';
 					$image = new SimpleImage();
 					$image->load($picture['tmp_name']);
 					$image->resizeToWidth(100);
 					if($image->getHeight() <= 150) { // no greater than 2:3
+						$newName = 'councillor'.$id.'.'.$pictureExt;
+						if(file_exists($relFolder.$newName)) unlink($relFolder.$newName); // delete older one
 						$image->save($relFolder.$newName);
 
 						try {
@@ -128,6 +128,7 @@
 		$fields['councillor password'] = array(150);
 		$fields['councillor subjects'] = array(150,-1);
 		$fields['councillor bio'] = array(1000,-1);
+		$fields['rolename'] = array(60); // councillors_roles
 		$fields['FAQ question'] = array(100);
 		$fields['FAQ answer'] = array(2500);
 		$fields['form rep1'] = array(80);
@@ -149,14 +150,13 @@
 		$fields['page description'] = array(200,-1);
 		$fields['page social image'] = array(80,-1);
 		$fields['parent name'] = array(15);
-		$fields['parent subheader'] = array(45);
+		$fields['parent subheader'] = array(45,-1);
 		$fields['policy name'] = array(60);
 		$fields['policy desc'] = array(1500,-1);
 		$fields['society name'] = array(60);
 		$fields['society leader name'] = array(60);
 		$fields['society leader email'] = array(10,-1);
 		$fields['society description'] = array(1000,-1);
-		$fields['rolename'] = array(60);
 		$fields['tutor name'] = array(60);
 
 		if(isset($fields[$name])) { // look up field name

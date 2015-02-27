@@ -56,14 +56,14 @@
 				}
 
 				$count = $funcsth->rowCount();
-				if($count == 1) {
+				if($count == 1) { // finds function
 					$funcrow = $funcsth->fetch(PDO::FETCH_OBJ);
 					
 					$funcName = $funcrow->name;
 					$funcCode = $funcrow->content;
 
 					if(preg_match('/\((.*?)\)/',$funcName,$params)) { // if there are arguments
-						$params = explode(",",substr($params[0],1,-1));
+						$params = explode(",",substr($params[0],1,-1)); // list of args not including brackets
 						foreach ($params as $num => $param) {
 							if(isset($arg[$num])) ${$param} = $arg[$num];
 						}

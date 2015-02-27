@@ -50,7 +50,10 @@
 
 		<meta name="generator" content="CMS created by Gareth Nunns - garethnunns.com">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="canonical" href="http://myhrsfc.co.uk/<?php echo $page->alias!='index' ? $page->alias : ''; ?>">
+		<link rel="canonical" href="http://myhrsfc.co.uk/<?php
+			$metaAlias = $page->alias!='index' ? $page->alias : '';
+			echo $metaAlias; 
+		?>">
 
 		<meta name="description" 
 content="<?php // output the first 150 characters of desc (or body if no desc)
@@ -61,7 +64,7 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 
 <?php
 	echo '<!--Open Graph -->
-	<meta property="og:url" content="http://www.myhrsfc.co.uk/'.$page->alias.'"">
+	<meta property="og:url" content="http://www.myhrsfc.co.uk/'.$metaAlias.'">
 	<meta property="og:site_name" content="MyHRSFC">
 	<meta property="og:title" content="'.$meta_title.' - MyHRSFC">
 	<meta property="og:type" content="website">

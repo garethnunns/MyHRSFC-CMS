@@ -81,7 +81,7 @@
 					<form method="POST">
 						<h2>Please log in</h2>
 
-						<?php if($error) echo '<p class="error">An error occured, please try again</p>'; ?>
+						<?php if($error) echo '<p class="error">Incorrect email or password, please try again</p>'; ?>
 
 						<p>Email: <input type="email" name="email" placeholder="email@address.com" <?php if(isset($email)) echo 'value="'.$email.'"'; ?> /></p>
 						<p>Password: <input type="password" name="password" placeholder="Password" /></p>
