@@ -59,7 +59,7 @@ php_value zlib.output_compression_level 5
 
 <IfModule mod_deflate.c>
 	# Compress css, plaintext, xml, gif, and images in transport.
-	AddOutputFilterByType DEFLATE text/css text/plain text/xml image/gif image/jpeg image/png
+	AddOutputFilterByType DEFLATE text/css text/plain text/xml image/gif image/jpg image/jpeg image/png
 </IfModule>
 
 <ifModule mod_gzip.c>
