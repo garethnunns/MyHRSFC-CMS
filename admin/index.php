@@ -90,6 +90,8 @@
 					<?php if($sudo) { ?>
 					<h3>Advanced</h3>
 
+					<p><a href="setting.php">Year settings</a></p>
+
 					<p><a href="gcb.php">Manage global content blocks</a></p>
 
 					<p><a href="function.php">Manage functions</a></p>

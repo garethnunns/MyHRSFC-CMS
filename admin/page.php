@@ -94,20 +94,18 @@
 
 			if($result) { // check page exists in the db
 
-				if(isSpecial($alias) || isSpecial($result)) { // checks to see if new or old alias is special
+				if(isSpecial($alias) || isSpecial($result) || !$sudo) { // checks to see if new or old alias is special
 					$alias = $result; // alias remains the same and then updates the other fields
 				}
 				$sql = "UPDATE pages 
 						SET	title = :title,
 							subtitle = :subtitle,
 							body = :body,
-							sidebar = :sidebar,";
-				if($sudo) { // only sudo can update the alias, owner and special head
-					$sql.="	alias = :alias,
+							sidebar = :sidebar,	
+							alias = :alias,
 							assoc_councillor = :councillor,
-							special_head = :head,";
-				}
-				$sql .= "	meta_title = :metatitle,
+							meta_title = :metatitle,
+							special_head = :head,
 							`desc` = :desc,
 							editor = :editor,
 							social_img = :social
@@ -118,7 +116,7 @@
 		}
 
 		if(!$error) {
-			if ( ((!isset($_POST['page']) || ($sudo)) && validAlias($alias)) &&
+			if ( (((!isset($_POST['page']) || ($sudo)) && validAlias($alias)) || (isset($_POST['page']) && !$sudo)) &&
 				validString('page title',$_POST['title']) &&
 				validString('page subtitle',$_POST['subtitle']) &&
 				validString('page meta title',$_POST['metatitle']) &&
@@ -134,9 +132,7 @@
 					$sth->bindValue(':subtitle',htmlentities($_POST['subtitle']), PDO::PARAM_STR);
 					$sth->bindValue(':body',$_POST['body'], PDO::PARAM_STR);
 					$sth->bindValue(':sidebar',$_POST['sidebar'], PDO::PARAM_STR);
-					if(!isset($_POST['page']) || ($sudo)) { // if adding the page or editing the page as sudo
-						$sth->bindValue(':alias',$alias, PDO::PARAM_STR); 
-					}
+					$sth->bindValue(':alias',$alias, PDO::PARAM_STR); 
 					$sth->bindValue(':metatitle',htmlentities($_POST['metatitle']), PDO::PARAM_STR);
 					$sth->bindValue(':desc',htmlentities($_POST['desc']), PDO::PARAM_STR);
 					$sth->bindValue(':editor',$editor, PDO::PARAM_INT);
@@ -144,7 +140,7 @@
 					if(!$councillor) $sth->bindValue(':councillor',null, PDO::PARAM_INT); // 'none' councillor
 					else $sth->bindValue(':councillor',$councillor, PDO::PARAM_INT);
 					$sth->bindValue(':social',htmlentities($_POST['social_img']), PDO::PARAM_STR);
-					$sth->bindValue(':head',$_POST['specialhead'], PDO::PARAM_STR);
+					$sth->bindValue(':head',$specialhead, PDO::PARAM_STR);
 					$sth->execute();
 
 					echo '<p class="success">Page successly ';
@@ -307,13 +303,13 @@
 <?php
 	$dir = '../img/'.$page->alias.'/'; // that page's folder
 
+	if(isset($reqpage) && !file_exists($dir)) mkdir($dir); // editing and folder doesn't already exist
+
 	if(isset($_FILES['file']) && $_FILES["file"]['name'] != '') { // upload file into page folder
 		if(!move_uploaded_file($_FILES["file"]["tmp_name"], $dir.basename($_FILES["file"]['name']))){
 			echo '<p class="error">There was an error uploading the file</p>';
 		}
 	}
-
-	if(isset($reqpage) && !file_exists($dir)) mkdir($dir); // editing and folder doesn't already exist
 	if(isset($reqpage) && file_exists($dir)) { // editing and folder exists
 		echo '<h3>Files &dtrif;</h3>';
 		echo '<div>';

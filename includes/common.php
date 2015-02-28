@@ -301,6 +301,33 @@
 		else echo "The global content block, '$name', was not found";
 	}
 
+	function currentYear() {
+		global $dbh;
+		try {
+			return $dbh->query('SELECT year 
+				FROM settings 
+				WHERE year = (SELECT MAX(year) 
+				FROM settings)
+				LIMIT 1')->fetch(PDO::FETCH_OBJ)->year;
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	function currentPhoto() {
+		global $dbh;
+		try {
+			return $dbh->query('SELECT image 
+				FROM settings 
+				WHERE year = '.currentYear().'
+				LIMIT 1')->fetch(PDO::FETCH_OBJ)->image;
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
 	function sendMessage($name,$email,$counc,$subject,$message) { // send message from contact form
 		global $dbh, $recaptcha_secret;
 

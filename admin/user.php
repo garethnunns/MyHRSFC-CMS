@@ -168,18 +168,20 @@
 			echo '<p><input type="submit" value="Update Password &#187;" name="updatepassword" /></p></form>';
 		}
 
-		echo '<h6>Role</h6>
-		<p><select name="role" onchange="update(this)" >';
-		roleSelect($councillor->role);
-		echo '</select></p>
-
-		<h6>Tutor</h6>
+		if($sudo) { // only sudo can change role
+			echo '<h6>Role</h6>
+			<p><select name="role" onchange="update(this)" >';
+			roleSelect($councillor->role);
+			echo '</select></p>';
+		}
+		
+		echo '<h6>Tutor</h6>
 		<p><select name="tutor" 
 		onchange="update(this)" >';
 		tutorSelect($councillor->tutor);
-		echo '</select></p>
+		echo '</select></p>';
 
-		<h6>Subjects</h6>
+		echo '<h6>Subjects</h6>
 		<input type="text" name="subjects" class="full" 
 		onblur="update(this)" placeholder="Subjects taken this year" value="'.$councillor->subjects.'"/>
 

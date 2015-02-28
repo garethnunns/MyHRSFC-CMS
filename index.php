@@ -57,39 +57,49 @@
 
 		<meta name="description" 
 content="<?php // output the first 150 characters of desc (or body if no desc)
-	$desc = $page->desc ? $page->desc : strip_tags(outputContent($page->body));
-	if(strlen($desc)>150) $desc = substr($desc, 0, 150).'...'; 
-	echo $desc;
+	$desc = htmlspecialchars($page->desc ? $page->desc : strip_tags($page->body));
+	echo strlen($desc)>150 ? (substr($desc, 0, 150).'...') : $desc;
 ?>">
 
 <?php
-	echo '<!--Open Graph -->
-	<meta property="og:url" content="http://www.myhrsfc.co.uk/'.$metaAlias.'">
+	echo '
+	<!--Open Graph -->
+	<meta property="og:url" content="http://myhrsfc.co.uk/'.$metaAlias.'">
 	<meta property="og:site_name" content="MyHRSFC">
 	<meta property="og:title" content="'.$meta_title.' - MyHRSFC">
 	<meta property="og:type" content="website">
 	<meta property="og:locale" content="en_GB">
-	<meta property="og:description" content="'.$page->desc.'">';
-	if(!empty($page->social_img)) echo '<meta property="og:image" content="'.$page->social_img.'">';
+	<meta property="og:description" content="'.(strlen($desc)>200 ? (substr($desc, 0, 197).'...') : $desc).'">
+	<meta property="og:image" content="http://myhrsfc.co.uk'.
+	($page->social_img ? $page->social_img : currentPhoto()).'">
 
-	echo '
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="'; // if there is an image, show it larger
 	echo empty($page->social_img) ? 'Summary Card' : 'Summary Card with Large Image';
 	echo '">
-	<meta name="twitter:site" content="@myhrsfc"><!-- may be inactive now -->
+	<meta name="twitter:site" content="@myhrsfc">
 	<meta name="twitter:title" content="'.$meta_title.' - MyHRSFC">
-	<meta name="twitter:description" content="'.$page->desc.'">';
-	if(!empty($page->social_img)) echo '<meta name="twitter:image:src" content="'.$page->social_img.'">';
+	<meta name="twitter:description" content="'.(strlen($desc)>200 ? (substr($desc, 0, 197).'...') : $desc).'">
+	<meta name="twitter:image:src" content="http://myhrsfc.co.uk'.
+	($page->social_img ? $page->social_img : currentPhoto()).'">
 
-	echo '
 	<!-- Schema/Google+ -->
 	<meta itemprop="name" content="'.$meta_title.' - MyHRSFC">
-	<meta itemprop="description" content='.$page->desc.'">';
-	if(!empty($page->social_img)) echo '<meta itemprop="image" content="'.$page->social_img.'">';
+	<meta itemprop="description" content="'.(strlen($desc)>200 ? (substr($desc, 0, 197).'...') : $desc).'">
+	<meta itemprop="image" content="http://myhrsfc.co.uk'.
+	($page->social_img ? $page->social_img : currentPhoto()).'">
+
+	<!-- global -->
+	';
 
 	globalContentBlock('head');
-	echo $page->special_head; // output page specific meta
+
+	echo '
+	<!-- end global -->
+
+	<!-- page specific -->
+	'.$page->special_head.'
+	<!-- end page specific -->';
 ?>
 		
 	</head>

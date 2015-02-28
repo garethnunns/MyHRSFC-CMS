@@ -153,6 +153,8 @@
 		$fields['parent subheader'] = array(45,-1);
 		$fields['policy name'] = array(60);
 		$fields['policy desc'] = array(1500,-1);
+		$fields['settings email'] = array(60);
+		$fields['settings head'] = array(5000,-1);
 		$fields['society name'] = array(60);
 		$fields['society leader name'] = array(60);
 		$fields['society leader email'] = array(10,-1);
