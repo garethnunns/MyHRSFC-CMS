@@ -97,6 +97,10 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 	echo '
 	<!-- end global -->
 
+	<!-- year specific -->
+	'.currentHead().'
+	<!-- end year specific -->
+
 	<!-- page specific -->
 	'.$page->special_head.'
 	<!-- end page specific -->';

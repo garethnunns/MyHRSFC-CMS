@@ -328,6 +328,20 @@
 		}
 	}
 
+	function currentHead() {
+		global $dbh;
+		try {
+			return $dbh->query('SELECT specialhead 
+				FROM settings 
+				WHERE year = (SELECT MAX(year) 
+				FROM settings)
+				LIMIT 1')->fetch(PDO::FETCH_OBJ)->specialhead;
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
 	function sendMessage($name,$email,$counc,$subject,$message) { // send message from contact form
 		global $dbh, $recaptcha_secret;
 

@@ -45,7 +45,7 @@
 
 	$year = currentYear();
 
-	if(isset($_POST['add'])) { // adding a setting
+	if(isset($_POST['add'])) { // adding settings
 		if(strlen($_POST['year']) == 4 && $_POST['year'] > $year && is_numeric($_POST['year'])) {
 			if($_FILES['photo']['name']) { // there is an image set
 				if (validString('settings email',$_POST['email']) 
@@ -78,6 +78,35 @@
 			else echo '<p class="error">There must be a group photo, or at least a filler image</p>';
 		}
 		else echo '<p class="error">The year must be 4 digits and greater than the last year, sorry, please try again</p>';
+	}
+	elseif(isset($_POST['update'])) { // updating the settings
+		if (validString('settings email',$_POST['email']) 
+			&& filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
+			&& validString('settings head',$_POST['head'])) {
+			// valid new email and head
+			try {
+				$sth = $dbh->prepare("UPDATE settings 
+					SET email = :email, specialhead = :head
+					WHERE year = :year");
+				$sth->bindValue(':year',$year, PDO::PARAM_INT);
+				$sth->bindValue(':email',$_POST['email'], PDO::PARAM_STR);
+				$sth->bindValue(':head',$_POST['head'], PDO::PARAM_STR);
+				$sth->execute();
+
+				$updated = $sth->rowCount();
+
+				if($updated) {
+					echo '<p class="success">The settings were successfully updated</p>';
+				}
+				else {
+					echo '<p class="error">There was an internal error updating the settings
+					(or no changes were made), please try again</p>';
+				}
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
 	}
 
 	$dir = '../img/year/';
@@ -122,7 +151,7 @@
 		}
 	}
 
-	try {
+	try { // output current settings
 		$sql = "SELECT *
 				FROM settings
 				WHERE year = $year";
@@ -133,14 +162,21 @@
 
 			echo '<h3>'.$year.'\'s settings</h3>
 
+			<form method="post" enctype="multipart/form-data">
+
 			<h5>Group Photo</h5>
 			<img src="'.$settings->image.'" />
+			<p>Update: <input type="file" name="photo" /></p>
 
 			<h5>Group Email</h5>
 			<input type="text" name="email" class="full" value="'.$settings->email.'" />
 
 			<h5>Code to go in the &lt;head&gt; of every page</h5>
-			<textarea name="head">'.htmlentities($settings->specialhead).'</textarea>';
+			<textarea name="head">'.htmlentities($settings->specialhead).'</textarea>
+
+			<input type="submit" value="Update settings &#187;" name="update" />
+
+			</form>';
 		}
 		else echo '<p>There are currently no settings in the database</p>';
 	}
@@ -149,7 +185,7 @@
 	}
 ?>
 					<aside>
-						<h3>Add settings for this year</h3>
+						<h3>New settings for this year</h3>
 						<form method="post" enctype="multipart/form-data">
 							<p>Year: <input type="text" name="year" class="small" placeholder="e.g. 201..." /></p>
 							<p>Group email address:<br>
