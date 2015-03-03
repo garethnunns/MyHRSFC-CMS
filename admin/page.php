@@ -84,9 +84,6 @@
 				$sql = "INSERT INTO pages 
 				VALUES 
 				(null,:alias,:title,:subtitle,:metatitle,:head,:body,:sidebar,:councillor,:desc,:social,:editor,1)";
-
-				$dir = '../img/'.$alias;
-				if(!file_exists($dir)) mkdir($dir); // make files folder for that page
 			}
 		}
 		else { // updating
@@ -110,13 +107,13 @@
 							editor = :editor,
 							social_img = :social
 						WHERE idpages = :page";
-				if(!$sudo) $sql .= " AND assoc_councillor = :councillor";
+				if(!$sudo) $sql .= " AND assoc_councillor = :councillor"; // user can only update the page they own
 			}
 			else $error = true;
 		}
 
 		if(!$error) {
-			if ( (((!isset($_POST['page']) || ($sudo)) && validAlias($alias)) || (isset($_POST['page']) && !$sudo)) &&
+			if ( (((!isset($_POST['page']) || ($sudo)) && validAlias('page alias',$alias)) || (isset($_POST['page']) && !$sudo)) &&
 				validString('page title',$_POST['title']) &&
 				validString('page subtitle',$_POST['subtitle']) &&
 				validString('page meta title',$_POST['metatitle']) &&
@@ -127,6 +124,9 @@
 				validString('page social image',$_POST['social_img'])) {
 
 				try {
+					$dir = '../img/'.$alias;
+					if(!file_exists($dir)) mkdir($dir); // make files folder for that page if needed
+
 					$sth = $dbh->prepare($sql);
 					$sth->bindValue(':title',htmlentities($_POST['title']), PDO::PARAM_STR);
 					$sth->bindValue(':subtitle',htmlentities($_POST['subtitle']), PDO::PARAM_STR);

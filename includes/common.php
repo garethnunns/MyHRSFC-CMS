@@ -7,6 +7,8 @@
 
 	$parsedown = new Parsedown();
 
+	date_default_timezone_set('Europe/London');
+
 	function write($content) { // outputting MarkDown, allowing HTML tags 
 		global $parsedown;
 
@@ -336,6 +338,33 @@
 				WHERE year = (SELECT MAX(year) 
 				FROM settings)
 				LIMIT 1')->fetch(PDO::FETCH_OBJ)->specialhead;
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	function outputBlog() {
+		global $dbh;
+		try {
+			$sql = "SELECT blog.*, councillors.name, councillors.image AS profile, councillors_roles.rolename
+					FROM blog
+					LEFT JOIN councillors ON blog.assoc_councillor = councillors.idcouncillors
+					LEFT JOIN councillors_roles ON councillors_roles.idroles = councillors.role
+					ORDER BY blog.date DESC";
+			if($dbh->query($sql)->rowCount()) {
+				foreach($dbh->query($sql) as $row) {
+					echo '<h2><a href="/blog/'.$row['alias'].'">'.$row['title'].'</a></h2>';
+					if($row['name']) {
+						echo '<img src="'.$row['profile'].'"" class="thumb med" />
+						<h3>'.$row['name'].'</h3>
+						<h5>'.$row['rolename'].'</h5>';
+					}
+					echo '<p>'.$row['desc'].'</p>
+					<p><a href="/blog/'.$row['alias'].'">Read more &#187;</a></p>';
+				}
+			}
+			else echo "<p>There currently aren't any blog posts</p>";
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();

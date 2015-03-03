@@ -104,11 +104,12 @@
 		}
 	}
 
-	function validAlias($alias) {
-		if(validString('page alias',$alias)) {
-			if(ctype_alnum($alias)) return true;
+	function validAlias($name,$alias) {
+		if(validString($name,$alias)) {
+			if($alias == urlencode($alias) && strpos($alias,'.') === false) return true;
 			else {
-				echo '<p class="error">The page alias can only be letter and numbers</p>';
+				echo '<p class="error">The '.$name.' must use only contain letters, numbers,
+				underscores and dashes</p>';
 				return false;
 			}
 		}
@@ -122,6 +123,11 @@
 		// setting min length to -1 allows it to be blank
 		$fields['A to Z name'] = array(60);
 		$fields['A to Z description'] = array(2000);
+		$fields['blog alias'] = array(60);
+		$fields['blog title'] = array(60);
+		$fields['blog content'] = array(10000);
+		$fields['blog description'] = array(200);
+		$fields['blog image'] = array(100,-1);
 		$fields['councillor name'] = array(50);
 		$fields['councillor shortname'] = array(30);
 		$fields['councillor email'] = array(100);
@@ -358,7 +364,7 @@
 	}
 
 	function isSpecial($alias) { // is a special page that can't be edited or url that can't be set
-		$special = array('index','404','icons','profiles','site','year'); // ones that are special
+		$special = array('index','404','blog','icons','profiles','site','year'); // ones that are special
 
 		$rootfull = glob(dirname(__FILE__).'/../*' , GLOB_ONLYDIR); // directories in /
 		foreach ($rootfull as $path) {

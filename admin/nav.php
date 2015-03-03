@@ -158,7 +158,8 @@
 			FROM pages
 			WHERE idpages NOT IN
 			(SELECT idpages 
-			FROM parents)");
+			FROM parents)
+			ORDER BY title");
 		
 		$parentcount = $parentresult->rowCount();
 

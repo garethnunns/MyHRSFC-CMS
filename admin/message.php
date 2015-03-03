@@ -86,7 +86,7 @@
 				if($row['email']) echo '<p><i>Email:</i><br>'.$row['email'].'</p>';
 				echo '</td>
 
-				<td class="center">'.($row['assoc_councillor'] ? 'You' : 'Council').'</td>
+				<td class="center"><b>'.($row['assoc_councillor'] ? 'You' : 'Council').'</b></td>
 				
 				<td>';
 				if($row['subject']) echo '<h4>'.$row['subject'].'</h4>';

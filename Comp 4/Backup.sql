@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 27, 2015 at 08:33 PM
+-- Generation Time: Mar 02, 2015 at 09:13 PM
 -- Server version: 5.1.57
 -- PHP Version: 5.2.17
 
@@ -84,7 +84,7 @@ INSERT INTO `AtoZ` VALUES(46, 'Work Experience', 'Must be organised in associati
 --
 
 CREATE TABLE `blog` (
-  `idblog` varchar(45) COLLATE latin1_general_ci NOT NULL,
+  `idblog` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `alias` varchar(60) COLLATE latin1_general_ci NOT NULL,
   `title` varchar(60) COLLATE latin1_general_ci NOT NULL,
   `content` text COLLATE latin1_general_ci NOT NULL,
@@ -97,12 +97,13 @@ CREATE TABLE `blog` (
   PRIMARY KEY (`idblog`),
   UNIQUE KEY `alias_UNIQUE` (`alias`),
   KEY `idcouncillors_idx` (`assoc_councillor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `blog`
 --
 
+INSERT INTO `blog` VALUES(1, 'new-site-1', 'New website', 'We''ve been working hard to create the new site', 1, '2015-03-03 01:43:48', NULL, 'About the new site for the Hills Road student council website', '/img/blog/new-site-1/Database Design 18.png', 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +143,7 @@ CREATE TABLE `contact` (
   `complete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idcontact`),
   KEY `idcouncillor_idx` (`assoc_councillor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `contact`
@@ -152,6 +153,7 @@ INSERT INTO `contact` VALUES(1, 'test', '', 1, '', 'bla', 1);
 INSERT INTO `contact` VALUES(3, 'Gareth Nunns', 'garethnunns@gmail.com', 1, 'More testing', 'Do\r\nmultiple\r\nlines\r\nwork\r\ntoo?', 1);
 INSERT INTO `contact` VALUES(4, 'David Cameron', '10downingstreet@pleb.com', 1, 'Bravo', 'Yo, jus checkin out yo website bro, seems pretty slick yolo.', 1);
 INSERT INTO `contact` VALUES(5, 'Susan Hill', 'hillsusan589@gmail.com', 5, 'Get more customer and Visitors?', 'We strongly believe that we have an excellent opportunity to increase the number of visitors to your website through our white-hat SEO services at a very affordable price.Email us back to get a full proposal.', 0);
+INSERT INTO `contact` VALUES(6, 'Gareth Nunns', 'me@garethnunns.com', 1, 'Tests', 'This is just to check &lt;h1&gt;html doesn''t work&lt;/h1&gt; and things like &quot;quotes '' etc;\r\n\r\nhope you enjoyed', 1);
 
 -- --------------------------------------------------------
 
@@ -290,7 +292,7 @@ CREATE TABLE `functions` (
   `desc` text COLLATE latin1_general_ci,
   `content` text COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`idfunctions`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `functions`
@@ -305,6 +307,7 @@ INSERT INTO `functions` VALUES(9, 'policies', 'Lists all of the policies', 'try 
 INSERT INTO `functions` VALUES(10, 'societies', 'List all of the societies', 'try {\n	$sql = "SELECT * FROM societies ORDER BY society";\n							\n	foreach ($dbh->query($sql) as $row) {\n		echo ''<h3>''.htmlentities($row[''society'']).''</h3><h6>'';\n		if($row[''email'']) echo ''<a href="mailto:''.$row[''email''].''@hillsroad.ac.uk"><img src="/img/icons/email.png" alt="Email them" class="icon" /> '';\n		echo htmlentities($row[''name'']);\n		if($row[''email'']) echo ''</a>'';\n		echo ''</h6><p>'';\n		line($row[''desc'']);\n		echo ''</p>'';\n	}\n}\ncatch (PDOException $e) {\n	echo $e->getMessage();\n}');
 INSERT INTO `functions` VALUES(11, 'contactForm', 'Outputs a contact form', '$sent = false;\nif($_POST[''send'']) { // sending\n	$conname = htmlentities($_POST[''name'']);\n	$email = htmlentities($_POST[''email'']);\n	$subject = htmlentities($_POST[''subject'']);\n	$message = htmlentities($_POST[''message'']);\n	$sent = sendMessage($conname,$email,$_POST[''councillor''],$subject,$message);\n}\n\nif(!$sent) {\n	echo ''<h3>Contact Us</h3>\n	<form method="post">\n	<p>Name: <input type="text" name="name" placeholder="Your name" value="''.$conname.''" /></p>\n	<p>Email: <input type="email" name="email" placeholder="Your email address" value="''.$email.''" /></p>\n	<p>To: \n	<select name="councillor">\n		<option value="0">Whole council</option>'';\n	try {\n		$councsql = "SELECT * FROM councillors WHERE active ORDER BY name";\n		foreach($dbh->query($councsql) as $councillor) {\n			echo ''<option value="''.$councillor["idcouncillors"].''"'';\n			if($councillor["idcouncillors"] == $_POST[''councillor'']) echo '' selected'';\n			echo ''>''.htmlentities($councillor["name"]).''</option>'';\n		}\n	}\n	catch (PDOException $e) {\n		echo $e->getMessage();\n	}\n	echo ''</select>\n	<p>Subject: <input type="text" name="subject" placeholder="Subject of your enquiry" value="''.$subject.''" /></p>\n	<p><b>Message:</b></p>\n	<textarea name="message" placeholder="Your message">''.$message.''</textarea>\n	<div class="g-recaptcha" data-sitekey="6Le8mwITAAAAAIkBPohga-ElshICnAimv2ra0jpb"></div>\n	<input type="submit" value="Send &#187;" name="send" />\n	</form>'';\n}');
 INSERT INTO `functions` VALUES(12, 'footerContact(role)', 'Display the councillor with that **role name**''s details for use in the footer', 'try {\n	$sth = $dbh->prepare(''SELECT councillors.name, councillors.image, councillors.email\n		FROM councillors, councillors_roles\n		WHERE councillors_roles.rolename = ? \n		AND councillors_roles.idroles = councillors.role\n		AND councillors.active = 1 \n		LIMIT 1'');\n	$sth->bindValue(1, $role, PDO::PARAM_STR);\n	$sth->execute();\n	\n	$count = $sth->rowCount();\n\n	if($count) {\n		$result = $sth->fetch(PDO::FETCH_OBJ);					\n		echo ''<img src="''.$result->image.''" class="thumb small" alt="''.$result->name.'' - ''.$role.''" />\n		<h6>''.$result->name.''</h6>\n		<p><a href="mailto:''.$result->email.''" target="_blank">Email the ''.$role.''</a></p>'';\n	}\n}\ncatch (PDOException $e) {\n	echo $e->getMessage();\n}');
+INSERT INTO `functions` VALUES(13, 'blog', 'Outputs the blog', 'outputBlog();');
 
 -- --------------------------------------------------------
 
@@ -371,32 +374,32 @@ CREATE TABLE `nav` (
   KEY `idparents_idx` (`idparents`),
   KEY `idlinks_idx` (`idlinks`),
   KEY `idpages_idx` (`idpages`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=320 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=340 ;
 
 --
 -- Dumping data for table `nav`
 --
 
-INSERT INTO `nav` VALUES(315, 34, NULL, 9, 4);
-INSERT INTO `nav` VALUES(310, 37, 15, NULL, 3);
-INSERT INTO `nav` VALUES(314, 34, NULL, 6, 3);
-INSERT INTO `nav` VALUES(305, 32, 5, NULL, 1);
-INSERT INTO `nav` VALUES(319, 33, NULL, 5, 3);
-INSERT INTO `nav` VALUES(304, 32, 4, NULL, 0);
-INSERT INTO `nav` VALUES(318, 33, 7, NULL, 2);
-INSERT INTO `nav` VALUES(317, 33, 1, NULL, 1);
-INSERT INTO `nav` VALUES(313, 34, NULL, 7, 2);
-INSERT INTO `nav` VALUES(312, 34, NULL, 8, 1);
-INSERT INTO `nav` VALUES(316, 33, 6, NULL, 0);
-INSERT INTO `nav` VALUES(311, 34, 8, NULL, 0);
-INSERT INTO `nav` VALUES(302, 39, NULL, 4, 2);
-INSERT INTO `nav` VALUES(301, 39, 16, NULL, 1);
-INSERT INTO `nav` VALUES(309, 37, 14, NULL, 2);
-INSERT INTO `nav` VALUES(308, 37, 13, NULL, 1);
-INSERT INTO `nav` VALUES(307, 37, 10, NULL, 0);
-INSERT INTO `nav` VALUES(300, 39, 12, NULL, 0);
-INSERT INTO `nav` VALUES(303, 39, 17, NULL, 3);
-INSERT INTO `nav` VALUES(306, 32, 17, NULL, 2);
+INSERT INTO `nav` VALUES(335, 34, NULL, 9, 4);
+INSERT INTO `nav` VALUES(330, 37, 15, NULL, 3);
+INSERT INTO `nav` VALUES(334, 34, NULL, 6, 3);
+INSERT INTO `nav` VALUES(326, 32, 17, NULL, 2);
+INSERT INTO `nav` VALUES(339, 33, NULL, 5, 3);
+INSERT INTO `nav` VALUES(325, 32, 5, NULL, 1);
+INSERT INTO `nav` VALUES(338, 33, 7, NULL, 2);
+INSERT INTO `nav` VALUES(337, 33, 1, NULL, 1);
+INSERT INTO `nav` VALUES(333, 34, NULL, 7, 2);
+INSERT INTO `nav` VALUES(332, 34, NULL, 8, 1);
+INSERT INTO `nav` VALUES(336, 33, 6, NULL, 0);
+INSERT INTO `nav` VALUES(331, 34, 8, NULL, 0);
+INSERT INTO `nav` VALUES(323, 39, 17, NULL, 3);
+INSERT INTO `nav` VALUES(322, 39, NULL, 4, 2);
+INSERT INTO `nav` VALUES(329, 37, 14, NULL, 2);
+INSERT INTO `nav` VALUES(328, 37, 13, NULL, 1);
+INSERT INTO `nav` VALUES(327, 37, 10, NULL, 0);
+INSERT INTO `nav` VALUES(321, 39, 16, NULL, 1);
+INSERT INTO `nav` VALUES(320, 39, 12, NULL, 0);
+INSERT INTO `nav` VALUES(324, 32, 4, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -421,7 +424,7 @@ CREATE TABLE `pages` (
   PRIMARY KEY (`idpages`),
   UNIQUE KEY `idcontent_UNIQUE` (`idpages`),
   KEY `idcouncilllors_idx` (`assoc_councillor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `pages`
@@ -429,7 +432,7 @@ CREATE TABLE `pages` (
 
 INSERT INTO `pages` VALUES(1, 'atoz', 'The Official Hills Road A to Z', 'A Short Guide to College', 'A to Z', '', 'Here''s *everything* you need to know about college\r\n\r\n{ AtoZ  }', '', NULL, 'The official Hills Road Student Council A-to-Z for new students', '', 1, 1);
 INSERT INTO `pages` VALUES(2, '404', '404', 'Page not found :(', '', NULL, '### Dang it\r\n\r\nBasically, you''ve ended up here because the page you were looking for doesn''t exist or maybe hasn''t even been made yet. That or there is the chance that there''s a serious error on our server...\r\n\r\nEither way, we hope our minions (mainly our webmaster) will fix it soon.\r\n\r\nGo back to the [home page](/) for now?', 'If you think you shouldn''t be seeing this page, **please** contact our webmaster', 1, 'The requested page could not be found', NULL, 1, 1);
-INSERT INTO `pages` VALUES(3, 'index', '', '', 'Home', '<script type="text/javascript">(function(d, s, id) {\r\n  var js, fjs = d.getElementsByTagName(s)[0];\r\n  if (d.getElementById(id)) return;\r\n  js = d.createElement(s); js.id = id;\r\n  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=187884137952301";\r\n  fjs.parentNode.insertBefore(js, fjs);\r\n}(document, ''script'', ''facebook-jssdk''));</script>', '<div class="flexslider home-slider">\r\n<ul class="slides">\r\n\r\n<li>\r\n<a href="//facebook.com/media/set/?set=a.726708264065094.1073741837.280290375373554" target="_blank">\r\n<img src="img/index/fresh2014.jpg" alt="Freshers 2014" />\r\n</a>\r\n</li>\r\n\r\n<li>\r\n<a href="http://www.facebook.com/myhrsfc" target="_blank">\r\n<img src="img/index/facebook.png" alt="Facebook" />\r\n</a>\r\n</li>\r\n\r\n<li>\r\n<img src="img/index/chargers.png" alt="Phone Chargers" />\r\n</li>\r\n\r\n<li>\r\n<a href="http://www.twitter.com/myhrsfc" target="_blank">\r\n<img src="img/index/twitter.png" alt="Find us on Twitter" />\r\n</a>\r\n</li>\r\n\r\n</ul>\r\n</div>\r\n<div class="shadow-slider"></div>\r\n\r\n<div class="headline facebook">\r\n				\r\n<div class="fb-like" data-href="http://www.facebook.com/myhrsfc" data-send="true" data-width="750" data-show-faces="true" data-font="arial"></div>\r\n\r\n</div>\r\n\r\n<div id="fb-root"></div>\r\n\r\n<div class="page-content hasaside">\r\n\r\n{ showImage(Chair) }\r\n\r\n<h1>Welcome!</h1>\r\n\r\n<h3>A welcome from your Student Council</h3>\r\n\r\n<p>Welcome to the Student Council website! Our job is to provide a mix of representations, activities and services to the students of Hills Road Sixth Form College. We are not for profit, so any money we make through our activities is ploughed straight back into providing you with more and better services.</p>\r\n\r\n<p>We look after all of the societies on campus. We are governed by our Constitution, which outlines how we operate and what we do. The Council is managed by a collective of 11 officers, who work together with form representatives on a regular basis. Meet the council here</p>\r\n\r\n<p>Please check this site regularly.</p>\r\n\r\n<aside>\r\n<h4>Quick Links</h4>\r\n<ul>\r\n<li><a href="/policies.html">Policy Tracker</a></li>\r\n<li><a href="/who.html">Meet the Council</a></li>\r\n<li><a href="/contact.html">Anonymous Contact Form</a></li>\r\n<li><a href="welcome">Lower Sixth/Prospective Students</a></li>\r\n</ul>\r\n\r\n<a href="welcome"><img src="/img/year/2014/group.jpg" /></a>\r\n</aside>\r\n\r\n</div>', '', NULL, 'Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council', '', 0, 1);
+INSERT INTO `pages` VALUES(3, 'index', '', '', 'Home', '<script type="text/javascript">(function(d, s, id) {\r\n  var js, fjs = d.getElementsByTagName(s)[0];\r\n  if (d.getElementById(id)) return;\r\n  js = d.createElement(s); js.id = id;\r\n  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=187884137952301";\r\n  fjs.parentNode.insertBefore(js, fjs);\r\n}(document, ''script'', ''facebook-jssdk''));</script>', '<div class="flexslider home-slider">\r\n<ul class="slides">\r\n\r\n<li>\r\n<a href="//facebook.com/media/set/?set=a.726708264065094.1073741837.280290375373554" target="_blank">\r\n<img src="img/index/fresh2014.jpg" alt="Freshers 2014" />\r\n</a>\r\n</li>\r\n\r\n<li>\r\n<a href="http://www.facebook.com/myhrsfc" target="_blank">\r\n<img src="img/index/facebook.jpg" alt="Facebook" />\r\n</a>\r\n</li>\r\n\r\n<li>\r\n<img src="img/index/chargers.jpg" alt="Phone Chargers" />\r\n</li>\r\n\r\n<li>\r\n<a href="http://www.twitter.com/myhrsfc" target="_blank">\r\n<img src="img/index/twitter.jpg" alt="Find us on Twitter" />\r\n</a>\r\n</li>\r\n\r\n</ul>\r\n</div>\r\n<div class="shadow-slider"></div>\r\n\r\n<div class="headline facebook">\r\n				\r\n<div class="fb-like" data-href="http://www.facebook.com/myhrsfc" data-send="true" data-width="750" data-show-faces="true" data-font="arial"></div>\r\n\r\n</div>\r\n\r\n<div id="fb-root"></div>\r\n\r\n<div class="page-content hasaside">\r\n\r\n{ showImage(Chair) }\r\n\r\n<h1>Welcome!</h1>\r\n\r\n<h3>A welcome from your Student Council</h3>\r\n\r\n<p>Welcome to the Student Council website! Our job is to provide a mix of representations, activities and services to the students of Hills Road Sixth Form College. We are not for profit, so any money we make through our activities is ploughed straight back into providing you with more and better services.</p>\r\n\r\n<p>We look after all of the societies on campus. We are governed by our Constitution, which outlines how we operate and what we do. The Council is managed by a collective of 11 officers, who work together with form representatives on a regular basis. Meet the council here</p>\r\n\r\n<p>Please check this site regularly.</p>\r\n\r\n<aside>\r\n<h4>Quick Links</h4>\r\n<ul>\r\n<li><a href="/policies.html">Policy Tracker</a></li>\r\n<li><a href="/who.html">Meet the Council</a></li>\r\n<li><a href="/contact.html">Anonymous Contact Form</a></li>\r\n<li><a href="welcome">Lower Sixth/Prospective Students</a></li>\r\n</ul>\r\n\r\n<a href="welcome"><img src="/img/year/2014/group.jpg" /></a>\r\n</aside>\r\n\r\n</div>', '', NULL, 'Stay up to date and in the loop with the official website from the HRSFC, Hills Road Sixth Form College, Student Council', '', 0, 1);
 INSERT INTO `pages` VALUES(6, 'welcome', 'Welcome', 'An introduction from your Council', 'Welcome, Lower 6th!', NULL, '<img src="/img/year/2014/group.jpg" />\r\n\r\nHey lower 6th - welcome to Hills! The first few weeks can be a bit daunting so we''ve put together a handy section on the site to ensure the process is as stress-free as possible for everyone involved.\r\n\r\nHills Road is an energetic, exciting place with a limitless opportunities for you to engage in, so make sure that you make full use of the range of societies and clubs we''ve worked hard to provide in the coming year.\r\n \r\nIf you want more information about what we do please feel free to look through the rest of this website which is specifically designed to get the most important information to you in a quick manner.\r\n\r\nIf you''ve any questions at all please email your Chair, Alice French or  the entire council. You can also contact us anonymously using our online contact form. We''re ready on standby to reply to any queries you may have. \r\n\r\nThanks for reading and have fun in the year ahead!!\r\n\r\nYour Student Council, 2015', '', 2, 'A warm welcome from the Hills Road Student Council to new and prospective students', NULL, 1, 1);
 INSERT INTO `pages` VALUES(4, 'support', 'Support & Welfare', 'Helping you along the way', '', NULL, '### Help is at hand!\r\n\r\nEllie is responsible for welfare, diversity and equality at Hills, and is here to support you! From the trivial to more serious matters, you''re able to confidentially discuss anything at all with Ellie. If you have any problems at all, then please do click below to email her. Or if you prefer to contact us anonymously, find the link just below.\r\n\r\n- [Email the Welfare Officer](mailto:welfare@officer.com)\r\n- [Anonymous Contact Form](/acf)\r\n- http://stonewall.org.uk (LGBT)\r\n- http://ditchthelabel.org (Anti-bullying)\r\n- http://equalityhumanrights.com\r\n- http://interfaith.org.uk\r\n- http://disabledgo.com\r\n- http://syacambs.org (local LGBT group)\r\n- http://mind.org.uk (mental health charity)\r\n- http://mindincambs.org.uk (local mental health group)\r\n- http://scope.org.uk\r\n- http://mindfull.org\r\n\r\nIf it takes your fancy, why not check out this [Student Welfare site on Direct.gov](http://www.direct.gov.uk/en/YoungPeople/DG_10016099)?', '', 7, 'Support and Welfare at Hills Road Sixth Form College', '', 1, 1);
 INSERT INTO `pages` VALUES(5, 'equality', 'Equality & Diversity', '', '', NULL, '##### Official documents published by Hills Road regarding the Equality and Diversity of the College:\r\n\r\n- [HRSFC equality & diversity](http://www.hrsfc.ac.uk/equalityDiversity.aspx)\r\n- [The equality and diversity report on HRSFC (2011-2012)](http://myhrsfc.co.uk/docs/ED_Report_for_Corporation_2012.docx)\r\n- [Single Equality Scheme HRSFC (2010-2013)](http://myhrsfc.co.uk/docs/Single_Equality_Scheme.doc)\r\n- [The SES (Single Equality Scheme) HRSFC action plan (2011-2012)](http://www.hrsfc.ac.uk/SESActionPlan2011_12.pdf)\r\n- [The SES (Single Equality Scheme) HRSFC action plan REVIEW (Oct 2012)](http://myhrsfc.co.uk/docs/SES_Action_Plan_2011-12_-_Review.doc)\r\n\r\nIf you have any specific questions relating to the equality and diversity of the college, then please do contact us.', '', 7, 'Equality and Diversity information for Hills Road Sixth Form College', '', 1, 1);
@@ -438,12 +441,13 @@ INSERT INTO `pages` VALUES(8, 'nus', 'NUS', 'National Union of Students', '', NU
 INSERT INTO `pages` VALUES(9, 'events', 'Events', 'Previous and upcoming ', '', '', '## 2014\r\n\r\n#### Swing\r\n\r\n<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/nn6AN_qtgZ8?rel=0&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>\r\n\r\n#### Freshers\r\n\r\n<!-- Image links to Facebook album -->\r\n[![Freshers 2014](/img/events/2014-freshers.jpg)](http://facebook.com/media/set/?set=a.726708264065094.1073741837.280290375373554 "View Facebook Album")\r\n\r\nOur annual Freshers event occurred on 9th October and featured College DJs along with our headliner Dr P. Over 800 students attended and enjoyed the neon theme.\r\n\r\n#### Autumn Event - Papworth Trust Charity Event\r\n\r\n[![Autumn Event 2014](/img/events/2014-autumn.jpg)](http://facebook.com/media/set/?set=a.720989994636921.1073741836.280290375373554 "View Facebook Album")\r\n\r\nOn 19th September, we held a live music event on the College site to raise money for local charity The Papworth Trust. It was a relaxed evening with some fantastic performances from College bands (headliner Kermode Spirit), plus free ice cream and candyfloss for all attendees. We raised over Â£700 for The Papworth Trust and are looking into organising a similar event in the future.\r\n\r\n#### 90s Throwback\r\n\r\n[![90s Throwback 2014](/img/events/2014-90s-throwback.jpg)](https://www.facebook.com/media/set/?set=a.631164210286167.1073741833.280290375373554 "View Facebook Album")\r\n\r\n#### Zen\r\n\r\n[![Zen 2014](/img/events/2014-zen.jpg)](https://www.facebook.com/media/set/?set=a.595207793881809.1073741832.280290375373554 "View Facebook Album")\r\n\r\n## 2013\r\n\r\n#### Freshers\r\n\r\n[![Freshers 2013](/img/events/2013-freshers.jpg)](https://www.facebook.com/media/set/?set=a.547850441950878.1073741831.280290375373554 "View Facebook Album")\r\n\r\n#### Beach House\r\n\r\n[![Summer event 2013](/img/events/2013-summer.jpg)](https://www.facebook.com/media/set/?set=a.506202092782380.1073741829.280290375373554 "View Facebook Album")\r\n\r\n#### Fantasia\r\n\r\n[![Fantasia 2013](/img/events/2013-fantasia.jpg)](https://www.facebook.com/media/set/?set=a.467051633364093.1073741826.280290375373554 "View Facebook Album")\r\n\r\n## 2012\r\n\r\n#### Deck the Hills\r\n\r\n[![Deck the Hills 2012](/img/events/2012-deck-the-hills.jpg)](https://www.facebook.com/media/set/?set=a.419594921443098.95126.280290375373554 "View Facebook Album")\r\n\r\n#### Freshers\r\n\r\n[![Freshers 2012](/img/events/2012-freshers.jpg)](https://www.facebook.com/media/set/?set=a.387893851279872.88294.280290375373554 "View Facebook Album")\r\n\r\n#### Summer Beach Blowout\r\n\r\n[![Summer Beach Blowout 2012](/img/events/2012-summer-beach.jpg)](https://www.facebook.com/media/set/?set=a.358892707513320.79449.280290375373554 "View Facebook Album")', '', 6, 'Upcoming and previous events, organised by the Hills Road Student Council', '/img/events/2014-freshers.jpg', 1, 1);
 INSERT INTO `pages` VALUES(10, 'charities', 'Charities', 'Money for a good cause', '', NULL, '### 14th October\r\n\r\n![Stand Up To Cancer Logo](/img/charities/su2c.png)\r\n\r\nA massive thank you who took part in the Sponsored Stand for [Stand up to Cancer](http://standuptocancer.org.uk/). I am delighted to announce that the total amount raised was Â£286.76! A couple of standers deserve a special mention: **Sam Malia** raised Â£67.50 and **Alesha Viswambaram** raised Â£67.05! Thank you to both of you for your tremendous efforts.\r\n\r\n![Stand Up To Cancer](/img/charities/su2c2.jpg)\r\n\r\nAfter some late donations the final amount raised for Stand up 2 Cancer was Â£537.86 and we have also raised Â£24.95 for Children in Need.\r\n\r\n### 8th October\r\n\r\n![St John''s Ambulance](/img/charities/stjohns.jpg)\r\n\r\n[St Johns ambulance](http://sja.org.uk/) are a tremendous charity who provided us with a lot of generous help in our Freshers'' event. We are therefore very glad to announce that Â£150 of the profits raised from Freshers'' will be donated to the charity to help their future work.\r\n\r\n### 1st October\r\n\r\n![Autism Awareness Logo](/img/charities/autism_awareness.gif)\r\n\r\nWe are proud to announce that following on from the Autism Awareness day last April, the student council have made a donation of Â£100 to the [National Autistic Society](http://autism.org.uk/). This will aid them in their valuable work, reducing stigma and improving opportunities for those who have been diagnosed with Autism.\r\n\r\n### 19th September\r\n\r\n![Papworth Trust](/img/charities/papworth.jpg)\r\n\r\nA big thank you to all those who came along and made the Autumn event a success! We managed to raise over Â£700 for the [Papworth Trust](http://papworthtrust.org.uk/), who do hugely valuable work supporting people with physical and mental disabilities.', '', 4, 'See what our Charities Officer is up to', '/img/charities/su2c2.jpg', 1, 1);
 INSERT INTO `pages` VALUES(11, 'committees', 'Committees', 'The people who make it work', '', '', 'Below is a list of all the form reps, updated by Dong:\r\n\r\n### The From Reps\r\n\r\n{ formReps }', '', 8, 'A complete list of the form reps at Hills Road Sixth Form College', '', 1, 1);
-INSERT INTO `pages` VALUES(12, 'who', 'Meet the council', 'Who we are and what we do', '', '', '{ councillors }', '', NULL, 'Meet the councillors of the Hills Road Sixth Form College Student Council', '', 1, 1);
+INSERT INTO `pages` VALUES(12, 'council', 'Meet the council', 'Who we are and what we do', '', '', 'You can [contact any of the council anonymously](/contact) or email them using the links here\r\n\r\n{ councillors }', '', NULL, 'Meet the councillors of the Hills Road Sixth Form College Student Council', '', 1, 1);
 INSERT INTO `pages` VALUES(13, 'finance', 'Finance', 'Looking after your money', '', '', 'The Financial Subcommittee plays a vital role in ensuring the success of the Student Council and its activities. Eliza works with George and the Events'' Subcommittee to budget our social events. The loans and grants process is being headed by Emily who coordinates any requests received from students and societies. Zak helps in deciding which purchases would be beneficial to the student body, whilst Carla heads the raising of funds in order for our projects to be financially viable.\r\n\r\n#### [Loans and Grants Application Form](/img/finance/Loans_and_Grants_Application.docx)', '', 9, 'Find out about the finance subcommittee', '', 1, 1);
 INSERT INTO `pages` VALUES(14, 'media', 'Media', 'Keeping you in the know', '', '', 'The media subcommittee is an addition to the student council committee itself, and there are various jobs which we deal with. We help to provide coverage for events, as well as creating promotional material. The team works closely with social media and IT to provide information for students online, which can be viewed on this website and on our highly popular Facebook page. We have four U6 members on the subcommittee with a variety of skills including photography and web design. If you have any questions or requests please contact Claudia.', '', 10, '', '', 1, 1);
 INSERT INTO `pages` VALUES(15, 'societies', 'Societies', 'Be part of it all', '', '', '## Get the most out of Hills\r\n\r\nJoining a society is by far the best way to get involved at Hills Road. Whether it''s playing in Symphony Orchestra or taking part in the Duke of Edinburgh Award, it''s an easy way to develop skills and qualities for your CVs and UCAS forms!\r\n\r\nBelow is a list of the current societies. For other information regarding societies **contact the Societies Officer, Callum Delhoy**, or **[email the Head of Societies, Mrs Hanfling](mailto:LHanfling@hillsroad.ac.uk)**.\r\n\r\n{ societies }', '', 12, 'A complete list of the student-run societies at Hills Road', '', 1, 1);
 INSERT INTO `pages` VALUES(16, 'policies', 'Policies', 'Updated regularly!', 'Our Policies', '', '{ policies }', 'If you would like to suggest a policy for us to consider, [get in touch over Facebook](http://www.facebook.com/myhrsfc/), or use our contact form', NULL, 'Stay up to date with how the Hills Road Student Council are implementing their policies', '', 1, 1);
 INSERT INTO `pages` VALUES(17, 'contact', 'Contact Us', 'Talk to us', 'Contact', '<script src=''https://www.google.com/recaptcha/api.js''></script>', '## Want to contact us anonymously?\r\n\r\nFill out the form below to send a **confidential** message to the Student Council. \r\n\r\nFeel free to **remain anonymous by leaving the name and email boxes blank**, but remember this means we''ll be unable to contact you in the future!\r\n\r\n{ contactForm }', '#### Come find us\r\n\r\nAny students are welcome to drop in to the Student Council offices in the Hub whenever the lights are on or the door is unlocked. Come in and have a chat! (We have tea)\r\n\r\n[studentcouncil14@hillsroad.ac.uk](mailto:studentcouncil14@hillsroad.ac.uk)', NULL, 'Contact the Hills Road Student Council anonymously', '', 1, 1);
+INSERT INTO `pages` VALUES(18, 'blog', 'Blog', 'The latest news from the council', '', '', '{ blog }', '', NULL, 'The latest news from the council', '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -460,18 +464,19 @@ CREATE TABLE `parents` (
   `special` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idparents`),
   KEY `idpages_idx` (`idpages`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=40 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `parents`
 --
 
+INSERT INTO `parents` VALUES(40, 18, 'blog', 'the latest', 2, 0);
 INSERT INTO `parents` VALUES(39, 12, 'the council', 'who are we?', 1, 0);
-INSERT INTO `parents` VALUES(35, 9, 'events', 'time to party', 4, 0);
-INSERT INTO `parents` VALUES(37, 11, 'committees', 'get involved', 3, 0);
-INSERT INTO `parents` VALUES(32, 4, 'support', 'Here to help', 2, 0);
-INSERT INTO `parents` VALUES(33, 6, 'Lower 6th', 'all the info', 6, 1);
-INSERT INTO `parents` VALUES(34, 8, 'NUS', 'your union', 5, 0);
+INSERT INTO `parents` VALUES(35, 9, 'events', 'time to party', 5, 0);
+INSERT INTO `parents` VALUES(37, 11, 'committees', 'get involved', 4, 0);
+INSERT INTO `parents` VALUES(32, 4, 'support', 'Here to help', 3, 0);
+INSERT INTO `parents` VALUES(33, 6, 'Lower 6th', 'all the info', 7, 1);
+INSERT INTO `parents` VALUES(34, 8, 'NUS', 'your union', 6, 0);
 INSERT INTO `parents` VALUES(27, 3, 'MyHRSFC', 'welcome', 0, 0);
 
 -- --------------------------------------------------------
@@ -522,7 +527,7 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` VALUES(2014, 'studentcouncil14@hillsroad.ac.uk', '', '/img/year/2014/group.jpg');
+INSERT INTO `settings` VALUES(2014, 'studentcouncil14@hillsroad.ac.uk', '<!-- year settings... -->', '/img/year/2014/group.jpg');
 
 -- --------------------------------------------------------
 

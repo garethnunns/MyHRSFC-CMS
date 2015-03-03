@@ -262,7 +262,7 @@ body {
 
 	.nomobile {
 		@include breakpoint(mid-bear) {
-			display: none;
+			display: none !important;
 		}
 	}
 

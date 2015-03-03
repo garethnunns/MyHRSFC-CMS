@@ -74,6 +74,10 @@
 					<p><a href="link.php">Manage links</a></p>
 					<?php } ?>
 
+					<p><a href="blog.php">Add new blog post</a></p>
+
+					<p><a href="blogs.php">Manage blog</a></p>
+
 					<h3>Lists</h3>
 
 					<p><a href="atoz.php">Manage A to Z</a></p>

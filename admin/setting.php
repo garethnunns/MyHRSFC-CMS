@@ -136,7 +136,7 @@
 					$sth = $dbh->prepare("UPDATE settings 
 										SET image = :image
 										WHERE year = $year");
-					$sth->bindValue(':image',$folder.'group.'.$ext, PDO::PARAM_STR);
+					$sth->bindValue(':image',substr($folder,2).'group.'.$ext, PDO::PARAM_STR);
 					$sth->execute();
 
 					$updated = $sth->rowCount();
