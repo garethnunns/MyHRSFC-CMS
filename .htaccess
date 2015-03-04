@@ -1,5 +1,7 @@
 Options -Indexes
 
+DirectoryIndex index.php index.html
+
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	RewriteBase /
@@ -8,11 +10,25 @@ Options -Indexes
 	RewriteRule ^.*\.htaccess - [L,F]
 	RewriteRule ^includes.* - [L,F]
 
-	# rewrites URLS that aren't files or folders
+	# forbid apps
+	RewriteRule \.exe - [F]
+
+	# rewrite urls that aren't files or folders
+
+	# blog posts: http://myhrsfc.co.uk/blog/new-site-1 -> http://myhrsfc.co.uk/index.php?post=new-site-1
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.+)$ index.php?page=$1 [QSA]
-	RewriteRule ^(.+).html index.php?page=$1 [QSA]
+	RewriteRule ^blog/([a-zA-Z0-9-_]+)/?$ index.php?post=$1 [L,QSA]
+
+	# site pages: http://myhrsfc.co.uk/welcome -> http://myhrsfc.co.uk/index.php?page=welcome
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([a-zA-Z0-9-_]+)/?$ index.php?page=$1 [QSA]
+
+	# allow html ext: http://myhrsfc.co.uk/welcome.html -> http://myhrsfc.co.uk/index.php?page=welcome
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([a-zA-Z0-9-_]+).html index.php?page=$1 [QSA]
 </IfModule>
 
 #Error Documents

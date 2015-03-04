@@ -224,7 +224,7 @@
 		echo '</div></header>';
 	}
 
-	function breadcrumbs($page) { // output breadcrumb links to $page (id of page)
+	function breadcrumbs($page,$blog=null) { // output breadcrumb links to $page (id of page)
 		global $dbh;
 
 		echo '<ul class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
@@ -272,6 +272,11 @@
 				strtolower($page->alias).'</a>';
 			}
 			echo '</li>';
+			if($blog) {
+				echo '/ <li typeof="v:Breadcrumb">
+				<a href="/blog/'.$blog.'" rel="v:url">post</a>
+				</li>';
+			}
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
@@ -358,10 +363,11 @@
 					if($row['name']) {
 						echo '<img src="'.$row['profile'].'"" class="thumb med" />
 						<h3>'.$row['name'].'</h3>
-						<h5>'.$row['rolename'].'</h5>';
+						<h5>'.$row['rolename'].'</h5>
+						<div class="clearfix"></div>';
 					}
 					echo '<p>'.$row['desc'].'</p>
-					<p><a href="/blog/'.$row['alias'].'">Read more &#187;</a></p>';
+					<p><b><a href="/blog/'.$row['alias'].'">Read more &#187;</a><b></p>';
 				}
 			}
 			else echo "<p>There currently aren't any blog posts</p>";

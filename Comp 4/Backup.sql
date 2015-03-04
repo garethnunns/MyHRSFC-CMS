@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2015 at 09:13 PM
+-- Generation Time: Mar 03, 2015 at 07:26 PM
 -- Server version: 5.1.57
 -- PHP Version: 5.2.17
 
@@ -103,7 +103,7 @@ CREATE TABLE `blog` (
 -- Dumping data for table `blog`
 --
 
-INSERT INTO `blog` VALUES(1, 'new-site-1', 'New website', 'We''ve been working hard to create the new site', 1, '2015-03-03 01:43:48', NULL, 'About the new site for the Hills Road student council website', '/img/blog/new-site-1/Database Design 18.png', 1);
+INSERT INTO `blog` VALUES(1, 'new-site-1', 'New website', 'We''ve been working hard to create the new site', 1, '2015-03-03 01:43:48', '2015-03-04 00:25:57', 'About the new site for the Hills Road student council website', '/img/blog/new-site-1/Database Design 18.png', 1);
 
 -- --------------------------------------------------------
 

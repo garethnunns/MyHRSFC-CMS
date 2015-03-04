@@ -1,18 +1,28 @@
 <?php
 	require_once 'includes/common.php';
 
-	if((isset($_GET['page'])) || ($_GET['page'] != ""))  $page = $_GET['page'];
-	else $page = 'index';
-
-	if(substr($_GET['page'],-5)=='.html') {
-		$page = substr($_GET['page'],0,-5); // allow .html extensions
-	}
-
 	try {
-		$sth = $dbh->prepare('SELECT *
-			FROM pages
-			WHERE alias = ? AND active LIMIT 1');
-		$sth->bindValue(1, $page, PDO::PARAM_STR);
+		if(isset($_GET['post'])) { // blog post
+			$sql = "SELECT idblog, idpages, blog.alias, blog.title, 'Blog post' AS subtitle, '' AS special_head, 
+					blog.content AS body, '' AS sidebar, blog.assoc_councillor, blog.`desc`, image AS social_img, 
+					1 AS editor, `date`, updated
+					FROM blog, pages
+					WHERE blog.alias = ? 
+					AND blog.active 
+					AND pages.alias = 'blog' -- to get the page id of the blog
+					LIMIT 1";
+			$sth = $dbh->prepare($sql);
+			$sth->bindValue(1, $_GET['post'], PDO::PARAM_STR);
+		}
+		else { // normal page
+			if((isset($_GET['page'])) || ($_GET['page'] != ""))  $page = $_GET['page'];
+			else $page = 'index';
+
+			$sth = $dbh->prepare('SELECT *
+				FROM pages
+				WHERE alias = ? AND active LIMIT 1');
+			$sth->bindValue(1, $page, PDO::PARAM_STR);
+		}
 		$sth->execute();
 
 		$count = $sth->rowCount();
@@ -121,16 +131,21 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 
 <?php
 
-	if(($page->title != "") || ($page->subtitle != "")) { // hide masthead when no title and subtitle, content full width
+	if(($page->title) || ($page->subtitle)) { // hide masthead when no title and subtitle, content full width
 ?>
 
 				<!-- masthead -->
 				<div id="masthead">
 					<span class="head">
 						<?php echo $page->title; ?></span>
-						<span class="subhead"><?php echo $page->subtitle; ?>
+						<span class="subhead">
+<?php
+	if($page->idblog) $date = date('l j<\s\u\p>S</\s\u\p> F Y',strtotime(!$page->updated ? $page->date : $page->updated));
+	echo (!$page->idblog ? $page->subtitle : (!$page->updated ? 'Posted ' : 'Updated ').$date);
+?>
+						</span>
 					</span>
-					<?php breadcrumbs($page->idpages); ?>
+					<?php $page->idblog ? breadcrumbs($page->idpages,$page->alias) : breadcrumbs($page->idpages); ?>
 				</div>
 				<!-- ENDS masthead -->
 				
@@ -142,13 +157,13 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 
 	outputContent($page->body,($page->editor ? true : false)); // output content using markdown or not
 
-	if(($page->title != "") || ($page->subtitle != "")) { // show aside when not full width content
+	if(($page->title) || ($page->subtitle)) { // show aside when not full width content
 
-		if(($page->assoc_councillor!="") || ($page->sidebar!="")) { // to show sidebar if page owned or sidebar content set
+		if(($page->assoc_councillor) || ($page->sidebar)) { // to show sidebar if page owned or sidebar content set
 			echo '<aside>';
 
-			if ($page->assoc_councillor != "") outputCouncillor($page->assoc_councillor);
-			if ($page->sidebar != "") {
+			if ($page->assoc_councillor) outputCouncillor($page->assoc_councillor);
+			if ($page->sidebar) {
 				outputContent($page->sidebar);
 			}
 			echo '</aside><div class="clearfix"></div>';

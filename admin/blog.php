@@ -16,10 +16,7 @@
 		$(document).ready(function () {
 			$('#date').datetimepicker({
 				inline:true,
-				format:'Y-m-d H:i:s',
-				onChangeDateTime:function(dp,$input){
-					alert($input.val())
-				}
+				format:'Y-m-d H:i:s'
 			});
 		});
 		</script>
@@ -93,6 +90,8 @@
 
 			$sql = "INSERT INTO blog 
 					VALUES (null,:alias,:title,:content,:councillor,:date,null,:desc,:image,1)";
+
+			$image = ''; // image defaults to none
 		}
 		else { // updating
 			// check post exists in the database 
@@ -119,6 +118,11 @@
 							image = :image
 						WHERE idblog = :post";
 				if(!$sudo) $sql .= " AND assoc_councillor = :councillor"; // normies can only edit their posts
+
+				$oldimg = $dbh->prepare("SELECT image FROM blog WHERE idblog = :id LIMIT 1");
+				$oldimg->bindValue(':id',$_POST['post'], PDO::PARAM_INT);
+				$oldimg->execute();
+				$image = $oldimg->fetch(PDO::FETCH_OBJ)->image; // image defaults back to old one
 			}
 			else $error = true;
 		}
@@ -130,7 +134,6 @@
 				validString('blog description',$_POST['desc'])) {
 
 				try {
-					$image = '';
 					// uploading image
 					if($_FILES['photo']['name']) {
 						$dir = '../img/blog/'.$alias.'/';
