@@ -28,6 +28,7 @@
 	}
 }
 
+$black: #555;
 $grey: #eaeaea;
 
 $red: #DF3A5A;
@@ -60,7 +61,7 @@ table,tr,th,td,input,textarea {
 body {
 	background: #ececec url('/img/site/body-pattern.png');
 	font: 14px/1.5em Helvetica, Arial, sans-serif;
-	color: #555;
+	color: $black;
 	-webkit-text-size-adjust: 100%; // Stops Mobile Safari from auto-adjusting font-sizes - could remove
 	overflow-x: hidden; // IE fix
 
@@ -116,6 +117,10 @@ body {
 
 			@include breakpoint(papa-bear) {
 				margin-top: 6px;
+			}
+
+			& > img:not([class]) { // standard image margin
+				margin: 5px 0;
 			}
 		}
 
@@ -207,6 +212,9 @@ body {
 		&.success {
 			color: $green;
 		}
+		&.right {
+			text-align: right;
+		}
 	}
 
 
@@ -237,14 +245,10 @@ body {
 		text-decoration: none;
 		color: #333;
 		text-shadow: 0px 1px 0px #fff;
+		@include single-transition(color, 0.3s, ease-out, 0s);
 
-		-ms-transition: color 0.3s ease-out;
-		-webkit-transition: color 0.3s ease-out;
-		-moz-transition: color 0.3s ease-out;
-		-o-transition: color 0.3s ease-out;
-		transition: color 0.3s ease-out;
 		&:hover {
-			color: #6799c8;
+			color: $blue;
 		}
 
 		img {
@@ -393,140 +397,12 @@ body {-webkit-tap-highlight-color: rgb(255,255,158);}
 @import '_contact.scss';
 @import '_progress.scss';
 @import '_who.scss';
+@import '_blog.scss';
 
+// admin
 @import '_sorting.scss';
 
-/* used nowhere 
-
-.h-heading{
-	margin-right: 0;
-}
-
-.h-margin{
-	margin-bottom: 32px;
-}
-
-.block-divider{
-	margin-bottom: 120px;
-}
-
-// columns
-
-.one-half,
-.one-third{	
-	float:left;
-	margin-bottom: 40px;
-	margin-right: 4.54%;
-	position:relative;
-}
-
-.one-halfn,
-.one-thirdn{	
-	float:left;
-	margin-bottom: -30px;
-	margin-right: 4.54%;
-	position:relative;
-}
-
-.one-half{ 
-	width: 47.72%;
-}
-
-.one-halfn{ 
-	width: 47.72%;
-}
-.one-third{ 
-	width: 30.30%;
-}
-
-.one-thirdn{ 
-	width: 30.30%;
-}
-.last {
-	clear:right;
-	margin-right:0 !important;
-}
-
-// PORTFOLIO 
-
-.featured.portfolio-list{
-	margin-top: 25px;
-}
-
-.project-heading{
-	margin: 44px 24px 44px 24px;
-}
-
-
-.project-heading h1{
-	float: left;
-	margin-right: 20px;
-}
-
-.project-heading .launch{
-	display: block;
-	float: left;
-	text-decoration: none;
-	color: #888;
-	
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-.project-heading .launch:hover{
-	color: #6799c8;
-}
-
-.project-description{
-	float: left;
-	margin-left: 24px;
-	width: 528px;
-	margin-bottom: 40px;
-}
-
-
-.project-info{
-	float: left;
-	margin-left: 24px;
-	width: 252px;
-	margin-bottom: 40px;
-}
-
-.project-info strong{
-	color: #444;
-}
-
-
-.project-pager{
-	overflow: hidden;
-	margin: 0px 24px 0px 24px;
-	padding-bottom: 50px;
-}
-
-.project-pager a{
-	text-decoration: none;
-	color: #444;
-	
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-.project-pager a:hover{
-	text-decoration: none;
-	color: #6799c8;
-}
-
-.project-pager .prev-project{
-	float: left;
-}
-
-.project-pager .next-project{
-	float: right;
-}
+/*
 
 // RETRACTIL SIDEBAR 
 
@@ -634,25 +510,7 @@ aside.retractil #sidebar-content a:hover{
 	opacity: 0.15;
 }
 
-// BLOG not currently used but could be usefull
-
-#posts-list,
-#post-content{
-	width: 528px;
-	float: left;
-	margin-top: 24px;
-	margin-bottom: 24px;
-	margin-left: 24px;
-}
-
-#post-content .content-area{
-	padding-bottom: 50px; 
-}
-
-#posts-list article{
-	margin-bottom: 80px;
-}
-
+// BLOG not currently used but could be useful
 
 #posts-list .feature-image,
 #post-content .feature-image{
@@ -691,56 +549,6 @@ aside.retractil #sidebar-content a:hover{
 
 #posts-list .post-heading:hover{
 	color: #6799c8;
-}
-
-#posts-list .meta,
-#post-content .meta{
-	border-bottom: 1px solid #ccc;
-	margin-bottom: 11px;
-	padding-bottom: 11px;
-	font-style: italic;
-	font-size: 11px;
-}
-
-#posts-list .meta a,
-#post-content .meta a{
-	color: #444;
-	text-decoration: none;
-	
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-#posts-list .meta a:hover,
-#post-content .meta a:hover{
-	color: #6799c8;
-}
-
-#posts-list .excerpt{
-	margin-bottom: 21px;
-}
-
-#posts-list .read-more{
-	background: $grey;
-	padding: 5px 10px;
-	text-decoration: none;
-	color: #888;
-	border: 1px solid #ccc;
-	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,.3); 
-	-moz-box-shadow: 0px 0px 2px rgba(0,0,0,.3); 
-	box-shadow: 0px 0px 2px rgba(0,0,0,.3); 
-	
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-#posts-list .read-more:hover{
-	color: #fff;
-	background: #6799c8;
 }
 
 // more blog stuff: PAGER 

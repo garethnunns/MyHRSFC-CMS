@@ -140,6 +140,7 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 						<?php echo $page->title; ?></span>
 						<span class="subhead">
 <?php
+	// for blog output time posted/updated, otherwise the subtitle
 	if($page->idblog) $date = date('l j<\s\u\p>S</\s\u\p> F Y',strtotime(!$page->updated ? $page->date : $page->updated));
 	echo (!$page->idblog ? $page->subtitle : (!$page->updated ? 'Posted ' : 'Updated ').$date);
 ?>
@@ -154,6 +155,9 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 
 <?php
 	} // end non-full width content
+
+	// blog image
+	if($page->idblog) echo '<img src="'.$page->social_img.'" />';
 
 	outputContent($page->body,($page->editor ? true : false)); // output content using markdown or not
 

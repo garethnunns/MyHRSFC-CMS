@@ -64,7 +64,7 @@
 		}
 	}
 
-	& > .current-menu-item > a, & > .current-page-item > a { // page that is open?
-		color: #6799c8;	
+	& > .current-menu-item > a, & > .current-page-item > a { // page that is open? - not currently used
+		color: $blue;	
 	}
 }

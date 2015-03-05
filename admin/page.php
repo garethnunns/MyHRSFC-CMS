@@ -254,32 +254,7 @@
 					<aside>
 						<h3>MarkDown &dtrif;</h3>
 						<div>
-							<p><a href="http://daringfireball.net/projects/markdown/syntax">MarkDown</a> is a way 
-							formatting text, here are the basics:</p>
-
-							<p>You can just type a paragraph of text, then leave 2 lines before the next</p>
-
-							<h6>###### Headers</h6>
-							<p>1 to 6 hashes, 1 being the largest, define a heading</p>
-
-							<p><i>*Italic*</i> &amp; <b>**bold**</b><br>
-							(You can also use <i>_underscores_</i>)</p>
-
-							<ul>
-								<li>- Lists are done</li>
-								<li>- Like this</li>
-								<li>- You can also use</li>
-								<li>* Astericks</li>
-								<li>+ or plusses, interchangably</li>
-							</ul>
-
-							<p><b>Links</b> can be done literally:<br>
-							<a href="http://garethnunns.com">http://garethnunns.com</a><br>
-							Or you can change the text:<br>[A link](http://garethnunns.com)<br>
-							<a href="//garethnunns.com">A link</a></p>
-							<p><b>Images:</b><br>
-							![Description of image](/img/profiles/councillor.png)<br>
-							<img src="/img/profiles/councillor.png" alt="Description of image" /></p>
+							<?php markDownInstructions(); ?>
 						</div>
 
 						<h3>Functions &dtrif;</h3>
@@ -340,7 +315,7 @@
 			<!-- ENDS content -->
 
 <script type="text/javascript">
-	$('aside h3').on('click touchstart', function () { // expand pane when heading is clicked
+	$('aside h3').on('click touch', function () { // expand pane when heading is clicked
 		$('aside div').not($(this).next()).slideUp();
 		$(this).next().slideToggle();
 	});

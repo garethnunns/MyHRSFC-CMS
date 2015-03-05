@@ -7,7 +7,9 @@
 
 	$parsedown = new Parsedown();
 
+	// set timezone
 	date_default_timezone_set('Europe/London');
+	$dbh->exec("SET time_zone='+0:00';");
 
 	function write($content) { // outputting MarkDown, allowing HTML tags 
 		global $parsedown;
@@ -273,7 +275,7 @@
 			}
 			echo '</li>';
 			if($blog) {
-				echo '/ <li typeof="v:Breadcrumb">
+				echo ' / <li typeof="v:Breadcrumb">
 				<a href="/blog/'.$blog.'" rel="v:url">post</a>
 				</li>';
 			}
@@ -349,25 +351,41 @@
 		}
 	}
 
-	function outputBlog() {
+	function outputBlog($page=0) {
 		global $dbh;
 		try {
 			$sql = "SELECT blog.*, councillors.name, councillors.image AS profile, councillors_roles.rolename
 					FROM blog
 					LEFT JOIN councillors ON blog.assoc_councillor = councillors.idcouncillors
 					LEFT JOIN councillors_roles ON councillors_roles.idroles = councillors.role
+					WHERE blog.date < NOW() -- has been posted
+					AND (NOT blog.updated OR blog.updated < NOW()) -- not updated or updated passed
 					ORDER BY blog.date DESC";
-			if($dbh->query($sql)->rowCount()) {
+			if($dbh->query($sql)->rowCount()) { // there are blog posts to show
 				foreach($dbh->query($sql) as $row) {
-					echo '<h2><a href="/blog/'.$row['alias'].'">'.$row['title'].'</a></h2>';
+					echo '<div class="post">
+					<h3>'.date('j M y',strtotime($row['updated'] ? $row['updated'] : $row['date'])).'</h3>
+					<h2><a href="/blog/'.$row['alias'].'">'.$row['title'].'</a></h2>';
+					if($row['image']) {
+						echo '<a href="/blog/'.$row['alias'].'" class="image"><img src="'.$row['image'].'" /></a>';
+					}
 					if($row['name']) {
-						echo '<img src="'.$row['profile'].'"" class="thumb med" />
+						echo '<img src="'.$row['profile'].'" class="thumb med" />
 						<h3>'.$row['name'].'</h3>
 						<h5>'.$row['rolename'].'</h5>
 						<div class="clearfix"></div>';
 					}
 					echo '<p>'.$row['desc'].'</p>
-					<p><b><a href="/blog/'.$row['alias'].'">Read more &#187;</a><b></p>';
+					<p class="right"><b><a href="/blog/'.$row['alias'].'" class="more">Read more &#187;</a></b></p>
+					</div>';
+				}
+				if(!$page) {
+					echo '<!-- load in more posts on scroll down -->
+					<script type="text/javascript">
+						$(document).ready(function () {
+							// $("aside").before( "<b>more posts</b>" );
+						});
+					</script>';
 				}
 			}
 			else echo "<p>There currently aren't any blog posts</p>";
@@ -457,7 +475,8 @@
 			}
 		}
 		else {
-			echo '<p class="error">The message you sent was blank or was greater than 5000 characters, please try again</p>';
+			echo '<p class="error">The message you sent was blank or was greater than 5000 characters, 
+			please try again</p>';
 			return false;
 		}
 	}

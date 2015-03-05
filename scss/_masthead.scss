@@ -72,21 +72,17 @@
 			color: #888;
 			text-shadow: none;
 
-			-ms-transition: all 0.3s ease;
-			-webkit-transition: all 0.3s ease;
-			-moz-transition: all 0.3s ease;
-			-o-transition: all 0.3s ease;
-			transition: all 0.3s ease;
+			@include single-transition(all, 0.3s, ease, 0s);
 
 			&:hover {
-				color: #6799c8;
+				color: $blue;
 			}
 		}
 
 		li{
 			display: inline;
 			&:last-child a {
-				color: #555 !important;
+				color: $black !important;
 			}
 		}
 	}
