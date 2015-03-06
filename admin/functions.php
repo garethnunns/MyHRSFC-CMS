@@ -126,7 +126,7 @@
 		$fields['blog alias'] = array(60);
 		$fields['blog title'] = array(60);
 		$fields['blog content'] = array(10000);
-		$fields['blog description'] = array(200);
+		$fields['blog description'] = array(200,-1);
 		$fields['blog image'] = array(100,-1);
 		$fields['councillor name'] = array(50);
 		$fields['councillor shortname'] = array(30);

@@ -351,47 +351,109 @@
 		}
 	}
 
-	function outputBlog($page=0) {
+	function outputBlog($page=1) { // output list of posts | page indexed to 1: page 1 is first page
 		global $dbh;
-		try {
-			$sql = "SELECT blog.*, councillors.name, councillors.image AS profile, councillors_roles.rolename
-					FROM blog
-					LEFT JOIN councillors ON blog.assoc_councillor = councillors.idcouncillors
-					LEFT JOIN councillors_roles ON councillors_roles.idroles = councillors.role
-					WHERE blog.date < NOW() -- has been posted
-					AND (NOT blog.updated OR blog.updated < NOW()) -- not updated or updated passed
-					ORDER BY blog.date DESC";
-			if($dbh->query($sql)->rowCount()) { // there are blog posts to show
-				foreach($dbh->query($sql) as $row) {
-					echo '<div class="post">
-					<h3>'.date('j M y',strtotime($row['updated'] ? $row['updated'] : $row['date'])).'</h3>
-					<h2><a href="/blog/'.$row['alias'].'">'.$row['title'].'</a></h2>';
-					if($row['image']) {
-						echo '<a href="/blog/'.$row['alias'].'" class="image"><img src="'.$row['image'].'" /></a>';
+
+		if(is_numeric($page) && $page > 0) {
+			$page--;
+			try {
+				$sql = "SELECT blog.*, councillors.name, councillors.image AS profile, councillors_roles.rolename
+						FROM blog
+						LEFT JOIN councillors ON blog.assoc_councillor = councillors.idcouncillors
+						LEFT JOIN councillors_roles ON councillors_roles.idroles = councillors.role
+						WHERE blog.active
+						AND blog.date < NOW() -- has been posted
+						OR (NOT blog.updated OR blog.updated < NOW()) -- not updated or updated passed
+						ORDER BY (CASE WHEN blog.updated IS NULL THEN blog.date ELSE blog.updated END) DESC
+						LIMIT 5";
+				if($page) $sql .= " OFFSET ".($page*5);
+				if($dbh->query($sql)->rowCount()) { // there are blog posts to show
+					foreach($dbh->query($sql) as $row) {
+						echo '<div class="post">
+						<h3>'.date('j M y',strtotime($row['updated'] ? $row['updated'] : $row['date'])).'</h3>
+						<h2><a href="/blog/'.$row['alias'].'">'.$row['title'].'</a></h2>';
+						if($row['image']) {
+							echo '<a href="/blog/'.$row['alias'].'" class="image"><img src="'.$row['image'].'" /></a>';
+						}
+						if($row['name']) {
+							echo '<img src="'.$row['profile'].'" class="thumb med" />
+							<h3>'.$row['name'].'</h3>
+							<h5>'.$row['rolename'].'</h5>
+							<div class="clearfix"></div>';
+						}
+						echo '<p>'.
+						htmlentities($row['desc'] ? $row['desc'] : 
+						(strlen($row['content']) > 200 ? substr($row['content'],0,200).'...' : $row['content'])).
+						'</p>
+						<p class="right"><b><a href="/blog/'.$row['alias'].'" class="more">Read more &#187;</a></b></p>
+						</div>';
 					}
-					if($row['name']) {
-						echo '<img src="'.$row['profile'].'" class="thumb med" />
-						<h3>'.$row['name'].'</h3>
-						<h5>'.$row['rolename'].'</h5>
-						<div class="clearfix"></div>';
+
+					$total = $dbh->query("SELECT count(*) AS total 
+										FROM blog 
+										WHERE blog.active 
+										AND blog.date < NOW()
+										OR (NOT blog.updated OR blog.updated < NOW())")->fetch(PDO::FETCH_OBJ)->total;
+
+					if($total > 5) { // more than five posts
+						echo '<p class="page-nav center">';
+						if($page) { // not first page
+							echo '<a href="/blog/page/'.($page).'">&#171; Previous</a> ';
+						}
+						for ($i=1; $i <= ceil($total / 5) ; $i++) { 
+							echo '<a href="/blog/page/'.$i.'">'.$i.'</a> ';
+						}
+						if(($page+1) < ceil($total / 5)) { // not last page
+							echo '<a href="/blog/page/'.($page+2).'">Next &#187;</a> ';
+						}
+						echo '</p>';
 					}
-					echo '<p>'.$row['desc'].'</p>
-					<p class="right"><b><a href="/blog/'.$row['alias'].'" class="more">Read more &#187;</a></b></p>
-					</div>';
+
+					if(!$page) { // output on first page
+						echo '<!-- load in more posts on scroll down -->
+<script type="text/javascript">
+	$(document).ready(function () {
+
+		var page = 2;
+		var waiting = false;
+
+		if($(window).width() > 1000) {
+			$(".page-nav").hide();
+
+			$(window).scroll(function (event) {
+				if($(window).scrollTop() > ($(document).height()-$("footer").height()-$(window).height())) {
+					if(!waiting) loadPage();
 				}
-				if(!$page) {
-					echo '<!-- load in more posts on scroll down -->
-					<script type="text/javascript">
-						$(document).ready(function () {
-							// $("aside").before( "<b>more posts</b>" );
-						});
-					</script>';
-				}
-			}
-			else echo "<p>There currently aren't any blog posts</p>";
+			});
 		}
-		catch (PDOException $e) {
-			echo $e->getMessage();
+
+		function loadPage() {
+			waiting = true;
+			$.ajax({
+				type: "GET",
+				url: "/js/blog.php",
+				data: { blog: page }
+			}).done(function(msg) {
+				if(msg != "<p>There currently aren\'t any blog posts</p>") {
+					$(".page-content").append(msg); // add posts to the bottom of page
+					$(".page-nav").hide(); // remove new page nav
+					page++;
+					waiting = false;
+				}
+			});
+		}
+	});
+</script>';
+					}
+				}
+				else echo "<p>There currently aren't any blog posts</p>";
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+		else {
+			echo '<p class="error">The requested page was not a number</p>';
 		}
 	}
 

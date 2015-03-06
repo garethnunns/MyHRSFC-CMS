@@ -116,7 +116,8 @@
 							updated = :date,
 							`desc` = :desc,
 							image = :image
-						WHERE idblog = :post";
+						WHERE idblog = :post 
+						AND `date` < :date";
 				if(!$sudo) $sql .= " AND assoc_councillor = :councillor"; // normies can only edit their posts
 
 				$oldimg = $dbh->prepare("SELECT image FROM blog WHERE idblog = :id LIMIT 1");
@@ -164,17 +165,23 @@
 					$sth->bindValue(':title',htmlentities($_POST['title']), PDO::PARAM_STR);
 					$sth->bindValue(':content',$_POST['content'], PDO::PARAM_STR);
 					if(isset($_POST['post'])) $sth->bindValue(':post',$_POST['post'], PDO::PARAM_INT); // updating only
-					if(!$councillor) $sth->bindValue(':councillor',null, PDO::PARAM_INT); // 'none' councillor
-					else $sth->bindValue(':councillor',$councillor, PDO::PARAM_INT);
+					$sth->bindValue(':councillor',$councillor, PDO::PARAM_INT);
 					$sth->bindValue(':date',$_POST['date'], PDO::PARAM_STR);
 					$sth->bindValue(':desc',htmlentities($_POST['desc']), PDO::PARAM_STR);
 					$sth->bindValue(':image',htmlentities($image), PDO::PARAM_STR);
 					$sth->execute();
 
-					echo '<p class="success">Blog post successly ';
-					if(isset($_POST['page'])) echo 'updated';
-					else echo 'created, create another or <a href="blogs.php">view all</a>';
-					echo '</p>';
+					if($sth->rowCount()) { // change to the db
+						echo '<p class="success">Blog post successly ';
+						if(isset($_POST['page'])) echo 'updated';
+						else echo 'created, create another or <a href="blogs.php">view all</a>';
+						echo '</p>';
+					}
+					else {
+						echo '<p class="error">There was an error '.
+						(!isset($_POST['page']) ? 'adding the post' : 'updating the post, or nothing was changed').
+						', please try again</p>';
+					}
 				}
 				catch (PDOException $e) {
 					echo $e->getMessage();

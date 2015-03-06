@@ -157,7 +157,7 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 	} // end non-full width content
 
 	// blog image
-	if($page->idblog) echo '<img src="'.$page->social_img.'" />';
+	if($page->idblog && $page->social_img) echo '<img src="'.$page->social_img.'" />';
 
 	outputContent($page->body,($page->editor ? true : false)); // output content using markdown or not
 

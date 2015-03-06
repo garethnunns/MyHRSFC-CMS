@@ -15,6 +15,11 @@ DirectoryIndex index.php index.html
 
 	# rewrite urls that aren't files or folders
 
+	# blog pages: http://myhrsfc.co.uk/blog/page/1 -> http://myhrsfc.co.uk/index.php?page=blog&blog=1
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^blog/page/([0-9]+)/?$ index.php?page=blog&blog=$1 [L,QSA]
+
 	# blog posts: http://myhrsfc.co.uk/blog/new-site-1 -> http://myhrsfc.co.uk/index.php?post=new-site-1
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
