@@ -66,7 +66,7 @@
 	}
 
 	if(isset($_POST['add'])) { // adding an item
-		if(validString('form rep name 1',$_POST['rep1']) && validString('form rep name 2',$_POST['rep2'])) {
+		if(validString('form rep1',$_POST['rep1']) && validString('form rep2',$_POST['rep2'])) {
 			// valid name and description
 			try {
 				$sth = $dbh->prepare("INSERT INTO form_reps 
