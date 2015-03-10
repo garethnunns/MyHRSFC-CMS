@@ -40,31 +40,9 @@
 				<div class="page-content">	        	
 					
 					<h1>Manage Policies</h1>
-					
+
+					<h3>Add a policy</h3>
 <?php
-	if(isset($_GET['del'])) {
-		if($sudo) { // only sudo users allowed to delete
-			try {
-				$sth = $dbh->prepare("DELETE FROM policies
-							WHERE idpolicies = :id LIMIT 1");
-				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
-				$sth->execute();
-
-				$count = $sth->rowCount();
-
-				if($count) {
-					echo '<p class="success">The policy was successfully deleted</p>';
-				}
-				else {
-					echo '<p class="error">There was an error deleting the policy</p>';
-				}
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-		}
-	}
-
 	if(isset($_POST['add'])) { // adding an item
 		if (validString('policy name',$_POST['name']) 
 			&& validString('policy desc',$_POST['desc'])
@@ -88,6 +66,47 @@
 				}
 				else {
 					echo '<p class="error">There was an internal error adding the policy, please try again</p>';
+				}
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+?>
+					<form method="post">
+						<p>Name:<br>
+						<input type="text" name="name" class="full" placeholder="Policy name" /></p>
+						<p>Description:</p>
+						<textarea name="desc" placeholder="Explanation of policy..."></textarea>
+						<p>Progress made: (%)<br>
+						<input type="range" name="progress" min="0" max="100" value="0" /></p>
+						<p>Councillor:
+						<?php if($sudo) {?><select name="counc">
+							<option value="0">Whole council</option>
+							<?php councSelect(0); ?>
+						</select><?php } ?></p>
+						<input type="submit" value="Add policy &#187;" name="add">
+					</form>
+
+					<h3 id="policies">Current Policies</h3>
+					
+<?php
+	if(isset($_GET['del'])) {
+		if($sudo) { // only sudo users allowed to delete
+			try {
+				$sth = $dbh->prepare("DELETE FROM policies
+							WHERE idpolicies = :id LIMIT 1");
+				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
+				$sth->execute();
+
+				$count = $sth->rowCount();
+
+				if($count) {
+					echo '<p class="success">The policy was successfully deleted</p>';
+				}
+				else {
+					echo '<p class="error">There was an error deleting the policy</p>';
 				}
 			}
 			catch (PDOException $e) {
@@ -141,21 +160,6 @@
 		echo $e->getMessage();
 	}
 ?>
-					<h3>Add a policy</h3>
-					<form method="post">
-						<p>Name:<br>
-						<input type="text" name="name" class="full" placeholder="Policy name" /></p>
-						<p>Description:</p>
-						<textarea name="desc" placeholder="Explanation of policy..."></textarea>
-						<p>Progress made: (%)<br>
-						<input type="range" name="progress" min="0" max="100" value="0" /></p>
-						<p>Councillor:
-						<?php if($sudo) {?><select name="counc">
-							<option value="0">Whole council</option>
-							<?php councSelect(0); ?>
-						</select><?php } ?></p>
-						<input type="submit" value="Add policy &#187;" name="add">
-					</form>
 				</div>
 				<!-- ENDS page content -->
 
@@ -171,7 +175,7 @@
 			data: { id: id, field: input.name, value: $(input).val() }
 		}).done(function(msg) {
 			if(msg == 'Success') $(input).addClass('success');
-			else $('.page-content').prepend(msg); // add errors to the top of the page
+			else $('#policies').after(msg); // add errors after 'Current Policies' title
 		});
 	}
 </script>

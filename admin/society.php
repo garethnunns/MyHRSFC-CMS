@@ -40,31 +40,10 @@
 				<div class="page-content hasaside">	        	
 					
 					<h1>Manage Societies</h1>
-					
+
+					<aside>
+						<h3>Add society</h3>
 <?php
-	if(isset($_GET['del'])) {
-		if($sudo) { // only sudo users allowed to delete
-			try {
-				$sth = $dbh->prepare("DELETE FROM societies
-							WHERE idsocieties = :id LIMIT 1");
-				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
-				$sth->execute();
-
-				$count = $sth->rowCount();
-
-				if($count) {
-					echo '<p class="success">The society has been successfully deleted</p>';
-				}
-				else {
-					echo '<p class="error">There was an error deleting the society</p>';
-				}
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-		}
-	}
-
 	if(isset($_POST['add'])) { // adding an item
 		if (validString('society name',$_POST['society']) 
 			&& validString('society leader name',$_POST['name'])
@@ -86,6 +65,40 @@
 				}
 				else {
 					echo '<p class="error">There was an internal error adding the society, please try again</p>';
+				}
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+?>
+						<form method="post">
+							<p>Name: <input type="text" name="society" placeholder="Name of society" /></p>
+							<p>Leader: <input type="text" name="name" placeholder="Full name of leader" /></p>
+							<p>College ID of leader: <input type="text" name="email" placeholder="e.g. AB123456" /></p>
+							<p>Description:</p>
+							<textarea name="desc" placeholder="Description of the society"></textarea>
+							<input type="submit" value="Add society &#187;" name="add">
+						</form>
+					</aside>
+					
+<?php
+	if(isset($_GET['del'])) {
+		if($sudo) { // only sudo users allowed to delete
+			try {
+				$sth = $dbh->prepare("DELETE FROM societies
+							WHERE idsocieties = :id LIMIT 1");
+				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
+				$sth->execute();
+
+				$count = $sth->rowCount();
+
+				if($count) {
+					echo '<p class="success">The society has been successfully deleted</p>';
+				}
+				else {
+					echo '<p class="error">There was an error deleting the society</p>';
 				}
 			}
 			catch (PDOException $e) {
@@ -119,9 +132,13 @@
 				value="'.htmlentities($row['email']).'" onblur="update(\''.$row['idsocieties'].'\',this)" />
 				</td>
 
-				<td><textarea name="desc" onblur="update(\''.$row['idsocieties'].'\',this)">'.$row['desc'].'</textarea></td>';
+				<td>
+				<textarea name="desc" onblur="update(\''.$row['idsocieties'].'\',this)">'.$row['desc'].'</textarea>
+				</td>';
 
-				if($sudo) echo '<td class="center"><a href="society.php?del='.$row['idsocieties'].'">Delete &#187;</a></td>';
+				if($sudo) echo '<td class="center">
+					<a href="society.php?del='.$row['idsocieties'].'">Delete &#187;</a>
+					</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -132,17 +149,6 @@
 		echo $e->getMessage();
 	}
 ?>
-					<aside>
-						<h3>Add society</h3>
-						<form method="post">
-							<p>Name: <input type="text" name="society" placeholder="Name of society" /></p>
-							<p>Leader: <input type="text" name="name" placeholder="Full name of leader" /></p>
-							<p>College ID of leader: <input type="text" name="email" placeholder="e.g. AB123456" /></p>
-							<p>Description:</p>
-							<textarea name="desc" placeholder="Description of the society"></textarea>
-							<input type="submit" value="Add society &#187;" name="add">
-						</form>
-					</aside>
 				</div>
 				<!-- ENDS page content -->
 

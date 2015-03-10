@@ -40,31 +40,10 @@
 				<div class="page-content hasaside">	        	
 					
 					<h1>Manage Form Reps</h1>
-					
+
+					<aside>
+
 <?php
-	if(isset($_GET['del'])) {
-		if($sudo) { // only sudo users allowed to delete
-			try {
-				$sth = $dbh->prepare("DELETE FROM form_reps
-							WHERE idform_reps = :id LIMIT 1");
-				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
-				$sth->execute();
-
-				$count = $sth->rowCount();
-
-				if($count) {
-					echo '<p class="success">Those form reps were successfully deleted</p>';
-				}
-				else {
-					echo '<p class="error">There was an error deleting those form reps</p>';
-				}
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-		}
-	}
-
 	if(isset($_POST['add'])) { // adding an item
 		if(validString('form rep1',$_POST['rep1']) && validString('form rep2',$_POST['rep2'])) {
 			// valid name and description
@@ -84,6 +63,46 @@
 				}
 				else {
 					echo '<p class="error">There was an internal error adding those form reps, please try again</p>';
+				}
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+?>
+
+						<h3>Add Form Rep</h3>
+						<form method="post">
+							<p>Tutor: <select name="tutor"><?php tutorSelect(); ?></select>
+							<p>First Form Rep:<br>
+							<input type="text" name="rep1" class="full" placeholder="Full Name" /></p>
+							<p>Second Form Rep:<br>
+							<input type="text" name="rep2" class="full" placeholder="Full Name" /></p>
+							<p>Year: 
+							<input type="radio" name="upper" id="upper" value="1"/><label for="upper"> Upper</label>
+							<input type="radio" name="upper" id="lower" value="0" checked />
+							<label for="lower"> Lower</label></p>
+							<input type="submit" value="Add form rep &#187;" name="add">
+						</form>
+					</aside>
+					
+<?php
+	if(isset($_GET['del'])) {
+		if($sudo) { // only sudo users allowed to delete
+			try {
+				$sth = $dbh->prepare("DELETE FROM form_reps
+							WHERE idform_reps = :id LIMIT 1");
+				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
+				$sth->execute();
+
+				$count = $sth->rowCount();
+
+				if($count) {
+					echo '<p class="success">Those form reps were successfully deleted</p>';
+				}
+				else {
+					echo '<p class="error">There was an error deleting those form reps</p>';
 				}
 			}
 			catch (PDOException $e) {
@@ -142,20 +161,6 @@
 		echo $e->getMessage();
 	}
 ?>
-					<aside>
-						<h3>Add Form Rep</h3>
-						<form method="post">
-							<p>Tutor: <select name="tutor"><?php tutorSelect(); ?></select>
-							<p>First Form Rep:<br>
-							<input type="text" name="rep1" class="full" placeholder="Full Name" /></p>
-							<p>Second Form Rep:<br>
-							<input type="text" name="rep2" class="full" placeholder="Full Name" /></p>
-							<p>Year: 
-							<input type="radio" name="upper" id="upper" value="1"/><label for="upper"> Upper</label>
-							<input type="radio" name="upper" id="lower" value="0"/><label for="lower"> Lower</label></p>
-							<input type="submit" value="Add form rep &#187;" name="add">
-						</form>
-					</aside>
 				</div>
 				<!-- ENDS page content -->
 

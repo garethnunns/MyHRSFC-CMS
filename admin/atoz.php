@@ -39,31 +39,9 @@
 				<div class="page-content hasaside">	        	
 					
 					<h1>Manage A to Z</h1>
-					
+
+					<aside>
 <?php
-	if(isset($_GET['del'])) {
-		if($sudo) { // only sudo users allowed to delete
-			try {
-				$sth = $dbh->prepare("DELETE FROM AtoZ
-							WHERE idAtoZ = :id LIMIT 1");
-				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
-				$sth->execute();
-
-				$count = $sth->rowCount();
-
-				if($count) {
-					echo '<p class="success">A to Z item successfully deleted</p>';
-				}
-				else {
-					echo '<p class="error">There was an error deleting the A to Z item</p>';
-				}
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-		}
-	}
-
 	if(isset($_POST['name']) && isset($_POST['desc'])) { // adding an item
 		if(validString('A to Z name',$_POST['name']) && validString('A to Z description',$_POST['desc'])) {
 			// valid name and description
@@ -81,6 +59,39 @@
 				}
 				else {
 					echo '<p class="error">There was an internal error adding the A to Z item, please try again</p>';
+				}
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+?>
+						<h3>Add A to Z item</h3>
+						<form method="post">
+							<p>Name: <input type="text" name="name" class="small" placeholder="e.g. Absence" /></p>
+							<p>Description:</p>
+							<textarea name="desc" placeholder="Explanation of item..."></textarea>
+							<input type="submit" value="Add Item &#187;">
+						</form>
+					</aside>
+					
+<?php
+	if(isset($_GET['del'])) {
+		if($sudo) { // only sudo users allowed to delete
+			try {
+				$sth = $dbh->prepare("DELETE FROM AtoZ
+							WHERE idAtoZ = :id LIMIT 1");
+				$sth->bindValue(':id',$_GET['del'], PDO::PARAM_INT);
+				$sth->execute();
+
+				$count = $sth->rowCount();
+
+				if($count) {
+					echo '<p class="success">A to Z item successfully deleted</p>';
+				}
+				else {
+					echo '<p class="error">There was an error deleting the A to Z item</p>';
 				}
 			}
 			catch (PDOException $e) {
@@ -116,15 +127,6 @@
 		echo $e->getMessage();
 	}
 ?>
-					<aside>
-						<h3>Add A to Z item</h3>
-						<form method="post">
-							<p>Name: <input type="text" name="name" class="small" placeholder="e.g. Absence" /></p>
-							<p>Description:</p>
-							<textarea name="desc" placeholder="Explanation of item..."></textarea>
-							<input type="submit" value="Add Item &#187;">
-						</form>
-					</aside>
 				</div>
 				<!-- ENDS page content -->
 

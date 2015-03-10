@@ -414,10 +414,10 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 
-		var page = 2;
+		var page = 2; // pages zero index - load next page
 		var waiting = false;
 
-		if($(window).width() > 1000) {
+		if($(window).width() > 1000) { // pages on mobile system
 			$(".page-nav").hide();
 
 			$(window).scroll(function (event) {

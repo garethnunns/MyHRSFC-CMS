@@ -39,7 +39,44 @@
 				<!-- page content -->
 				<div class="page-content hasaside">	        	
 					
-					<h1>Manage A to Z</h1>
+					<h1>Manage FAQs</h1>
+
+					<aside>
+<?php
+	if(isset($_POST['question']) && isset($_POST['answer'])) { // adding an item
+		if(validString('FAQ question',$_POST['question']) && validString('FAQ answer',$_POST['answer'])) {
+			// valid question and answer
+			try {
+				$sth = $dbh->prepare("INSERT INTO faqs (question,answer) 
+					VALUES (:question,:answer)");
+				$sth->bindValue(':question',$_POST['question'], PDO::PARAM_STR);
+				$sth->bindValue(':answer',$_POST['answer'], PDO::PARAM_STR);
+				$sth->execute();
+
+				$count = $sth->rowCount();
+
+				if($count) {
+					echo '<p class="success">FAQ item successfully added</p>';
+				}
+				else {
+					echo '<p class="error">There was an internal error adding the FAQ item, please try again</p>';
+				}
+			}
+			catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+?>
+						<h3>Add FAQ</h3>
+						<form method="post">
+							<p>Question:<br>
+							<input type="text" name="question" class="full" placeholder="The question..." /></p>
+							<p>Answer:<br>
+							<textarea name="answer" placeholder="The answer..."></textarea></p>
+							<input type="submit" value="Add FAQ &#187;">
+						</form>
+					</aside>
 					
 <?php
 	if(isset($_GET['del'])) {
@@ -57,31 +94,6 @@
 				}
 				else {
 					echo '<p class="error">There was an error deleting the FAQ item</p>';
-				}
-			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-		}
-	}
-
-	if(isset($_POST['question']) && isset($_POST['answer'])) { // adding an item
-		if(validString('FAQ question',$_POST['question']) && validString('FAQ answer',$_POST['answer'])) {
-			// valid name and description
-			try {
-				$sth = $dbh->prepare("INSERT INTO faqs (question,answer) 
-					VALUES (:question,:answer)");
-				$sth->bindValue(':question',$_POST['question'], PDO::PARAM_STR);
-				$sth->bindValue(':answer',$_POST['answer'], PDO::PARAM_STR);
-				$sth->execute();
-
-				$count = $sth->rowCount();
-
-				if($count) {
-					echo '<p class="success">FAQ item successfully added</p>';
-				}
-				else {
-					echo '<p class="error">There was an internal error adding the FAQ item, please try again</p>';
 				}
 			}
 			catch (PDOException $e) {
@@ -120,16 +132,6 @@
 		echo $e->getMessage();
 	}
 ?>
-					<aside>
-						<h3>Add FAQ</h3>
-						<form method="post">
-							<p>Question:<br>
-							<input type="text" name="question" class="full" placeholder="The question..." /></p>
-							<p>Answer:<br>
-							<textarea name="answer" placeholder="The answer..."></textarea></p>
-							<input type="submit" value="Add FAQ &#187;">
-						</form>
-					</aside>
 				</div>
 				<!-- ENDS page content -->
 

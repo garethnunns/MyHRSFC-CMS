@@ -189,7 +189,7 @@
 
 		if(isset($page->idpages)) echo '<input type="hidden" name="page" value="'.$page->idpages.'"/>';
 		echo '
-		<p><i>The title and subtitle are used in the masthead above, if both are left blank it is not shown</i></p>
+		<p><i>The title and subtitle are used in the masthead above (if both are left blank it is not shown)</i></p>
 		<p>Title:
 		<input type="text" name="title" placeholder="Used in the mast head" value="'.$page->title.'" /></p>
 
@@ -199,7 +199,7 @@
 		<p><b>Content</b>: <i>The main content of the page, using functions and optionally MarkDown</i></p>
 		<textarea name="body" placeholder="Main content for the page">'.$page->body.'</textarea>
 
-		<p>Sidebar: <i>If left blank, the sidebar isn\'t display</i></p>
+		<p>Sidebar: <i>If left blank, the sidebar isn\'t displayed</i></p>
 		<textarea name="sidebar" placeholder="Content to go in the sidebar">'.$page->sidebar.'</textarea>
 
 		<h3>Advanced</h3>
@@ -229,7 +229,9 @@
 		<p>Social Image</p>
 		<input type="text" name="social_img" class="full" 
 		placeholder="Picture for the page" value="'.$page->social_img.'" /><br>
-		<i>The image associated with the page when it is linked on social media</i></p>';
+		<i>The image for the page when it is linked on social media and 
+		<a href="'.currentPhoto().'">the current group photo</a> by default<br>
+		The image must be the absolute path on the website, e.g. myhrsfc.co.uk<u>'.currentPhoto().'</u></i></p>';
 
 		if($sudo) {
 			echo '<p>Special Head: <i>Content that you want to specifically go in the &lt;head&gt; of this page</i></p>

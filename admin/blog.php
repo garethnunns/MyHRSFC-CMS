@@ -224,10 +224,10 @@
 
 		if(isset($post->idblog)) echo '<input type="hidden" name="post" value="'.$post->idblog.'"/>';
 		echo '
-		<p>Title:
+		<p><b>Title</b>:
 		<input type="text" name="title" placeholder="Title of the blog post" value="'.$post->title.'" /></p>';
 
-		if(!isset($_GET['post'])) echo '<p>myhrsfc.co.uk/blog/
+		if(!isset($_GET['post'])) echo '<p><b>Link:</b> myhrsfc.co.uk/blog/
 		<input type="text" name="alias" placeholder="Link to post" value="'.$post->alias.'" /></p>';
 
 		echo' <p><b>Content</b>:</p>
@@ -236,12 +236,14 @@
 		<p>Description:</p>
 		<input type="text" name="desc" class="full" placeholder="A summary of the page" value="'.$post->desc.'" /><br>
 		<i>Used in search engine summaries of pages and when linked on social media<br>
-		If it is left blank, the start of the page is used instead</i></p>
+		If it is left blank, the start of the post is used instead</i></p>
 
-		<p>Social Image:</p>';
-		echo $post->image ? '<img src="'.$post->image.'"/><p>Update' : '<p>Add';
-		echo ' image: <input type="file" name="photo" /><br>
-		<i>The image associated with the page when it is linked on social media</i></p>';
+		<p>Social Image: ';
+		echo $post->image ? '<img src="'.$post->image.'"/>Update' : 'Add';
+		echo ' image... <input type="file" name="photo" /><br>
+		<i>The image for the page when it is linked on social media and 
+		<a href="'.currentPhoto().'">the current group photo</a> by default<br>
+		The image must be the absolute path on the website, e.g. myhrsfc.co.uk<u>'.currentPhoto().'</u></i></p>';
 
 		if($sudo) {
 			echo '<p>Author: <select name="councillor">
@@ -250,8 +252,11 @@
 			echo '</select></p>';
 		}
 
-		echo '<p>'.($post->date ? 'Update' : 'Post').' date:</p>
+		echo '<p><b>'.($post->date ? 'Update' : 'Post').' date:</b></p>
 		<input name="date" id="date" type="text" value="'.date('Y-m-d H:i:s').'" />
+		<p><i>Defaults to the current time and date';
+		if($post->date) echo '<br>Must be later than the original date of the post';
+		echo '</i></p>
 
 		<p><input type="submit" name="submit" value="';
 		if(!isset($reqpage)) echo 'Add';

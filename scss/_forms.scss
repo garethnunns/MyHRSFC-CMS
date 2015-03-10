@@ -59,6 +59,10 @@ table {
 		@include breakpoint(mid-bear) {
 			td { // full width on mobiles
 				width: 100% !important;
+
+				input:not([class~="tiny"]) {
+					width: 100% !important;
+				}
 			}
 		}
 	}
@@ -77,6 +81,8 @@ input, textarea {
 		animation: success 1s ease-out;
 	}
 }
+
+// success animation
 
 @-webkit-keyframes success {
 	0%		{ background-color: transparent; }
@@ -108,6 +114,10 @@ input {
 	}
 
 	&.full {
+		width: 100%;
+	}
+
+	&[type="range"] {
 		width: 100%;
 	}
 

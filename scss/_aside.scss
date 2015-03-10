@@ -14,12 +14,15 @@ aside {
 		width: 90%;
 		max-width: 600px;
 		padding: 5px 5%;
-		margin: 15px auto 0;
+		margin: 15px auto 5px;
+	}
+
+	& > img:not([class]) { // standard image margins
+		margin: 5px 0;
 	}
 
 	.role {
 		color: #777;
 		padding-top: 0;
 	}
-	
 }
