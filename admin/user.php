@@ -50,18 +50,21 @@
 
 	if(isset($_POST['updatepassword'])) { // updating password
 		if($_POST['password'] == $_POST['password2']) { // passwords match
-			try {
-				$password = cryptPassword($_POST['password']);
-				$sth = $dbh->prepare("UPDATE councillors 
-					SET password = :password 
-					WHERE idcouncillors = :id");
-				$sth->bindValue(':id',$requser, PDO::PARAM_INT);
-				$sth->bindValue(':password',$password, PDO::PARAM_STR);
-				$sth->execute();
+			if(preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,})(?!.{21,})/', $_POST['password'])) {
+				try {
+					$password = cryptPassword($_POST['password']);
+					$sth = $dbh->prepare("UPDATE councillors 
+						SET password = :password 
+						WHERE idcouncillors = :id");
+					$sth->bindValue(':id',$requser, PDO::PARAM_INT);
+					$sth->bindValue(':password',$password, PDO::PARAM_STR);
+					$sth->execute();
+				}
+				catch (PDOException $e) {
+					echo $e->getMessage();
+				}
 			}
-			catch (PDOException $e) {
-				echo $e->getMessage();
-			}
+			else echo '<p class="error">The password must be 8 - 20 letters <b>and</b> numbers</p>';
 		}
 		else echo '<p class="error">The passwords do not match, please try again</p>';
 	}
@@ -158,7 +161,7 @@
 		<p><input type="email" name="email" value="'.$councillor->email.'" 
 		onblur="update(this)" placeholder="Personal/college address" required /></p>';
 
-		if(isset($requser)) echo '<form method="post">';
+		if(isset($requser)) echo '<form method="post">'; // updating
 
 		echo '<h6>Password</h6>
 		<p><input type="password" name="password" placeholder="Secure password" required></p>

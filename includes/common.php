@@ -310,14 +310,26 @@
 		else echo "The global content block, '$name', was not found";
 	}
 
-	function currentYear() {
+	function currentHead() {
 		global $dbh;
 		try {
-			return $dbh->query('SELECT year 
+			return $dbh->query('SELECT specialhead 
 				FROM settings 
-				WHERE year = (SELECT MAX(year) 
-				FROM settings)
-				LIMIT 1')->fetch(PDO::FETCH_OBJ)->year;
+				WHERE year = (SELECT MAX(year) FROM settings)
+				LIMIT 1')->fetch(PDO::FETCH_OBJ)->specialhead;
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	function currentEmail() {
+		global $dbh;
+		try {
+			return $dbh->query('SELECT email 
+				FROM settings 
+				WHERE year = (SELECT MAX(year) FROM settings)
+				LIMIT 1')->fetch(PDO::FETCH_OBJ)->email;
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
@@ -329,7 +341,7 @@
 		try {
 			return $dbh->query('SELECT image 
 				FROM settings 
-				WHERE year = '.currentYear().'
+				WHERE year = (SELECT MAX(year) FROM settings)
 				LIMIT 1')->fetch(PDO::FETCH_OBJ)->image;
 		}
 		catch (PDOException $e) {
@@ -337,14 +349,13 @@
 		}
 	}
 
-	function currentHead() {
+	function currentYear() {
 		global $dbh;
 		try {
-			return $dbh->query('SELECT specialhead 
+			return $dbh->query('SELECT year 
 				FROM settings 
-				WHERE year = (SELECT MAX(year) 
-				FROM settings)
-				LIMIT 1')->fetch(PDO::FETCH_OBJ)->specialhead;
+				WHERE year = (SELECT MAX(year) FROM settings)
+				LIMIT 1')->fetch(PDO::FETCH_OBJ)->year;
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
@@ -476,7 +487,7 @@
 					$response = json_decode($response, true);
 					if($response["success"] === true) { // not a bot
 						$to = ($counc ? $result->shortname : 'The Council').
-							' <'.($counc ? $result->email : 'studentcouncil14@hillsroad.ac.uk').'>';
+							' <'.($counc ? $result->email : currentEmail()).'>';
 						$sub = 'New message for '.($counc ? $result->shortname : 'the council');
 
 						$content = '
