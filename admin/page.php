@@ -145,7 +145,9 @@
 
 					echo '<p class="success">Page successly ';
 					if(isset($_POST['page'])) echo 'updated';
-					else echo 'created, create another or <a href="pages.php">view all</a>';
+					else echo 'created';
+					echo ', <a href="/'.$alias.'" target="blank">view it</a>';
+					if(!isset($_POST['page'])) echo ', create another or <a href="pages.php">view all</a>';
 					echo '</p>';
 				}
 				catch (PDOException $e) {
@@ -283,6 +285,7 @@
 	if(isset($reqpage) && !file_exists($dir)) mkdir($dir); // editing and folder doesn't already exist
 
 	if(isset($_FILES['file']) && $_FILES["file"]['name'] != '') { // upload file into page folder
+		if(file_exists($dir.basename($_FILES["file"]['name']))) unlink($dir.basename($_FILES["file"]['name'])); // del old
 		if(!move_uploaded_file($_FILES["file"]["tmp_name"], $dir.basename($_FILES["file"]['name']))){
 			echo '<p class="error">There was an error uploading the file</p>';
 		}
@@ -294,6 +297,8 @@
 		if(count($files)) { // the page does have some files in the folder
 			echo '<ul>';
 			foreach ($files as $file) { // output list of files
+				$url = '/img/'.$page->alias.'/'.rawurlencode($file);
+				echo '<li style="font-size:12px">[link](<a href="'.$url.'" target="_blank">'.$url.'</a>)</li>';
 			}
 			echo '</ul>';
 		}
