@@ -31,6 +31,8 @@
 $black: #555;
 $grey: #eaeaea;
 
+$link: #556A7F;
+
 $red: #DF3A5A;
 $green: #3ADF5B;
 $blue: #6799c8;
@@ -246,9 +248,9 @@ body {
 
 	a {
 		text-decoration: none;
-		color: #333;
+		color: $link;
 		text-shadow: 0px 1px 0px #fff;
-		@include single-transition(color, 0.3s, ease-out, 0s);
+		@include single-transition(color, 0.2s, ease-out, 0s);
 
 		&:hover {
 			color: $blue;
@@ -552,49 +554,5 @@ aside.retractil #sidebar-content a:hover{
 
 #posts-list .post-heading:hover{
 	color: #6799c8;
-}
-
-// more blog stuff: PAGER 
-
-.pager {
-	overflow: hidden;
-	display: block;
-	font-size: 11px;
-	margin: 0px 24px 0px 24px;
-	padding-bottom: 50px;
-}
-
-.pager li{
-	display: block;
-	margin-right: 5px;
-	float: left;
-}
-
-.pager li a{
-	display: block;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	text-decoration: none;
-	color: #484848;
-	width: 20px;
-	border: 1px solid #ccc;
-	line-height: 20px;
-	
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-.pager li.active a,
-.pager li:hover a{
-	color: #fff;
-	background: #6799c8;
-}
-
-.pager .paged{
-	float:right;
-	font-style:italic;
 }
 */

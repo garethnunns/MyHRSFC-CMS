@@ -241,9 +241,7 @@
 		<p>Social Image: ';
 		echo $post->image ? '<img src="'.$post->image.'"/>Update' : 'Add';
 		echo ' image... <input type="file" name="photo" /><br>
-		<i>The image for the page when it is linked on social media and 
-		<a href="'.currentPhoto().'">the current group photo</a> by default<br>
-		The image must be the absolute path on the website, e.g. myhrsfc.co.uk<u>'.currentPhoto().'</u></i></p>';
+		<i>The image for the page when it is linked on social media</i></p>';
 
 		if($sudo) {
 			echo '<p>Author: <select name="councillor">

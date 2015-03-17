@@ -113,7 +113,7 @@
 		}
 
 		if(!$error) {
-			if ( (((!isset($_POST['page']) || ($sudo)) && validAlias('page alias',$alias)) || (isset($_POST['page']) && !$sudo)) &&
+			if ((((!isset($_POST['page']) || ($sudo)) && validAlias('page alias',$alias)) || (isset($_POST['page']) && !$sudo)) &&
 				validString('page title',$_POST['title']) &&
 				validString('page subtitle',$_POST['subtitle']) &&
 				validString('page meta title',$_POST['metatitle']) &&
@@ -294,8 +294,6 @@
 		if(count($files)) { // the page does have some files in the folder
 			echo '<ul>';
 			foreach ($files as $file) { // output list of files
-				$url = '/img/'.$page->alias.'/'.$file;
-				echo '<li><a href="'.$url.'" target="_blank">'.$url.'</a></li>';
 			}
 			echo '</ul>';
 		}

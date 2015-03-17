@@ -154,7 +154,7 @@
 			}
 			echo '</table>';
 		}
-		else echo '<p>There are currently no policies or you don\'t have any</p>';
+		else echo '<p>You currently don\'t have any policies</p>';
 	}
 	catch (PDOException $e) {
 		echo $e->getMessage();

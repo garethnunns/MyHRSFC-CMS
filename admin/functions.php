@@ -177,9 +177,10 @@
 			$min = $default[1];
 		}
 
+		$totallen = strlen($string); // length without spaces removed
 		$string = trim($string);
 		$strlen = strlen($string);
-		if($strlen > $length) {
+		if($strlen > $totallen) {
 			echo '<p class="error">The '.$name.' must be less than '.$length.' characters long</p>';
 			return false;
 		}
