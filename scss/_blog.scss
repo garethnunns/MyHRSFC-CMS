@@ -1,5 +1,5 @@
 .post {
-	&:not(:first-child) {
+	&:not(:first-child) { // add border to all but first post
 		margin-top: 20px;
   		border-top: 1px #ccc solid;
 		padding-top: 10px;
@@ -10,7 +10,7 @@
 		line-height: 28px;
 		color: #888;
 
-		@include breakpoint(baby-bear) {
+		@include breakpoint(baby-bear) { // block on mobile
 			float: none;
 			text-align: right;
 			line-height: 23px;
@@ -18,7 +18,7 @@
 		}
 	}
 
-	a.image {
+	a.image { // go arrow symbol on hover
 		display: block;
 		margin-bottom: 5px;
 		background: black url(../img/site/go.png) center center no-repeat;
@@ -32,7 +32,7 @@
 		}
 	}
 
-	.more { // read more >>
+	.more { // read more >> button
 		background: $grey;
 		padding: 10px 15px;
 		color: #888;

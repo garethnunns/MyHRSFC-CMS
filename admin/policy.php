@@ -34,10 +34,8 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
-				<div class="page-content">	        	
+				<div class="page-content">
 					
 					<h1>Manage Policies</h1>
 

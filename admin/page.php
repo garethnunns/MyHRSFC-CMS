@@ -34,8 +34,6 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
 				<div class="page-content hasaside">
 

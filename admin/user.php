@@ -38,10 +38,8 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
-				<div class="page-content">	        	
+				<div class="page-content">
 <?php
 	if(!$sudo) $requser = $user;
 	if(isset($_GET['user']) && $sudo) $requser = $_GET['user']; // sudo users can edit any user
@@ -59,6 +57,8 @@
 					$sth->bindValue(':id',$requser, PDO::PARAM_INT);
 					$sth->bindValue(':password',$password, PDO::PARAM_STR);
 					$sth->execute();
+
+					echo '<p class="success">Password successfully updated</p>';
 				}
 				catch (PDOException $e) {
 					echo $e->getMessage();

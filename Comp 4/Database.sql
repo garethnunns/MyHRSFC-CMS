@@ -221,7 +221,7 @@ ENGINE = InnoDB;
 -- Table `myhrsfc`.`blog`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `myhrsfc`.`blog` (
-  `idblog` VARCHAR(45) NOT NULL,
+  `idblog` INT UNSIGNED NOT NULL,
   `alias` VARCHAR(60) NOT NULL,
   `title` VARCHAR(60) NOT NULL,
   `content` TEXT NOT NULL,

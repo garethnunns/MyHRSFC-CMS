@@ -119,7 +119,7 @@
 		$default = array(60,0); // max, min
 
 		// field valid length parameters
-		// in the form $fields['field name'] = array(max length, min length (optional))
+		// in the form $fields['field name'] = array(max length, min length - optional)
 		// setting min length to -1 allows it to be blank
 		$fields['A to Z name'] = array(60);
 		$fields['A to Z description'] = array(2000);

@@ -36,8 +36,8 @@
 				
 				
 				<!-- page content -->
-				<div class="page-content hasaside">	        	
-					
+				<div class="page-content hasaside">
+									
 					<h1>Welcome to the MyHRSFC Admin</h1>
 
 					<p><a href="message.php">

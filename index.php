@@ -130,28 +130,29 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 			<div id="content">
 
 <?php
-
 	if(($page->title) || ($page->subtitle)) { // hide masthead when no title and subtitle, content full width
 ?>
 
 				<!-- masthead -->
 				<div id="masthead">
 					<span class="head">
-						<?php echo $page->title; ?></span>
-						<span class="subhead">
+						<?php echo $page->title; ?>
+					</span>
+					<span class="subhead">
 <?php
 	// for blog output time posted/updated, otherwise the subtitle
 	if($page->idblog) $date = date('l j<\s\u\p>S</\s\u\p> F Y',strtotime(!$page->updated ? $page->date : $page->updated));
 	echo (!$page->idblog ? $page->subtitle : (!$page->updated ? 'Posted ' : 'Updated ').$date);
 ?>
-						</span>
 					</span>
 					<?php $page->idblog ? breadcrumbs($page->idpages,$page->alias) : breadcrumbs($page->idpages); ?>
 				</div>
 				<!-- ENDS masthead -->
 				
 				<!-- page content -->
-				<div class="page-content <?php if(($page->assoc_councillor!="") || ($page->sidebar!="")) echo 'hasaside'; ?>">
+				<div class="page-content <?php 
+					if(($page->assoc_councillor!="") || ($page->sidebar!="")) echo 'hasaside'; 
+				?>">
 
 <?php
 	} // end non-full width content

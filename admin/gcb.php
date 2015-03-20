@@ -36,7 +36,7 @@
 				<!-- ENDS masthead -->
 				
 				<!-- page content -->
-				<div class="page-content hasaside">	        	
+				<div class="page-content hasaside">
 					
 					<h1>Manage Global Content Blocks</h1>
 					

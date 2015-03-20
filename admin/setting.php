@@ -34,10 +34,8 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
-				<div class="page-content hasaside">	        	
+				<div class="page-content hasaside">
 					
 					<h1>Settings</h1>
 					
@@ -198,23 +196,6 @@
 					</aside>
 				</div>
 				<!-- ENDS page content -->
-
-<script type="text/javascript">
-	$('input,textarea').focus(function () { // remove success class when input used again
-		$(this).removeClass('success');
-	});
-
-	/*function update(id,input) {
-		$.ajax({
-			type: "POST",
-			url: "editatoz.php",
-			data: { id: id, field: input.name, value: $(input).val() }
-		}).done(function(msg) {
-			if(msg == 'Success') $(input).addClass('success');
-			else $('.page-content').prepend(msg); // add errors to the top of the page
-		});
-	}*/
-</script>
 			
 			</div>
 			<!-- ENDS content -->

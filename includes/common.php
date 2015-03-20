@@ -90,8 +90,8 @@
 
 		try {
 			// look up councillor
-			$sth = $dbh->prepare("	SELECT 	councillors.name, councillors.shortname, councillors.email, councillors.bio, 
-											councillors.image, councillors.active, councillors_roles.rolename 
+			$sth = $dbh->prepare("	SELECT 	councillors.name, councillors.shortname, councillors.email, 
+											councillors.bio, councillors.image, councillors_roles.rolename 
 									FROM councillors, councillors_roles
 									WHERE councillors.idcouncillors =  ?
 									AND councillors.role = councillors_roles.idroles LIMIT 1");
@@ -123,7 +123,7 @@
 				line($councillor->bio);
 				echo '<p>';
 			}
-			else '<p>Councillor not found</p>';
+			else echo '<p>Councillor not found</p>';
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
@@ -136,7 +136,7 @@
 		echo '<header><div class="wrapper">';
 
 		// logo home link
-		echo '<a href="/" id="logo"><img  src="/img/site/logo.png" alt="Student Council Logo"></a>';
+		echo '<a href="/" id="logo"><img src="/img/site/logo.png" alt="Student Council Logo"></a>';
 
 		try {
 			$sql = 'SELECT parents.*, pages.alias 

@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(!isset($_SESSION['user'])) { // not logged in go to login page
+	if(!isset($_SESSION['user'])) { // not logged in: go to login page
 		header('Location: /admin/login.php?goto=' . urlencode($_SERVER["PHP_SELF"]));
 		exit();
 	}

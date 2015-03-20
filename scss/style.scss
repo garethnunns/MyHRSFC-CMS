@@ -7,6 +7,8 @@
 @import "compass/css3";
 @import "compass/utilities/general/clearfix";
 
+// functions
+
 @mixin breakpoint($point) { // ex: @include breakpoint(papa-bear) { content }
 	@if $point == tiny-bear {
 		@media only screen and (max-width: 320px)  { @content; }
@@ -27,6 +29,8 @@
 		@media only screen and (min-width: 1260px) { @content; }
 	}
 }
+
+// variables
 
 $black: #555;
 $grey: #eaeaea;

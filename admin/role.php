@@ -34,12 +34,10 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
-				<div class="page-content hasaside">	        	
+				<div class="page-content hasaside">
 					
-					<h1>Manage Tutors</h1>
+					<h1>Manage Roles</h1>
 					
 <?php
 	if(isset($_GET['del'])) {
@@ -61,10 +59,10 @@
 				$count = $sth->rowCount();
 
 				if($count) {
-					echo '<p class="success">Tutor successfully deleted</p>';
+					echo '<p class="success">Role successfully deleted</p>';
 				}
 				else {
-					echo '<p class="error">There was an error deleting the tutor</p>';
+					echo '<p class="error">There was an error deleting the role</p>';
 				}
 			}
 			else echo '<p class="error">There are councillors with that role, so it wasn\'t deleted</p>';

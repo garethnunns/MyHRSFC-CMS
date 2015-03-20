@@ -34,10 +34,8 @@
 				</div>
 				<!-- ENDS masthead -->
 				
-				
-				
 				<!-- page content -->
-				<div class="page-content hasaside">	        	
+				<div class="page-content hasaside">
 					
 					<h1>Manage Societies</h1>
 
