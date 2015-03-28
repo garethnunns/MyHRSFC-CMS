@@ -10,7 +10,8 @@
 			try {
 				$sth = $dbh->prepare('SELECT idcouncillors, sudo, password
 					FROM councillors
-					WHERE email = ?');
+					WHERE email = ?
+					AND (active OR sudo)');
 				$sth->bindValue(1, $email, PDO::PARAM_STR);
 				$sth->execute();
 

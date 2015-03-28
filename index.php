@@ -61,7 +61,8 @@
 		<meta name="generator" content="CMS created by Gareth Nunns - garethnunns.com">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<link rel="canonical" href="http://myhrsfc.co.uk/<?php
-			$metaAlias = $page->alias!='index' ? $page->alias : '';
+			// /blog for blog posts & rewriting index alias to blank
+			$metaAlias = ($page->idblog ? 'blog/' : '').($page->alias!='index' ? $page->alias : '');
 			echo $metaAlias; 
 		?>">
 
