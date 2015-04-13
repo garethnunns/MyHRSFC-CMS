@@ -392,10 +392,10 @@
 							<h5>'.$row['rolename'].'</h5>
 							<div class="clearfix"></div>';
 						}
-						echo '<p>'.
-						htmlentities($row['desc'] ? $row['desc'] : 
-						(strlen($row['content']) > 200 ? substr($row['content'],0,200).'...' : $row['content'])).
-						'</p>
+						echo '<p>';
+						line($row['desc'] ? $row['desc'] : 
+						(strlen($row['content']) > 200 ? substr($row['content'],0,200).'...' : $row['content']));
+						echo '</p>
 						<p class="right"><b><a href="/blog/'.$row['alias'].'" class="more">Read more &#187;</a></b></p>
 						</div>';
 					}
@@ -411,8 +411,10 @@
 						if($page) { // not first page
 							echo '<a href="/blog/page/'.($page).'">&#171; Previous</a> ';
 						}
-						for ($i=1; $i <= ceil($total / 5) ; $i++) { 
+						for ($i=1; $i <= ceil($total / 5) ; $i++) {
+							if(($page+1) == $i) echo '<b>';
 							echo '<a href="/blog/page/'.$i.'">'.$i.'</a> ';
+							if(($page+1) == $i) echo '</b>';
 						}
 						if(($page+1) < ceil($total / 5)) { // not last page
 							echo '<a href="/blog/page/'.($page+2).'">Next &#187;</a> ';

@@ -156,7 +156,7 @@
 							else {
 								if(file_exists($dir.'old_'.$name)) unlink($dir.'old_'.$name); // delete old
 							}
-							$image = substr($dir.$name,2);
+							$image = substr($dir.rawurlencode($name),2); // remove .. from start and escape any spaces
 						}
 					}
 
@@ -167,7 +167,7 @@
 					if(isset($_POST['post'])) $sth->bindValue(':post',$_POST['post'], PDO::PARAM_INT); // updating only
 					$sth->bindValue(':councillor',$councillor, PDO::PARAM_INT);
 					$sth->bindValue(':date',$_POST['date'], PDO::PARAM_STR);
-					$sth->bindValue(':desc',htmlentities($_POST['desc']), PDO::PARAM_STR);
+					$sth->bindValue(':desc',$_POST['desc'], PDO::PARAM_STR);
 					$sth->bindValue(':image',htmlentities($image), PDO::PARAM_STR);
 					$sth->execute();
 
@@ -234,7 +234,8 @@
 		<textarea name="content" placeholder="Main content for the post">'.$post->content.'</textarea>
 
 		<p>Description:</p>
-		<input type="text" name="desc" class="full" placeholder="A summary of the page" value="'.$post->desc.'" /><br>
+		<input type="text" name="desc" class="full" placeholder="A summary of the page" value="'.
+		htmlentities($post->desc).'" /><br>
 		<i>Used in search engine summaries of pages and when linked on social media<br>
 		If it is left blank, the start of the post is used instead</i></p>
 
