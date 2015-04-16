@@ -90,7 +90,7 @@
 
 		try {
 			// look up councillor
-			$sth = $dbh->prepare("	SELECT 	councillors.name, councillors.shortname, councillors.email, 
+			$sth = $dbh->prepare("	SELECT 	councillors.active, councillors.name, councillors.shortname, councillors.email,
 											councillors.bio, councillors.image, councillors_roles.rolename 
 									FROM councillors, councillors_roles
 									WHERE councillors.idcouncillors =  ?
@@ -103,19 +103,19 @@
 			if($count) { // found one
 				$councillor = $sth->fetch(PDO::FETCH_OBJ);
 
-				// display their photo and link it to their email if they have one
-				if(($councillor->email != "") && ($councillor->image != "")) 
+				// display their photo and link it to their email if they have one (if they are active)
+				if(($councillor->email != "") && ($councillor->image != "") && $councillors->active) 
 					echo '<a href="mailto:'. $councillor->email .'">';
 				if($councillor->image != "") 
 					echo '<img src="'. $councillor->image .'" class="thumb med" alt="'.$councillor->name.'" /></a>';
-				if(($councillor->email != "") && ($councillor->image != "")) 
+				if(($councillor->email != "") && ($councillor->image != "") && $councillors->active) 
 					echo '</a>';
 
-				// link their name to their email if they have one
+				// link their name to their email if they have one (and are active)
 				echo '<h3>';
-				if($councillor->email != "") echo '<a href="mailto:'. $councillor->email .'">';
+				if($councillor->email != "" && $councillors->active) echo '<a href="mailto:'. $councillor->email .'">';
 				echo $councillor->name;
-				if($councillor->email != "") echo '</a>';
+				if($councillor->email != "" && $councillors->active) echo '</a>';
 				echo '</h3>';
 				
 				echo '<h5 class="role">'.$councillor->rolename.'</h5>';

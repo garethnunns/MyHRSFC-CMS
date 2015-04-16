@@ -415,12 +415,21 @@
 		global $dbh;
 
 		try {
-			$councsql = "SELECT * FROM councillors ORDER BY active DESC, name";
+			$councsql = "SELECT idcouncillors, name, active FROM councillors ORDER BY active DESC, name";
+			
 			foreach($dbh->query($councsql) as $councillor) {
+				if(!isset($active) && $councillor['active']) echo '<optgroup label="Active councillors">';
+				elseif(!isset($active) && !$councillor['active']) {
+					echo '<optgroup label="No active councillors">';
+					$active=1;
+				}
+				if($active != $councillor['active']) echo '</optgroup><optgroup label="Inactive councillors">';
+				$active = $councillor['active'];
 				echo '<option value="'.$councillor["idcouncillors"].'" ';
 				if($counc == $councillor["idcouncillors"]) echo 'selected';
 				echo '>'.htmlentities($councillor["name"]).'</option>';
 			}
+			echo '</optgroup>';
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();

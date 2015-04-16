@@ -65,9 +65,7 @@
 			$sth->execute();
 			$count = $sth->rowCount();
 			if($count) {
-				echo '<p class="success">The councillor has been ';
-				echo $result->active ? 'deactivated' : 'activated';
-				'</p>';
+				echo '<p class="success">The councillor has been updated</p>';
 			}
 			else echo '<p class="error">The councillor to be activated/deactivated was not found</p>';
 		}
@@ -84,7 +82,11 @@
 
 		$count = $dbh->query($sql)->rowCount();
 		if($count) {
+			$active = 1;
 			foreach($dbh->query($sql) as $row) {
+				if($active != $row['active']) echo '<th colspan="6">Inactive Councillors</th>';
+				$active = $row['active'];
+
 				echo '<tr>';
 
 				// image

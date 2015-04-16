@@ -24,7 +24,7 @@
 					if ($result->password == crypt($password, $result->password)) {
 						$_SESSION['user'] = $result->idcouncillors;
 						if($result->sudo) $_SESSION['sudo'] = true;
-						header('Location: ' . urldecode($_GET['goto']));
+						header('Location: ' . (isset($_GET['goto']) ? urldecode($_GET['goto']) : 'index.php'));
 						exit();
 					}
 					else {
@@ -82,11 +82,18 @@
 					<form method="POST">
 						<h2>Please log in</h2>
 
-						<?php if($error) echo '<p class="error">Incorrect email or password, please try again</p>'; ?>
+						<?php if($error) echo '<p class="error">Incorrect email or password, please try again,
+						need <a href="https://github.com/garethnunns/MyHRSFC-CMS/wiki/How%20to%20use" target="_blank">some help</a>?</p>'; ?>
 
 						<p>Email: <input type="email" name="email" placeholder="email@address.com" <?php if(isset($email)) echo 'value="'.$email.'"'; ?> /></p>
 						<p>Password: <input type="password" name="password" placeholder="Password" /></p>
 						<p><input type="submit" value="Login &#187;"></p>
+
+						<p class="right">
+							<a href="https://github.com/garethnunns/MyHRSFC-CMS/wiki/How%20to%20use" target="_blank">
+								Find out more about how to use this &#187;
+							</a>
+						</p>
 					</form>
 				
 				</div>
