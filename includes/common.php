@@ -104,18 +104,18 @@
 				$councillor = $sth->fetch(PDO::FETCH_OBJ);
 
 				// display their photo and link it to their email if they have one (if they are active)
-				if(($councillor->email != "") && ($councillor->image != "") && $councillors->active) 
+				if(($councillor->email != "") && ($councillor->image != "") && $councillor->active) 
 					echo '<a href="mailto:'. $councillor->email .'">';
 				if($councillor->image != "") 
 					echo '<img src="'. $councillor->image .'" class="thumb med" alt="'.$councillor->name.'" /></a>';
-				if(($councillor->email != "") && ($councillor->image != "") && $councillors->active) 
+				if(($councillor->email != "") && ($councillor->image != "") && $councillor->active) 
 					echo '</a>';
 
 				// link their name to their email if they have one (and are active)
 				echo '<h3>';
-				if($councillor->email != "" && $councillors->active) echo '<a href="mailto:'. $councillor->email .'">';
+				if($councillor->email != "" && $councillor->active) echo '<a href="mailto:'. $councillor->email .'">';
 				echo $councillor->name;
-				if($councillor->email != "" && $councillors->active) echo '</a>';
+				if($councillor->email != "" && $councillor->active) echo '</a>';
 				echo '</h3>';
 				
 				echo '<h5 class="role">'.$councillor->rolename.'</h5>';

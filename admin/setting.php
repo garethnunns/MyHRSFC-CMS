@@ -183,13 +183,14 @@
 	}
 ?>
 					<aside>
-						<h3>New settings for this year</h3>
+						<h3>New settings for <?php echo $year+1 ?></h3>
 						<form method="post" enctype="multipart/form-data">
-							<p>Year: <input type="text" name="year" class="small" placeholder="e.g. 201..." /></p>
+							<p>Year: <input type="text" name="year" class="small" placeholder="<?php echo $year+1 ?>" /></p>
 							<p>Group email address:<br>
-							<input type="email" name="email" class="full" placeholder="e.g. studentcouncil@hillsro...." />
-							<p>Special Head:</p>
-							<textarea name="head" placeholder="Head all pages"></textarea>
+							<input type="email" name="email" class="full" 
+							placeholder="studentcouncil<?php echo substr($year+1, 2) ?>@hillsroad.ac.uk" />
+							<p>Special &lt;head&gt; for <?php echo $year+1 ?>:</p>
+							<textarea name="head" placeholder="Head for all pages"></textarea>
 							<p>Group photo: <input type="file" name="photo" />
 							<input type="submit" value="Add settings &#187;" name="add" />
 						</form>

@@ -418,10 +418,13 @@
 			$councsql = "SELECT idcouncillors, name, active FROM councillors ORDER BY active DESC, name";
 			
 			foreach($dbh->query($councsql) as $councillor) {
-				if(!isset($active) && $councillor['active']) echo '<optgroup label="Active councillors">';
+				if(!isset($active) && $councillor['active']) {
+					echo '<optgroup label="Active councillors">';
+					$active = $councillor['active'];
+				}
 				elseif(!isset($active) && !$councillor['active']) {
 					echo '<optgroup label="No active councillors">';
-					$active=1;
+					$active = 1;
 				}
 				if($active != $councillor['active']) echo '</optgroup><optgroup label="Inactive councillors">';
 				$active = $councillor['active'];
