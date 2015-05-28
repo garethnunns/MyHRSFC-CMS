@@ -1,5 +1,5 @@
 MyHRSFC CMS
 =======
 
-Developing a CMS for [MyHRSFC](http://myhrsfc.co.uk/ "College Student Council Site") as part of a college computing project
+A CMS for [MyHRSFC](http://myhrsfc.co.uk/ "Hills Road Sixth Form College Student Council Site") developed as part of my A level computing coursework, [more details in the wiki](//github.com/garethnunns/MyHRSFC-CMS/wiki)
 ![MyHRSFC new site](https://raw.githubusercontent.com/garethnunns/MyHRSFC-CMS/master/img/blog/new-site-1/homepage.jpg)
