@@ -86,7 +86,7 @@ content="<?php // output the first 150 characters of desc (or body if no desc)
 
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="'; // if there is an image, show it larger
-	echo empty($page->social_img) ? 'Summary Card' : 'Summary Card with Large Image';
+	echo empty($page->social_img) ? 'summary' : 'summary_large_image';
 	echo '">
 	<meta name="twitter:site" content="@myhrsfc">
 	<meta name="twitter:title" content="'.$meta_title.' - MyHRSFC">
